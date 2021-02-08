@@ -25,6 +25,14 @@
   line-height: 1.5;
 }
 
+.spanUnderline {
+  display: block;
+  background-image:
+  linear-gradient(
+    to top, #ffd045 13%, #ffd045 13%, #ffd045 13%, #ffd045 40%, transparent 30%
+  );
+}
+
 .borderCircle {
   border-radius: 9999px;
 }
