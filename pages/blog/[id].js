@@ -31,9 +31,7 @@ export default function Post({ postData }) {
 				<title>{postData.title}</title>
 			</Head>
 			<article>
-				<span className={utilStyles.spanUnderline}>
-					<h1 className={utilStyles.headingXl}>{postData.title}</h1>
-				</span>
+				<h1 className={utilStyles.headingXl}><span className={utilStyles.spanUnderline}>{postData.title}</span></h1>
 				<div className={utilStyles.lightText}>
 					<Date dateString={postData.date} />
 				</div>

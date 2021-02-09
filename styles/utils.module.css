@@ -26,7 +26,7 @@
 }
 
 .spanUnderline {
-  display: block;
+  display: inline-block;
   background-image:
   linear-gradient(
     to top, #ffd045 13%, #ffd045 13%, #ffd045 13%, #ffd045 40%, transparent 30%
