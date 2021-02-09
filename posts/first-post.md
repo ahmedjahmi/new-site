@@ -1,6 +1,8 @@
 ---
 title: 'This is the First Post'
 date: '2020-02-07'
+image: '/images/test1.jpg'
+author: 'Ahmed Jahmi'
 ---
 
 # Aris cur verbaque vultus Britannos spretae quae

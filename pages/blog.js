@@ -32,7 +32,7 @@ export default function Blog({ allPostsData }) {
 								<a>{title}</a>
 							</Link>
 							<br />
-							<small className={utilStyles.lightText}>
+							<small className={utilStyles.dateText}>
 								<Date dateString={date} />
 							</small>
 						</li>

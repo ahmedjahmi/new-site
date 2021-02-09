@@ -1,6 +1,8 @@
 ---
 title: 'Second Post right here'
 date: '2020-02-08'
+image: '/images/test2.jpg'
+author: 'Ahmed Jahmi'
 ---
 
 # Noster locumque digna pietas

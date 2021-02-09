@@ -55,6 +55,11 @@
   margin: 0 0 1.25rem;
 }
 
-.lightText {
+.dateText {
   color: #999;
+  font-size: 0.9rem;
+}
+
+.authorText {
+  font-weight: bold;
 }
