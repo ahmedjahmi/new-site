@@ -39,7 +39,14 @@ export default function Post({ postData }) {
 				</div>
 
 				<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-				<div className={utilStyles.authorText}>by {postData.author}</div>
+        <div className={utilStyles.authorInfo}>
+				  <div className={utilStyles.authorText}>by {postData.author}</div>
+          <img
+            src='/images/profile.jpg'
+            className={`${utilStyles.borderCircle} ${utilStyles.authorImage}`}
+            alt={postData.author}
+          />
+        </div>
 				<div className={utilStyles.dateText}>
 					<Date dateString={postData.date} />
 				</div>
