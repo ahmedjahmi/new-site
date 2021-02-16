@@ -27,10 +27,11 @@
 
 .spanUnderline {
   display: inline-block;
+  line-height: 1;
   background-image:
   linear-gradient(
-    to top, #ffd045 13%, #ffd045 13%, #ffd045 13%, #ffd045 40%, transparent 30%
-  );
+    to top, #c09269 44%, #c09269 44%, #c09269 44%, #c09269 44%, transparent 54%
+  )
 }
 
 .borderCircle {
