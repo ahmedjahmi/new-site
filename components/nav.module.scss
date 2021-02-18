@@ -1,0 +1,20 @@
+@use '../styles/base';
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+    ul {
+      display: flex;
+      flex-direction: row;
+        li {
+          display: inline-block;
+          margin: 0 1rem;
+        }
+    }
+}
+.navImage {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+}
