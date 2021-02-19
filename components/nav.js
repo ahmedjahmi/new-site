@@ -37,7 +37,6 @@ export default function Nav() {
           <Link href='/about'>
             <a>about</a>
           </Link>
-
         </li>
 			</ul>
 		</nav>
