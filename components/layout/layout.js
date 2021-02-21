@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import styles from './layout.module.scss';
-import utilStyles from '../styles/utils.module.scss';
+import utilStyles from '../../styles/utils.module.scss';
 import Link from 'next/link';
-import Nav from './nav'
+import Nav from '../nav/nav'
 
 const name = 'Ahmed Jahmi';
 export const siteTitle = 'AhmedJahmi.com';
