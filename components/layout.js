@@ -32,11 +32,6 @@ export default function Layout({ children, home }) {
         <Nav />
 				{home ? (
 					<>
-						<img
-							src='/images/profile.jpg'
-							className={`${styles.headerHomeImage} ${utilStyles.borderCircle}`}
-							alt={name}
-						/>
 						<h1 className={utilStyles.heading2Xl}>{name}</h1>
 					</>
 				) : (
