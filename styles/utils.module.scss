@@ -55,7 +55,12 @@
 }
 
 .listItem {
-  margin: 0 0 1.25rem;
+  margin: 0;
+  padding: 0.5rem;
+  border-bottom: 1px solid base.$color-secondary-dark;
+  &:hover {
+    background: base.$color-secondary-light;
+  }
 }
 
 .dateText {
