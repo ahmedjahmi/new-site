@@ -2,6 +2,7 @@ import Head from 'next/head';
 import styles from './layout.module.scss';
 import utilStyles from '../styles/utils.module.scss';
 import Link from 'next/link';
+import Nav from './nav'
 
 const name = 'Ahmed Jahmi';
 export const siteTitle = 'AhmedJahmi.com';
@@ -28,6 +29,7 @@ export default function Layout({ children, home }) {
 				<meta name='twitter:card' content='summary_large_image' />
 			</Head>
 			<header className={styles.header}>
+        <Nav />
 				{home ? (
 					<>
 						<img
@@ -41,7 +43,7 @@ export default function Layout({ children, home }) {
 					<>
 						<div className={styles.backToHomeTop}>
 							<Link href='/'>
-								<a>← Back to home</a>
+								<a>← Home</a>
 							</Link>
 						</div>
 					</>
@@ -51,7 +53,7 @@ export default function Layout({ children, home }) {
 			{!home && (
 				<div className={styles.backToHome}>
 					<Link href='/'>
-						<a>← Back to home</a>
+						<a>← Home</a>
 					</Link>
 				</div>
 			)}
