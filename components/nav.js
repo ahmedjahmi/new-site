@@ -6,12 +6,11 @@ const name = 'Ahmed Jahmi';
 export default function Nav() {
   return (
 		<nav className={styles.nav}>
-			<div>
+			<div className={styles.navImage}>
 				<Link href='/'>
 					<a>
 						<img
 							src='/images/profile.jpg'
-							className={styles.navImage}
 							alt={name}
 						/>
 					</a>
@@ -39,6 +38,11 @@ export default function Nav() {
           </Link>
         </li>
 			</ul>
+      <div className={styles.mobileBar}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
 		</nav>
 	);
 }
