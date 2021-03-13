@@ -1,3 +1,5 @@
+@use 'base';
+
 .heading2Xl {
   font-size: 2.5rem;
   line-height: 1.2;
@@ -27,10 +29,11 @@
 
 .spanUnderline {
   display: inline-block;
+  line-height: 1;
   background-image:
   linear-gradient(
-    to top, #ffd045 13%, #ffd045 13%, #ffd045 13%, #ffd045 40%, transparent 30%
-  );
+    to top, base.$color-primary-dark 44%, base.$color-primary-dark 44%, base.$color-primary-dark 44%, base.$color-primary-dark 44%, transparent 54%
+  )
 }
 
 .borderCircle {
@@ -52,9 +55,31 @@
 }
 
 .listItem {
-  margin: 0 0 1.25rem;
+  margin: 0;
+  padding: 0.5rem;
+  border-bottom: 1px solid base.$color-secondary-dark;
+  &:hover {
+    background: base.$color-secondary-light;
+  }
 }
 
-.lightText {
+.dateText {
   color: #999;
+  font-size: 0.9rem;
+}
+
+.authorInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.authorImage {
+  width: 2rem;
+  height: 2rem;
+}
+
+.authorText {
+  font-weight: bold;
+  margin-right: 1rem;
 }
