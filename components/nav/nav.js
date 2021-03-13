@@ -44,7 +44,6 @@ export default function Nav() {
 						className={styles.avatarImage}
 					/>
 				</div>
-				<div />
 			</div>
 			<Menu open={menuOpen}>{menuItems}</Menu>
 		</>
