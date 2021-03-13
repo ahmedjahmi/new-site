@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import styles from './nav.module.scss';
 import { useState, useEffect } from 'react';
 import MenuItem from './menuItem';
@@ -14,6 +13,12 @@ export default function Nav() {
 	const handleLinkClick = () => {
 		setMenuOpen(false);
 	};
+
+	useEffect(() => {
+		const els = document.getElementsByTagName('main');
+		const main = els[0];
+		menuOpen ? (main.style.filter = 'blur(2px)') : (main.style.filter = null);
+	});
 
 	const menu = ['home', 'blog', 'projects', 'contact'];
 
