@@ -26,12 +26,12 @@ export default function Blog({ allPostsData }) {
 			<section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
 				<h2 className={utilStyles.headingLg}>Blog</h2>
 				<ul className={utilStyles.list}>
-					{allPostsData.map(({ id, date, title }) => (
+					{allPostsData.map(({ id, date, title, author }) => (
 						<li className={utilStyles.listItem} key={id}>
 							<Link href={`/blog/${id}`}>
 								<a>{title}</a>
 							</Link>
-							<br />
+							<p className={utilStyles.blogAuthor}>written by {author}</p>
 							<small className={utilStyles.dateText}>
 								<Date dateString={date} />
 							</small>
