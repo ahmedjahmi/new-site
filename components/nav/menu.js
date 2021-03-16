@@ -3,7 +3,7 @@ import styles from './nav.module.scss';
 import { useState, useEffect } from 'react';
 
 export default function Menu(props) {
-	const [menuOpen, setMenuOpen] = useState({ ...props.open });
+	const [menuOpen, setMenuOpen] = useState(false);
 
 	// useEffect will watch props.open,
 	// and update menuOpen state to reflect changes
