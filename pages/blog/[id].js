@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Layout from '../../components/layout/layout';
-import utilStyles from '../../styles/utils.module.scss';
+import pageStyles from '../../styles/page.module.scss';
 import { getAllPostIds, getPostData } from '../../lib/posts';
 import Date from '../../components/date';
 
@@ -16,41 +16,62 @@ export async function getStaticPaths() {
 // then, using the paths returned above,
 // fetch data to statically generate page contents
 export async function getStaticProps({ params }) {
-  const postData = await getPostData(params.id);
-  return {
-    props: {
-      postData,
-    },
-  };
+	const postData = await getPostData(params.id);
+	return {
+		props: {
+			postData,
+		},
+	};
 }
 
 export default function Post({ postData }) {
-  return (
+	return (
 		<Layout>
 			<Head>
 				<title>{postData.title}</title>
 			</Head>
-			<article>
-				<div>
-					<img src={postData.image} />
-					<h1 className={utilStyles.headingXl}>
-						<span className={utilStyles.spanUnderline}>{postData.title}</span>
-					</h1>
+			<div className={pageStyles.blogArticlePageContainer}>
+				<div className={pageStyles.hero}>
+					<div className={pageStyles.heroInner}>
+						<div className={pageStyles.heroArtContainer}>
+							<div className={pageStyles.heroArt}>
+								<div className={pageStyles.heroShot}>
+									<img src={postData.image} />
+								</div>
+								<div className={pageStyles.heroArtBy}>
+									Art by <a href='#'>Some Artist</a>
+								</div>
+							</div>
+						</div>
+						<div className={pageStyles.heroHeader}>
+							<header>
+								<h1 className={pageStyles.heroTitle}>
+									<span className={pageStyles.spanUnderline}>
+										{postData.title}
+									</span>
+								</h1>
+								<p className={pageStyles.byLine}>by {postData.author}</p>
+								<div className={pageStyles.dateText}>
+									<Date dateString={postData.date} />
+								</div>
+							</header>
+						</div>
+					</div>
 				</div>
-
-				<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-        <div className={utilStyles.authorInfo}>
-				  <div className={utilStyles.authorText}>by {postData.author}</div>
-          <img
-            src='/images/profile.jpg'
-            className={`${utilStyles.borderCircle} ${utilStyles.authorImage}`}
-            alt={postData.author}
-          />
-        </div>
-				<div className={utilStyles.dateText}>
-					<Date dateString={postData.date} />
+				<div className={pageStyles.articleContainer}>
+					<article>
+						<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+						<div className={pageStyles.authorInfo}>
+							<div className={pageStyles.authorText}>by {postData.author}</div>
+							<img
+								src='/images/profile.jpg'
+								className={`${pageStyles.borderCircle} ${pageStyles.authorImage}`}
+								alt={postData.author}
+							/>
+						</div>
+					</article>
 				</div>
-			</article>
+			</div>
 		</Layout>
 	);
 }

@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import styles from './layout.module.scss';
-import utilStyles from '../../styles/utils.module.scss';
+import pageStyles from '../../styles/page.module.scss';
 import Link from 'next/link';
 import Nav from '../nav/nav';
 

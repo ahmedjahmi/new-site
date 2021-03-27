@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Layout, { siteTitle } from '../components/layout/layout';
-import utilStyles from '../styles/utils.module.scss';
+import pageStyles from '../styles/page.module.scss';
 import { getSortedPostsData } from '../lib/posts';
 import Link from 'next/link';
 import Date from '../components/date';
@@ -20,25 +20,27 @@ export default function Blog({ allPostsData }) {
 			<Head>
 				<title>{siteTitle}</title>
 			</Head>
-			<section className={utilStyles.headingMd}>
-				<p>I'm a writer for myself and others...</p>
-			</section>
-			<section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-				<h2 className={utilStyles.headingLg}>Blog</h2>
-				<ul className={utilStyles.list}>
-					{allPostsData.map(({ id, date, title, author }) => (
-						<li className={utilStyles.listItem} key={id}>
-							<Link href={`/blog/${id}`}>
-								<a>{title}</a>
-							</Link>
-							<p className={utilStyles.blogAuthor}>written by {author}</p>
-							<small className={utilStyles.dateText}>
-								<Date dateString={date} />
-							</small>
-						</li>
-					))}
-				</ul>
-			</section>
+			<div className={pageStyles.blogPageContainer}>
+				<section className={pageStyles.headingMd}>
+					<p>I'm a writer for myself and others...</p>
+				</section>
+				<section className={`${pageStyles.headingMd} ${pageStyles.padding1px}`}>
+					<h2 className={pageStyles.headingLg}>Blog</h2>
+					<ul className={pageStyles.list}>
+						{allPostsData.map(({ id, date, title, author }) => (
+							<li className={pageStyles.listItem} key={id}>
+								<Link href={`/blog/${id}`}>
+									<a>{title}</a>
+								</Link>
+								<p className={pageStyles.blogAuthor}>written by {author}</p>
+								<small className={pageStyles.dateText}>
+									<Date dateString={date} />
+								</small>
+							</li>
+						))}
+					</ul>
+				</section>
+			</div>
 		</Layout>
 	);
 }

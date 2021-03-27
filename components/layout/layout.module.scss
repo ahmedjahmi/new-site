@@ -1,30 +1,33 @@
 .container {
-  max-width: 36rem;
-  padding: 0 1rem;
-  margin: 3rem auto 6rem;
+	// max-width: 36rem;
+	max-width: 100%;
+	// padding: 0 1rem;
+	padding: 0;
+	// margin: 3rem auto 6rem;
+	margin: 0;
 }
 
 .header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .headerImage {
-  width: 6rem;
-  height: 6rem;
+	width: 6rem;
+	height: 6rem;
 }
 
 .headerHomeImage {
-  width: 8rem;
-  height: 8rem;
+	width: 8rem;
+	height: 8rem;
 }
 
 .backToHome {
-  margin: 3rem 0 0;
+	margin: 3rem 0 0;
 }
 
 .backToHomeTop {
-  display: inline-block;
-  margin-right: auto;
+	display: inline-block;
+	margin-right: auto;
 }
