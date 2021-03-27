@@ -1,15 +1,15 @@
 import Head from 'next/head';
 import Layout, { siteTitle } from '../components/layout/layout';
-import utilStyles from '../styles/utils.module.scss';
+import pageStyles from '../styles/page.module.scss';
 import Link from 'next/link';
 
 export default function Home() {
-  return (
+	return (
 		<Layout home>
 			<Head>
 				<title>{siteTitle}</title>
 			</Head>
-			<section className={utilStyles.headingMd}>
+			<section className={pageStyles.headingMd}>
 				<p>
 					My name is Ahmed Jahmi. I'm a Full Stack Developer that thinks beyond
 					the current problem, considering the larger context and seeking out
