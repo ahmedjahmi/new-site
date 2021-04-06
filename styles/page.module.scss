@@ -31,7 +31,7 @@
 	margin-bottom: 0;
 	overflow-x: hidden;
 	.heroInner {
-		max-width: 100%;
+		max-width: 1240px;
 		margin: 0 auto;
 		display: flex;
 		align-items: center;
@@ -59,7 +59,7 @@
 		.heroHeader {
 			flex-grow: 0;
 			flex-basis: 950px;
-			padding: 1rem;
+			padding: 0 20px 0 40px;
 			.heroTitle {
 				font-size: 2.15rem;
 				margin-bottom: 0.5rem;
@@ -173,4 +173,83 @@
 	margin: 0;
 	padding: 0;
 	font-size: 0.9rem;
+}
+
+@media (max-width: 840px) and (min-width: 648px) {
+	.hero {
+		background: none;
+		.heroInner {
+			flex-direction: column;
+			padding: 0 20px;
+			max-width: 36rem;
+			.heroArtContainer {
+				padding: 1rem 0 0.5rem 0;
+				.heroArtBy {
+					margin-left: 0;
+				}
+			}
+			.heroHeader {
+				flex-grow: unset;
+				flex-basis: unset;
+				width: 100%;
+				padding: 0;
+				.heroTitle {
+					font-size: 1.5rem;
+					margin-bottom: 0;
+				}
+				.byLine {
+					font-size: 1rem;
+					font-weight: unset;
+				}
+			}
+		}
+	}
+	.dateText {
+		font-size: 0.85rem;
+	}
+	.spanUnderline {
+		background-image: unset;
+	}
+	.articleContainer {
+		margin-top: 1.5rem;
+	}
+}
+
+@media (max-width: 647px) and (min-width: 0px) {
+	.hero {
+		background: none;
+		.heroInner {
+			flex-direction: column;
+			padding: 0 20px;
+			.heroArtContainer {
+				padding: 1rem 0 0.5rem 0;
+				.heroArtBy {
+					margin-left: 0;
+				}
+			}
+			.heroHeader {
+				flex-grow: unset;
+				flex-basis: unset;
+				width: 100%;
+				padding: 0;
+				.heroTitle {
+					font-size: 1.5rem;
+					margin-bottom: 0;
+				}
+				.byLine {
+					font-size: 1rem;
+					font-weight: unset;
+				}
+			}
+		}
+	}
+	.dateText {
+		font-size: 0.85rem;
+	}
+	.spanUnderline {
+		background-image: unset;
+	}
+	.articleContainer {
+		margin-top: 1.5rem;
+	}
 }
