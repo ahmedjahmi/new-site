@@ -3,6 +3,8 @@ import Layout from '../../components/layout/layout';
 import pageStyles from '../../styles/page.module.scss';
 import { getAllPostIds, getPostData } from '../../lib/posts';
 import Date from '../../components/date';
+import Share from '../../components/share/share';
+import { useRouter } from 'next/router';
 
 // 1st, fetch data to statically generate paths
 export async function getStaticPaths() {
@@ -25,6 +27,15 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Post({ postData }) {
+	const router = useRouter();
+	const host = process.env.NEXT_PUBLIC_HOST;
+
+	// testing that a valid url works
+	// const blogPostUrl = 'https://www.ahmedjahmi.com';
+	const blogPostUrl = host + router.asPath;
+	const twitterHandle = process.env.NEXT_PUBLIC_TWITTER_HANDLE;
+	const size = 32;
+
 	return (
 		<Layout>
 			<Head>
@@ -69,6 +80,12 @@ export default function Post({ postData }) {
 								alt={postData.author}
 							/>
 						</div>
+						<Share
+							blogPostUrl={blogPostUrl}
+							title={postData.title}
+							twitterHandle={twitterHandle}
+							size={size}
+						/>
 					</article>
 				</div>
 			</div>
