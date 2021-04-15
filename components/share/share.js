@@ -7,9 +7,12 @@ import {
 	FacebookShareCount,
 	LinkedinShareButton,
 	LinkedinIcon,
+	EmailShareButton,
+	EmailIcon,
 } from 'react-share';
 
 export default function Share({ blogPostUrl, title, twitterHandle, size }) {
+	const emailBody = 'Check out this blog post!';
 	return (
 		<>
 			<div className={styles.shareContainer}>
@@ -35,6 +38,9 @@ export default function Share({ blogPostUrl, title, twitterHandle, size }) {
 					>
 						<LinkedinIcon size={size} round />
 					</LinkedinShareButton>
+					<EmailShareButton subject={title} body={emailBody}>
+						<EmailIcon size={size} round />
+					</EmailShareButton>
 				</div>
 			</div>
 		</>
