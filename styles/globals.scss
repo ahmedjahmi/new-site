@@ -33,3 +33,23 @@ img {
 main {
 	margin-top: 2rem;
 }
+
+blockquote {
+	background: base.$color-primary-dark;
+	border-left: 10px solid base.$color-secondary-dark;
+	opacity: 0.8;
+	margin: 1.5em 10px;
+	padding: 0.5em 10px;
+	quotes: '\201C''\201D''\2018''\2019';
+}
+blockquote:before {
+	color: base.$color-secondary-dark;
+	content: open-quote;
+	font-size: 7rem;
+	line-height: 0.1em;
+	margin-right: 0.25em;
+	vertical-align: -0.4em;
+}
+blockquote p {
+	display: inline;
+}
