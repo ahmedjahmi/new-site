@@ -5,6 +5,7 @@ import { getAllPostIds, getPostData } from '../../lib/posts';
 import Date from '../../components/date';
 import Share from '../../components/share/share';
 import { useRouter } from 'next/router';
+import { NextSeo } from 'next-seo';
 
 // 1st, fetch data to statically generate paths
 export async function getStaticPaths() {
@@ -38,9 +39,7 @@ export default function Post({ postData }) {
 
 	return (
 		<Layout>
-			<Head>
-				<title>{postData.title}</title>
-			</Head>
+			<NextSeo title={postData.title} />
 			<div className={pageStyles.blogArticlePageContainer}>
 				<div className={pageStyles.hero}>
 					<div className={pageStyles.heroInner}>
