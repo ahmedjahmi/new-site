@@ -1,11 +1,12 @@
-import Head from 'next/head';
 import Layout from '../../components/layout/layout';
-import pageStyles from '../../styles/page.module.scss';
-import { getAllPostIds, getPostData } from '../../lib/posts';
+import Image from 'next/image';
 import Date from '../../components/date';
 import Share from '../../components/share/share';
+import pageStyles from '../../styles/page.module.scss';
+import { getAllPostIds, getPostData } from '../../lib/posts';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
+import { buildUrl } from 'cloudinary-build-url';
 
 // 1st, fetch data to statically generate paths
 export async function getStaticPaths() {
@@ -37,16 +38,52 @@ export default function Post({ postData }) {
 	const twitterHandle = process.env.NEXT_PUBLIC_TWITTER_HANDLE;
 	const size = 32;
 
+	// cloudinary
+	const src = buildUrl(postData.image, {
+		cloud: {
+			cloudName: 'ds2pg7vex',
+		},
+	});
+	console.log(src);
+	const metaSrc = buildUrl(postData.image, {
+		cloud: {
+			cloudName: 'ds2pg7vex',
+		},
+		transformations: {
+			width: 1200,
+			height: 628,
+		},
+	});
+
+	// metadata
+	const ogData = {
+		url: blogPostUrl,
+		title: postData.title,
+		description:
+			'This article goes over how to build an Apple Shortcut to convert music links',
+		images: [
+			{
+				url: metaSrc,
+				alt: 'Apple Shortcuts app',
+			},
+		],
+	};
+
 	return (
 		<Layout>
-			<NextSeo title={postData.title} />
+			<NextSeo title={postData.title} openGraph={ogData} />
 			<div className={pageStyles.blogArticlePageContainer}>
 				<div className={pageStyles.hero}>
 					<div className={pageStyles.heroInner}>
 						<div className={pageStyles.heroArtContainer}>
 							<div className={pageStyles.heroArt}>
 								<div className={pageStyles.heroShot}>
-									<img src={postData.image} />
+									<Image
+										src={src}
+										width={1000}
+										height={750}
+										alt='apple shortcuts app'
+									/>
 								</div>
 								<div className={pageStyles.heroArtBy}>
 									Art by <a href='#'>Some Artist</a>
@@ -73,9 +110,11 @@ export default function Post({ postData }) {
 						<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
 						<div className={pageStyles.authorInfo}>
 							<div className={pageStyles.authorText}>by {postData.author}</div>
-							<img
+							<Image
 								src='/images/profile.jpg'
-								className={`${pageStyles.borderCircle} ${pageStyles.authorImage}`}
+								width={32}
+								height={32}
+								className={pageStyles.borderCircle}
 								alt={postData.author}
 							/>
 						</div>
