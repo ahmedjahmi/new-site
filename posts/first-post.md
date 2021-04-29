@@ -1,8 +1,10 @@
 ---
-title: 'This is the First Post'
+title: 'How To Build A Song Link Converter Using Apple Shortcuts'
 date: '2020-02-07'
 image: 'ahmed-jahmi-blog/article_shortcuts_lrbgmh'
 author: 'Ahmed Jahmi'
+description: 'This article goes over how to build an Apple Shortcut to convert music links'
+imageAlt: 'Apple Shortcuts App'
 ---
 
 # Aris cur verbaque vultus Britannos spretae quae

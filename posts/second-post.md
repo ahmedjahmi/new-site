@@ -1,8 +1,10 @@
 ---
-title: 'Second Post right here'
+title: 'How To Buid A Command Line Interface With Node.js'
 date: '2020-02-08'
-image: '/images/test2.jpg'
+image: 'ahmed-jahmi-blog/article_command_line_interface_wsn5v2'
 author: 'Ahmed Jahmi'
+description: 'This article teaches how to build a command line interface with node js'
+imageAlt: 'JavaScript Code'
 ---
 
 # Noster locumque digna pietas

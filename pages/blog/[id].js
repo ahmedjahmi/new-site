@@ -1,4 +1,4 @@
-import Layout from '../../components/layout/layout';
+import Layout, { siteTitle } from '../../components/layout/layout';
 import Image from 'next/image';
 import Date from '../../components/date';
 import Share from '../../components/share/share';
@@ -44,7 +44,7 @@ export default function Post({ postData }) {
 			cloudName: 'ds2pg7vex',
 		},
 	});
-	console.log(src);
+
 	const metaSrc = buildUrl(postData.image, {
 		cloud: {
 			cloudName: 'ds2pg7vex',
@@ -56,22 +56,26 @@ export default function Post({ postData }) {
 	});
 
 	// metadata
-	const ogData = {
-		url: blogPostUrl,
+	const postMetaData = {
 		title: postData.title,
-		description:
-			'This article goes over how to build an Apple Shortcut to convert music links',
-		images: [
-			{
-				url: metaSrc,
-				alt: 'Apple Shortcuts app',
-			},
-		],
+		description: postData.description,
+		openGraph: {
+			url: blogPostUrl,
+			title: postData.title,
+			description: postData.description,
+			images: [
+				{
+					url: metaSrc,
+					alt: postData.imageAlt,
+				},
+			],
+			site_name: siteTitle,
+		},
 	};
 
 	return (
 		<Layout>
-			<NextSeo title={postData.title} openGraph={ogData} />
+			<NextSeo {...postMetaData} />
 			<div className={pageStyles.blogArticlePageContainer}>
 				<div className={pageStyles.hero}>
 					<div className={pageStyles.heroInner}>
