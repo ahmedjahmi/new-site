@@ -1,7 +1,7 @@
 ---
 title: 'This is the First Post'
 date: '2020-02-07'
-image: '/images/test1.jpg'
+image: 'ahmed-jahmi-blog/article_shortcuts_lrbgmh'
 author: 'Ahmed Jahmi'
 ---
 
@@ -9,13 +9,13 @@ author: 'Ahmed Jahmi'
 
 ## Faciunt munera dextraque nostroque et laedat nostris
 
-*Lorem markdownum sacras* dique magis ipse **ventis**, tractaque cornua e neque
+_Lorem markdownum sacras_ dique magis ipse **ventis**, tractaque cornua e neque
 [decidit](http://sed-via.io/)! Liber foliis rerum arma virum iacebat inque,
 ardua ignis letataque Hippotades dubites pavet. Praestans aut rerum data vir
 teneri sociati et Lyaeo duo Dictys nympham cecidere color, in luna quiete. Ista
 [inrita Peleus non](http://www.posset-victibus.net/dieque.aspx) unda dederat
 Diam momordit; et, hanc si facto in. Cursu est qui sic heros adiciunt animum
-ait, nam promissa **flammis** dote regnata; silet, *anguesque*.
+ait, nam promissa **flammis** dote regnata; silet, _anguesque_.
 
 Pavent sua sis animos, nec et incubat pugno Philomela! Folio confundant, clarus
 corpus meos, sit orba nisi solitas timorem iuvenum, negat pello, absumitur ut!
