@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import styles from './nav.module.scss';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import MenuItem from './menuItem';
 import MenuButton from './menuButton';
 import Menu from './menu';
@@ -15,7 +15,13 @@ export default function Nav() {
 		setMenuOpen(false);
 	};
 
-	const menu = ['home', 'blog', 'projects', 'contact'];
+	useEffect(() => {
+		const els = document.getElementsByTagName('main');
+		const main = els[0];
+		menuOpen ? (main.style.filter = 'blur(2px)') : (main.style.filter = null);
+	});
+
+	const menu = ['home', 'projects', 'contact'];
 
 	const menuItems = menu.map((val, index) => {
 		const pathFromVal = val !== 'home' ? `/${val}` : '/';
@@ -38,9 +44,11 @@ export default function Nav() {
 			<div className={styles.nav}>
 				<MenuButton open={menuOpen} onClick={handleMenuClick} />
 				<div className={styles.avatar}>
-					<img
+					<Image
 						src='/images/profile.jpg'
 						alt='ahmed jahmi'
+						width={40}
+						height={40}
 						className={styles.avatarImage}
 					/>
 				</div>

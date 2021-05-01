@@ -1,8 +1,12 @@
-import Head from 'next/head';
-import Layout from '../../components/layout/layout';
-import utilStyles from '../../styles/utils.module.scss';
-import { getAllPostIds, getPostData } from '../../lib/posts';
+import Layout, { siteTitle } from '../../components/layout/layout';
+import Image from 'next/image';
 import Date from '../../components/date';
+import Share from '../../components/share/share';
+import pageStyles from '../../styles/page.module.scss';
+import { getAllPostIds, getPostData } from '../../lib/posts';
+import { useRouter } from 'next/router';
+import { NextSeo } from 'next-seo';
+import { buildUrl } from 'cloudinary-build-url';
 
 // 1st, fetch data to statically generate paths
 export async function getStaticPaths() {
@@ -16,41 +20,117 @@ export async function getStaticPaths() {
 // then, using the paths returned above,
 // fetch data to statically generate page contents
 export async function getStaticProps({ params }) {
-  const postData = await getPostData(params.id);
-  return {
-    props: {
-      postData,
-    },
-  };
+	const postData = await getPostData(params.id);
+	return {
+		props: {
+			postData,
+		},
+	};
 }
 
 export default function Post({ postData }) {
-  return (
-		<Layout>
-			<Head>
-				<title>{postData.title}</title>
-			</Head>
-			<article>
-				<div>
-					<img src={postData.image} />
-					<h1 className={utilStyles.headingXl}>
-						<span className={utilStyles.spanUnderline}>{postData.title}</span>
-					</h1>
-				</div>
+	const router = useRouter();
+	const host = process.env.NEXT_PUBLIC_HOST;
 
-				<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-        <div className={utilStyles.authorInfo}>
-				  <div className={utilStyles.authorText}>by {postData.author}</div>
-          <img
-            src='/images/profile.jpg'
-            className={`${utilStyles.borderCircle} ${utilStyles.authorImage}`}
-            alt={postData.author}
-          />
-        </div>
-				<div className={utilStyles.dateText}>
-					<Date dateString={postData.date} />
+	// testing that a valid url works
+	// const blogPostUrl = 'https://www.ahmedjahmi.com';
+	const blogPostUrl = host + router.asPath;
+	const twitterHandle = process.env.NEXT_PUBLIC_TWITTER_HANDLE;
+	const size = 32;
+
+	// cloudinary
+	const src = buildUrl(postData.image, {
+		cloud: {
+			cloudName: 'ds2pg7vex',
+		},
+	});
+
+	const metaSrc = buildUrl(postData.image, {
+		cloud: {
+			cloudName: 'ds2pg7vex',
+		},
+		transformations: {
+			width: 1200,
+			height: 628,
+		},
+	});
+
+	// metadata
+	const postMetaData = {
+		title: postData.title,
+		description: postData.description,
+		openGraph: {
+			url: blogPostUrl,
+			title: postData.title,
+			description: postData.description,
+			images: [
+				{
+					url: metaSrc,
+					alt: postData.imageAlt,
+				},
+			],
+			site_name: siteTitle,
+		},
+	};
+
+	return (
+		<Layout>
+			<NextSeo {...postMetaData} />
+			<div className={pageStyles.blogArticlePageContainer}>
+				<div className={pageStyles.hero}>
+					<div className={pageStyles.heroInner}>
+						<div className={pageStyles.heroArtContainer}>
+							<div className={pageStyles.heroArt}>
+								<div className={pageStyles.heroShot}>
+									<Image
+										src={src}
+										width={1000}
+										height={750}
+										alt='apple shortcuts app'
+									/>
+								</div>
+								<div className={pageStyles.heroArtBy}>
+									Art by <a href='#'>Some Artist</a>
+								</div>
+							</div>
+						</div>
+						<div className={pageStyles.heroHeader}>
+							<header>
+								<h1 className={pageStyles.heroTitle}>
+									<span className={pageStyles.spanUnderline}>
+										{postData.title}
+									</span>
+								</h1>
+								<p className={pageStyles.byLine}>by {postData.author}</p>
+								<div className={pageStyles.dateText}>
+									<Date dateString={postData.date} />
+								</div>
+							</header>
+						</div>
+					</div>
 				</div>
-			</article>
+				<div className={pageStyles.articleContainer}>
+					<article>
+						<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+						<div className={pageStyles.authorInfo}>
+							<div className={pageStyles.authorText}>by {postData.author}</div>
+							<Image
+								src='/images/profile.jpg'
+								width={32}
+								height={32}
+								className={pageStyles.borderCircle}
+								alt={postData.author}
+							/>
+						</div>
+						<Share
+							blogPostUrl={blogPostUrl}
+							title={postData.title}
+							twitterHandle={twitterHandle}
+							size={size}
+						/>
+					</article>
+				</div>
+			</div>
 		</Layout>
 	);
 }

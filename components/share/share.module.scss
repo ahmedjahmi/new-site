@@ -1,0 +1,24 @@
+@use '../../styles/base';
+
+.shareContainer {
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	padding: 0;
+	p {
+		margin: 0;
+		span {
+			font-style: italic;
+		}
+	}
+}
+
+.shareLinkContainer {
+	display: flex;
+	flex-direction: row;
+	margin: 0;
+	padding: 0;
+	button {
+		margin: 0 0.25rem 0 0;
+	}
+}
