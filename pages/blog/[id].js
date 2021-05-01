@@ -30,7 +30,8 @@ export async function getStaticProps({ params }) {
 
 export default function Post({ postData }) {
 	const router = useRouter();
-	const host = process.env.NEXT_PUBLIC_HOST;
+	// const host = process.env.NEXT_PUBLIC_HOST;
+	const host = 'https://www.ahmedjahmi.com';
 
 	// testing that a valid url works
 	// const blogPostUrl = 'https://www.ahmedjahmi.com';
