@@ -23,7 +23,6 @@ export default function Blog({ allPostsData }) {
 			<div className={pageStyles.blogPageContainer}>
 				<section className={`${pageStyles.headingMd} ${pageStyles.padding1px}`}>
 					<h2 className={pageStyles.headingLg}>Blog</h2>
-					<h3>vercel deployment on main</h3>
 					<ul className={pageStyles.list}>
 						{allPostsData.map(({ id, date, title, author }) => (
 							<li className={pageStyles.listItem} key={id}>
