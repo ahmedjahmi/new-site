@@ -23,6 +23,7 @@ export default function Blog({ allPostsData }) {
 			<div className={pageStyles.blogPageContainer}>
 				<section className={`${pageStyles.headingMd} ${pageStyles.padding1px}`}>
 					<h2 className={pageStyles.headingLg}>Blog</h2>
+					<h3>this is development</h3>
 					<ul className={pageStyles.list}>
 						{allPostsData.map(({ id, date, title, author }) => (
 							<li className={pageStyles.listItem} key={id}>
