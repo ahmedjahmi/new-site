@@ -53,3 +53,16 @@ blockquote:before {
 blockquote p {
 	display: inline;
 }
+
+pre code {
+	display: block;
+	background: base.$color-secondary-light;
+	white-space: pre;
+	font-size: 1rem;
+	overflow: auto;
+	width: 100%;
+	min-width: 100px;
+	padding: 24px;
+	border-left: base.$color-secondary-dark solid 6px;
+	margin: 0 0 24px;
+}
