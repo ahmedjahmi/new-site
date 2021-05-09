@@ -90,9 +90,9 @@ export default function Post({ postData }) {
 										alt='apple shortcuts app'
 									/>
 								</div>
-								<div className={pageStyles.heroArtBy}>
-									Art by <a href='#'>Some Artist</a>
-								</div>
+								{/* <div className={pageStyles.heroArtBy}>
+									Art by <a href={postData.artHref}>{postData.byArtist}</a>
+								</div> */}
 							</div>
 						</div>
 						<div className={pageStyles.heroHeader}>
