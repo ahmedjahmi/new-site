@@ -114,7 +114,12 @@ export default function Post({ postData }) {
 					<article>
 						<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
 						<div className={pageStyles.authorInfo}>
-							<div className={pageStyles.authorText}>by {postData.author}</div>
+							<div className={pageStyles.authorText}>
+								by{' '}
+								<a href='https://twitter.com/jahmiamor' target='_blank'>
+									{postData.author}
+								</a>
+							</div>
 							<Image
 								src='/images/profile.jpg'
 								width={32}
