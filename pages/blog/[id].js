@@ -2,6 +2,7 @@ import Layout, { siteTitle } from '../../components/layout/layout';
 import Image from 'next/image';
 import Date from '../../components/date';
 import Share from '../../components/share/share';
+import OnRotation from '../../components/onRotation/onRotation';
 import pageStyles from '../../styles/page.module.scss';
 import { getAllPostIds, getPostData } from '../../lib/posts';
 import { useRouter } from 'next/router';
@@ -38,6 +39,7 @@ export default function Post({ postData }) {
 	const blogPostUrl = host + router.asPath;
 	const twitterHandle = process.env.NEXT_PUBLIC_TWITTER_HANDLE;
 	const size = 32;
+	const rotation = postData.OnRotation;
 
 	// cloudinary
 	const src = buildUrl(postData.image, {
@@ -114,7 +116,12 @@ export default function Post({ postData }) {
 					<article>
 						<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
 						<div className={pageStyles.authorInfo}>
-							<div className={pageStyles.authorText}>by {postData.author}</div>
+							<div className={pageStyles.authorText}>
+								by{' '}
+								<a href='https://twitter.com/jahmiamor' target='_blank'>
+									{postData.author}
+								</a>
+							</div>
 							<Image
 								src='/images/profile.jpg'
 								width={32}
@@ -129,6 +136,7 @@ export default function Post({ postData }) {
 							twitterHandle={twitterHandle}
 							size={size}
 						/>
+						<OnRotation rotation={rotation} />
 					</article>
 				</div>
 			</div>
