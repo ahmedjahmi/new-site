@@ -1,0 +1,50 @@
+@use '../../styles/base';
+
+.onRotation {
+	margin: 0;
+	span {
+		display: inline-block;
+		line-height: 1;
+		background-image: linear-gradient(
+			to top,
+			base.$color-secondary-light 44%,
+			base.$color-secondary-light 44%,
+			base.$color-secondary-light 44%,
+			base.$color-secondary-light 44%,
+			transparent 54%
+		);
+	}
+}
+
+.RotationList {
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	width: 100%;
+	background: base.$color-primary-light;
+	.rotationItem {
+		display: flex;
+		flex-direction: row;
+		color: base.$color-text-dark;
+		align-items: center;
+		margin-top: 1rem;
+		padding: 0.5rem;
+		border: 2px solid base.$color-secondary-dark;
+		border-radius: 5px;
+		box-shadow: 2px 2px 0 base.$color-secondary-dark;
+		&:hover {
+			background: base.$color-secondary-light;
+		}
+		.rotationItemType {
+			width: 20%;
+			margin: 0.5rem;
+			padding: 0 0.5rem;
+		}
+		.rotationItemLink {
+			// text-decoration: none;
+			width: 80%;
+			margin: 0.5rem;
+			padding: 0 0.5rem;
+		}
+	}
+}
