@@ -7,7 +7,7 @@ export default function RotationItem(props) {
 			<div className={styles.rotationItemType}>{props.rotationType}</div>
 			<div className={styles.rotationItemLink}>
 				<Link href={props.url}>
-					<a>{props.title}</a>
+					<a target='_blank'>{props.title}</a>
 				</Link>
 			</div>
 		</div>
