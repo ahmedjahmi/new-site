@@ -37,8 +37,8 @@ export default function Blog({ allPostsData }) {
 							<h2>Hey, my name is Ahmed.</h2>
 							<div>
 								I'm a software engineer living in Brooklyn. I like solving
-								problems of all kinds. I am on a journey and this is where blog
-								some of the knowledge I picked up along the way.
+								problems of all kinds. I am on a journey and this is where I
+								blog some of the knowledge I picked up along the way.
 							</div>
 						</div>
 						<div className={pageStyles.introImageWrapper}>
@@ -59,12 +59,14 @@ export default function Blog({ allPostsData }) {
 						{allPostsData.map(({ id, date, title, author }) => (
 							<li className={pageStyles.listItem} key={id}>
 								<Link href={`/blog/${id}`}>
-									<a>{title}</a>
+									<a>
+										{title}
+										<p className={pageStyles.blogAuthor}>written by {author}</p>
+										<small className={pageStyles.dateText}>
+											<Date dateString={date} />
+										</small>
+									</a>
 								</Link>
-								<p className={pageStyles.blogAuthor}>written by {author}</p>
-								<small className={pageStyles.dateText}>
-									<Date dateString={date} />
-								</small>
 							</li>
 						))}
 					</ul>

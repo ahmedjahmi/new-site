@@ -140,8 +140,14 @@
 	border: 2px solid base.$color-secondary-dark;
 	border-radius: 5px;
 	box-shadow: 2px 2px 0 base.$color-secondary-dark;
+	a {
+		display: block;
+	}
 	&:hover {
 		background: base.$color-primary-light;
+		a {
+			text-decoration: none;
+		}
 	}
 }
 
