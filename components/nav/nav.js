@@ -1,5 +1,6 @@
 import styles from './nav.module.scss';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import MenuItem from './menuItem';
 import MenuButton from './menuButton';
 import Menu from './menu';
@@ -43,7 +44,11 @@ export default function Nav() {
 			<div className={styles.nav}>
 				<MenuButton open={menuOpen} onClick={handleMenuClick} />
 				<div className={styles.homeIconWrapper}>
-					<span className='material-icons'>home</span>
+					<Link href='/'>
+						<a>
+							<span className='material-icons'>home</span>
+						</a>
+					</Link>
 				</div>
 			</div>
 			<Menu open={menuOpen}>{menuItems}</Menu>
