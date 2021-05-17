@@ -21,7 +21,7 @@
 	flex-direction: column;
 	margin: 0 auto;
 	width: 100%;
-	background: base.$color-primary-light;
+	background: base.$color-secondary-light;
 	.rotationItem {
 		display: flex;
 		flex-direction: row;
@@ -33,7 +33,7 @@
 		border-radius: 5px;
 		box-shadow: 2px 2px 0 base.$color-secondary-dark;
 		&:hover {
-			background: base.$color-secondary-light;
+			background: base.$color-primary-light;
 		}
 		.rotationItemType {
 			width: 20%;
