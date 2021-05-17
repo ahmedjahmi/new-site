@@ -9,7 +9,7 @@
 
 // blog article page
 .blogArticlePageContainer {
-	margin-top: 2.9rem;
+	margin-top: 2.4rem;
 	margin-bottom: 6rem;
 }
 .articleContainer {
@@ -21,10 +21,10 @@
 .hero {
 	background: linear-gradient(
 		90deg,
-		base.$color-text-light 0%,
-		base.$color-text-light 45%,
-		rgba(161, 163, 145, 0.2) 45%,
-		rgba(161, 163, 145, 0.2) 45%
+		base.$color-secondary-light 0%,
+		base.$color-secondary-light 45%,
+		rgba(255, 170, 170, 0.5) 45%,
+		rgba(255, 170, 170, 0.5) 45%
 	);
 	position: relative;
 	padding: 0;
@@ -141,12 +141,12 @@
 	border-radius: 5px;
 	box-shadow: 2px 2px 0 base.$color-secondary-dark;
 	&:hover {
-		background: base.$color-secondary-light;
+		background: base.$color-primary-light;
 	}
 }
 
 .dateText {
-	color: #999;
+	color: base.$color-text-dark;
 	font-size: 1rem;
 	margin: 0;
 	padding: 0;
