@@ -110,15 +110,15 @@
 // TODO: add class to toggle filter to blur 2px : null
 // on menuOpen of Menu component
 
-.avatar {
-	margin-top: 0.2rem;
-	margin-bottom: 0.2rem;
+.homeIconWrapper {
+	margin-top: 0;
+	margin-bottom: 0;
 	margin-left: auto;
 	margin-right: 0.5rem;
-}
-
-.avatarImage {
-	border-radius: 50%;
+	padding-top: 0.5rem;
+	a {
+		color: base.$color-text-light;
+	}
 }
 
 .menuContainer {

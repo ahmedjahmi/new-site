@@ -8,8 +8,8 @@ body {
 	//   Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 	line-height: base.$line-height;
 	font-size: base.$font-size;
-	background-color: base.$color-primary-light;
-	color: base.$color-text-dark;
+	background-color: base.$color-secondary-light;
+	color: base.$color-primary-dark;
 	font-family: base.$font-theme;
 }
 
@@ -22,6 +22,7 @@ a {
 	text-decoration: none;
 	&:hover {
 		text-decoration: underline;
+		color: base.$color-secondary;
 	}
 }
 
@@ -35,15 +36,15 @@ main {
 }
 
 blockquote {
-	background: base.$color-primary-dark;
-	border-left: 10px solid base.$color-secondary-dark;
+	background: base.$color-primary-light;
+	border-left: 10px solid base.$color-primary;
 	opacity: 0.8;
 	margin: 1.5em 10px;
 	padding: 0.5em 10px;
 	quotes: '\201C''\201D''\2018''\2019';
 }
 blockquote:before {
-	color: base.$color-secondary-dark;
+	color: base.$color-primary;
 	content: open-quote;
 	font-size: 7rem;
 	line-height: 0.1em;
@@ -56,13 +57,13 @@ blockquote p {
 
 pre code {
 	display: block;
-	background: base.$color-secondary-light;
+	background: base.$color-primary-light;
 	white-space: pre;
 	font-size: 1rem;
 	overflow: auto;
 	width: 100%;
 	min-width: 100px;
 	padding: 24px;
-	border-left: base.$color-secondary-dark solid 6px;
+	border-left: base.$color-primary solid 6px;
 	margin: 0 0 24px;
 }
