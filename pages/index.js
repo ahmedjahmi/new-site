@@ -37,8 +37,8 @@ export default function Blog({ allPostsData }) {
 							<h2>Hey, my name is Ahmed.</h2>
 							<div>
 								I'm a software engineer living in Brooklyn. I like solving
-								problems of all kinds. I am on a journey and this is where blog
-								some of the knowledge I picked up along the way.
+								problems of all kinds. I am on a journey and this is where I
+								blog some of the knowledge I picked up along the way.
 							</div>
 						</div>
 						<div className={pageStyles.introImageWrapper}>
