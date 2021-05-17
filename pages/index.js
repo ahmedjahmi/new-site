@@ -59,12 +59,14 @@ export default function Blog({ allPostsData }) {
 						{allPostsData.map(({ id, date, title, author }) => (
 							<li className={pageStyles.listItem} key={id}>
 								<Link href={`/blog/${id}`}>
-									<a>{title}</a>
+									<a>
+										{title}
+										<p className={pageStyles.blogAuthor}>written by {author}</p>
+										<small className={pageStyles.dateText}>
+											<Date dateString={date} />
+										</small>
+									</a>
 								</Link>
-								<p className={pageStyles.blogAuthor}>written by {author}</p>
-								<small className={pageStyles.dateText}>
-									<Date dateString={date} />
-								</small>
 							</li>
 						))}
 					</ul>

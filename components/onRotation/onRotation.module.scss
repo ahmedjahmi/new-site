@@ -22,6 +22,9 @@
 	margin: 0 auto;
 	width: 100%;
 	background: base.$color-secondary-light;
+	a {
+		text-decoration: none;
+	}
 	.rotationItem {
 		display: flex;
 		flex-direction: row;
