@@ -25,10 +25,20 @@ export default function Share({ blogPostUrl, title, twitterHandle, size }) {
 						title={title}
 						via={twitterHandle}
 					>
-						<TwitterIcon size={size} round />
+						<TwitterIcon
+							size={size}
+							round
+							bgStyle={{ fill: '#550000' }}
+							iconFillColor='#ffcccc'
+						/>
 					</TwitterShareButton>
 					<FacebookShareButton url={blogPostUrl}>
-						<FacebookIcon size={size} round />
+						<FacebookIcon
+							size={size}
+							round
+							bgStyle={{ fill: '#550000' }}
+							iconFillColor='#ffcccc'
+						/>
 					</FacebookShareButton>
 					<FacebookShareCount url={blogPostUrl} />
 					<LinkedinShareButton
@@ -36,10 +46,20 @@ export default function Share({ blogPostUrl, title, twitterHandle, size }) {
 						title={title}
 						source='https://www.ahmedjahmi.com'
 					>
-						<LinkedinIcon size={size} round />
+						<LinkedinIcon
+							size={size}
+							round
+							bgStyle={{ fill: '#550000' }}
+							iconFillColor='#ffcccc'
+						/>
 					</LinkedinShareButton>
 					<EmailShareButton subject={title} body={emailBody}>
-						<EmailIcon size={size} round />
+						<EmailIcon
+							size={size}
+							round
+							bgStyle={{ fill: '#550000' }}
+							iconFillColor='#ffcccc'
+						/>
 					</EmailShareButton>
 				</div>
 			</div>
