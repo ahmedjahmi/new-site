@@ -58,6 +58,15 @@ export default function Post({ postData }) {
 		},
 	});
 
+	const authorImg =
+		'https://res.cloudinary.com/ds2pg7vex/image/upload/v1621104211/ahmed-jahmi-blog/profile_image_ywghxh.heic';
+
+	const authorImgSrc = buildUrl(authorImg, {
+		cloud: {
+			cloudName: 'ds2pg7vex',
+		},
+	});
+
 	// metadata
 	const postMetaData = {
 		title: postData.title,
@@ -123,7 +132,7 @@ export default function Post({ postData }) {
 								</a>
 							</div>
 							<Image
-								src='/images/profile.jpg'
+								src={authorImgSrc}
 								width={32}
 								height={32}
 								className={pageStyles.borderCircle}
