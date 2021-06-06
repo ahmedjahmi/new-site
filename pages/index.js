@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Date from '../components/date';
 import Image from 'next/image';
 import { buildUrl } from 'cloudinary-build-url';
+// import dbConnect from '../lib/dbConnect';
 
 export async function getStaticProps() {
 	const allPostsData = getSortedPostsData();
@@ -75,3 +76,34 @@ export default function Blog({ allPostsData }) {
 		</Layout>
 	);
 }
+
+/* Retrieves pet(s) data from mongodb database */
+// export async function getServerSideProps() {
+//   await dbConnect()
+
+//   /* find all the data in our database */
+//   const result = await Pet.find({})
+//   const pets = result.map((doc) => {
+//     const pet = doc.toObject()
+//     pet._id = pet._id.toString()
+//     return pet
+//   })
+
+//   return { props: { pets: pets } }
+// }
+
+// export async function getServerSideProps(context) {
+//   await dbConnect();
+// 	const res = await fetch(`https://...`);
+// 	const data = await res.json();
+
+// 	if (!data) {
+// 		return {
+// 			notFound: true,
+// 		};
+// 	}
+
+// 	return {
+// 		props: {}, // will be passed to the page component as props
+// 	};
+// }

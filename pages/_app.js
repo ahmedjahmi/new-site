@@ -3,6 +3,7 @@ import { DefaultSeo } from 'next-seo';
 import SEO from '../lib/next-seo.config';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { Provider } from 'next-auth/client';
 
 import * as ga from '../lib/google-analytics';
 
@@ -24,10 +25,10 @@ function MyApp({ Component, pageProps }) {
 		};
 	}, [router.events]);
 	return (
-		<>
+		<Provider session={pageProps.session}>
 			<DefaultSeo {...SEO} />
 			<Component {...pageProps} />
-		</>
+		</Provider>
 	);
 }
 
