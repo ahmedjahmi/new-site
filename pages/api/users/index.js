@@ -1,7 +1,7 @@
 import dbConnect from '../../../lib/dbConnect';
 import User from '../../../models/User';
 import { hashPassword, validatePassword } from '../../../lib/bcrypt';
-import imageUpload from '../../../lib/imageUpload';
+import { profileImageUpload } from '../../../lib/imageUpload';
 
 export default async function handler(req, res) {
 	const { method } = req;
@@ -37,7 +37,7 @@ export default async function handler(req, res) {
 				const checkDuplicateEmail = await User.find({ email: email });
 				if (checkDuplicateEmail.length === 0) {
 					const hashedPassword = await hashPassword(password);
-					const image = await imageUpload(image_url);
+					const image = await profileImageUpload(image_url);
 					const user = new User({
 						email,
 						password: hashedPassword,
