@@ -28,18 +28,21 @@ export default async function handler(req, res) {
 					role,
 					image_url,
 				} = req.body;
-				const hashedPassword = await hashPassword(password);
-				const image = await imageUpload(image_url);
-				const user = new User({
-					email,
-					password: hashedPassword,
-					role: role || 'user',
-					firstName,
-					lastName,
-					username,
-					image_url: image,
-				});
-				const newUser = await user.save();
+				const checkDuplicateEmail = await User.find({ email: email });
+				if (checkDuplicateEmail.length === 0) {
+					const hashedPassword = await hashPassword(password);
+					const image = await imageUpload(image_url);
+					const user = new User({
+						email,
+						password: hashedPassword,
+						role: role || 'user',
+						firstName,
+						lastName,
+						username,
+						image_url: image,
+					});
+					const newUser = await user.save();
+				}
 				return res.status(200).send(newUser);
 			} catch (error) {
 				res.status(400).json({ success: false });
