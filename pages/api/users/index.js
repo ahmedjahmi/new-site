@@ -12,7 +12,13 @@ export default async function handler(req, res) {
 		case 'GET':
 			try {
 				const users = await User.find({}); /* find all users in db */
-				res.status(200).json({ success: true, data: users });
+				// remove passwords from data
+				const cleanedUsers = await users.map((user) => {
+					user.password = null;
+					return user;
+				});
+				console.log(cleanedUsers);
+				res.status(200).json({ success: true, data: cleanedUsers });
 			} catch (error) {
 				res.status(400).json({ success: false });
 			}
