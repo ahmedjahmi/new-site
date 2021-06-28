@@ -2,6 +2,7 @@ import dbConnect from '../../../lib/dbConnect';
 import User from '../../../models/User';
 import { hashPassword, validatePassword } from '../../../lib/bcrypt';
 import { profileImageUpload } from '../../../lib/imageUpload';
+import validateEmail from '../../../lib/validateEmail';
 
 export default async function handler(req, res) {
 	const { method } = req;
@@ -34,21 +35,19 @@ export default async function handler(req, res) {
 					role,
 					image_url,
 				} = req.body;
-				const checkDuplicateEmail = await User.find({ email: email });
-				if (checkDuplicateEmail.length === 0) {
-					const hashedPassword = await hashPassword(password);
-					const image = await profileImageUpload(image_url);
-					const user = new User({
-						email,
-						password: hashedPassword,
-						role: role || 'user',
-						firstName,
-						lastName,
-						username,
-						image_url: image,
-					});
-					const newUser = await user.save();
-				}
+				validateEmail(email);
+				const hashedPassword = await hashPassword(password);
+				const image = await profileImageUpload(image_url);
+				const user = new User({
+					email,
+					password: hashedPassword,
+					role: role || 'user',
+					firstName,
+					lastName,
+					username,
+					image_url: image,
+				});
+				const newUser = await user.save();
 				return res.status(200).send(newUser);
 			} catch (error) {
 				res.status(400).json({ success: false });
