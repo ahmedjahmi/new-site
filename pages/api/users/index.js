@@ -20,7 +20,6 @@ export default async function handler(req, res) {
 					user.password = null;
 					return user;
 				});
-				console.log(cleanedUsers);
 				res.status(200).json({ success: true, data: cleanedUsers });
 			} catch (error) {
 				res.status(400).json({ success: false });
@@ -28,15 +27,7 @@ export default async function handler(req, res) {
 			break;
 		case 'POST':
 			try {
-				const {
-					email,
-					password,
-					firstName,
-					lastName,
-					username,
-					role,
-					image_url,
-				} = req.body;
+				const { email, password, role, image_url } = req.body;
 				validateEmail(email);
 				const hashedPassword = await hashPassword(password);
 				const image = await profileImageUpload(image_url || defaultImage);
@@ -44,9 +35,6 @@ export default async function handler(req, res) {
 					email,
 					password: hashedPassword,
 					role: role || 'user',
-					firstName,
-					lastName,
-					username,
 					image_url: image,
 				});
 				const newUser = await user.save();
