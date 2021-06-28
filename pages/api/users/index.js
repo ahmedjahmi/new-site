@@ -6,6 +6,8 @@ import validateEmail from '../../../lib/validateEmail';
 
 export default async function handler(req, res) {
 	const { method } = req;
+	const defaultImage =
+		'https://res.cloudinary.com/ds2pg7vex/image/upload/v1624895144/ahmed-jahmi-blog/profile-images/chappellePrince_mvmwpi.jpg';
 
 	await dbConnect();
 
@@ -37,7 +39,7 @@ export default async function handler(req, res) {
 				} = req.body;
 				validateEmail(email);
 				const hashedPassword = await hashPassword(password);
-				const image = await profileImageUpload(image_url);
+				const image = await profileImageUpload(image_url || defaultImage);
 				const user = new User({
 					email,
 					password: hashedPassword,
