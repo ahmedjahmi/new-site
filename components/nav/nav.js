@@ -21,7 +21,7 @@ export default function Nav() {
 		menuOpen ? (main.style.filter = 'blur(2px)') : (main.style.filter = null);
 	});
 
-	const menu = ['home', 'resume'];
+	const menu = ['home', 'resume', 'signup'];
 
 	const menuItems = menu.map((val, index) => {
 		const pathFromVal = val !== 'home' ? `/${val}` : '/';
