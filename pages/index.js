@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Date from '../components/date';
 import Image from 'next/image';
 import { buildUrl } from 'cloudinary-build-url';
+import { useUser } from '@auth0/nextjs-auth0';
 // import dbConnect from '../lib/dbConnect';
 
 export async function getStaticProps() {
@@ -18,6 +19,8 @@ export async function getStaticProps() {
 }
 
 export default function Blog({ allPostsData }) {
+	const { user, error, isLoading } = useUser();
+	console.log(user);
 	// cloudinary
 	const myImage =
 		'https://res.cloudinary.com/ds2pg7vex/image/upload/v1621104211/ahmed-jahmi-blog/profile_image_ywghxh.heic';
@@ -26,6 +29,10 @@ export default function Blog({ allPostsData }) {
 			cloudName: 'ds2pg7vex',
 		},
 	});
+
+	if (isLoading) return <div>Loading...</div>;
+	if (error) return <div>{error.message}</div>;
+
 	return (
 		<Layout>
 			<Head>
@@ -71,6 +78,11 @@ export default function Blog({ allPostsData }) {
 							</li>
 						))}
 					</ul>
+					{!user ? (
+						<a href='/api/auth/login'>Login</a>
+					) : (
+						<a href='/api/auth/logout'>Logout</a>
+					)}
 				</section>
 			</div>
 		</Layout>

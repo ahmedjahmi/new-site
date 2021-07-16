@@ -1,13 +1,9 @@
 import dbConnect from '../../../lib/dbConnect';
 import User from '../../../models/User';
-import { hashPassword, validatePassword } from '../../../lib/bcrypt';
-import { profileImageUpload } from '../../../lib/imageUpload';
 import validateEmail from '../../../lib/validateEmail';
 
 export default async function handler(req, res) {
 	const { method } = req;
-	const defaultImage =
-		'https://res.cloudinary.com/ds2pg7vex/image/upload/v1624895144/ahmed-jahmi-blog/profile-images/chappellePrince_mvmwpi.jpg';
 
 	await dbConnect();
 
@@ -27,20 +23,42 @@ export default async function handler(req, res) {
 			break;
 		case 'POST':
 			try {
-				const { email, password, role, image_url } = req.body;
+				const {
+					email,
+					user_id,
+					email_verified,
+					picture,
+					created_at,
+					updated_at,
+					last_password_reset,
+				} = req.body;
+
 				validateEmail(email);
-				const hashedPassword = await hashPassword(password);
-				const image = await profileImageUpload(image_url || defaultImage);
+
+				const image = picture;
+				const role = email != process.env.ADMIN_EMAIL ? 'user' : 'admin';
+
 				const user = new User({
 					email,
-					password: hashedPassword,
-					role: role || 'user',
+					auth_user_id: user_id,
+					email_verified,
+					auth_created_at: created_at,
+					auth_updated_at: updated_at,
+					auth_last_password_reset: last_password_reset,
+					role: role,
 					image_url: image,
+					username: email,
 				});
+
 				const newUser = await user.save();
+
 				return res.status(200).send(newUser);
 			} catch (error) {
-				res.status(400).json({ success: false });
+				res.status(400).json({ success: false, error: error });
 			}
+			break;
+		default:
+			res.status(400).json({ success: false });
+			break;
 	}
 }
