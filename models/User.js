@@ -11,6 +11,14 @@ const UserSchema = new mongoose.Schema(
 			lowercase: true,
 			required: [true, 'Please provide a email for this User.'],
 		},
+		email_verified: {
+			type: Boolean,
+			default: false,
+		},
+		auth_user_id: {
+			type: String,
+			unique: true,
+		},
 		firstName: {
 			type: String,
 			trim: true,
@@ -27,12 +35,6 @@ const UserSchema = new mongoose.Schema(
 			lowercase: true,
 			unique: true,
 		},
-		password: {
-			type: String,
-			minlength: 6,
-			trim: true,
-			required: [true, 'Please provide a password for this User.'],
-		},
 		role: {
 			type: String,
 			default: 'user',
@@ -43,6 +45,15 @@ const UserSchema = new mongoose.Schema(
 		},
 		image_url: {
 			type: String,
+		},
+		auth_created_at: {
+			type: Date,
+		},
+		auth_updated_at: {
+			type: Date,
+		},
+		auth_last_password_reset: {
+			type: Date,
 		},
 		articles: {
 			type: mongoose.Schema.Types.ObjectId,
