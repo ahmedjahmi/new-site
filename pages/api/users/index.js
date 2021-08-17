@@ -23,6 +23,7 @@ export default async function handler(req, res) {
 			break;
 		case 'POST':
 			try {
+				console.log(req.body);
 				const {
 					email,
 					user_id,
@@ -35,7 +36,6 @@ export default async function handler(req, res) {
 
 				validateEmail(email);
 
-				const image = picture;
 				const role = email != process.env.ADMIN_EMAIL ? 'user' : 'admin';
 
 				const user = new User({
@@ -46,7 +46,7 @@ export default async function handler(req, res) {
 					auth_updated_at: updated_at,
 					auth_last_password_reset: last_password_reset,
 					role: role,
-					image_url: image,
+					image_url: picture,
 					username: email,
 				});
 

@@ -2,53 +2,34 @@ import Layout, { siteTitle } from '../../components/layout/layout';
 import Image from 'next/image';
 import Date from '../../components/date';
 import Share from '../../components/share/share';
-import OnRotation from '../../components/onRotation/onRotation';
+import Rotation from '../../components/rotation/rotation';
 import pageStyles from '../../styles/page.module.scss';
-import { getAllPostIds, getPostData } from '../../lib/posts';
+// import { getAllPostIds, getPostData } from '../../lib/posts';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { buildUrl } from 'cloudinary-build-url';
+import axios from 'axios';
 
-// 1st, fetch data to statically generate paths
-export async function getStaticPaths() {
-	const paths = getAllPostIds();
-	return {
-		paths,
-		fallback: false,
-	};
-}
-
-// then, using the paths returned above,
-// fetch data to statically generate page contents
-export async function getStaticProps({ params }) {
-	const postData = await getPostData(params.id);
-	return {
-		props: {
-			postData,
-		},
-	};
-}
-
-export default function Post({ postData }) {
+export default function Post({ article, rotation }) {
 	const router = useRouter();
 	// const host = process.env.NEXT_PUBLIC_HOST;
-	const host = 'https://www.ahmedjahmi.com';
+	// const host = 'https://www.ahmedjahmi.com';
+	const host = 'http://localhost:3000';
 
 	// testing that a valid url works
 	// const blogPostUrl = 'https://www.ahmedjahmi.com';
 	const blogPostUrl = host + router.asPath;
 	const twitterHandle = process.env.NEXT_PUBLIC_TWITTER_HANDLE;
 	const size = 32;
-	const rotation = postData.OnRotation;
 
 	// cloudinary
-	const src = buildUrl(postData.image, {
+	const src = buildUrl(article.image_url, {
 		cloud: {
 			cloudName: 'ds2pg7vex',
 		},
 	});
 
-	const metaSrc = buildUrl(postData.image, {
+	const metaSrc = buildUrl(article.image_url, {
 		cloud: {
 			cloudName: 'ds2pg7vex',
 		},
@@ -69,16 +50,16 @@ export default function Post({ postData }) {
 
 	// metadata
 	const postMetaData = {
-		title: postData.title,
-		description: postData.description,
+		title: article.title,
+		description: article.description,
 		openGraph: {
 			url: blogPostUrl,
-			title: postData.title,
-			description: postData.description,
+			title: article.title,
+			description: article.description,
 			images: [
 				{
 					url: metaSrc,
-					alt: postData.imageAlt,
+					alt: article.imageAlt,
 				},
 			],
 			site_name: siteTitle,
@@ -110,12 +91,13 @@ export default function Post({ postData }) {
 							<header>
 								<h1 className={pageStyles.heroTitle}>
 									<span className={pageStyles.spanUnderline}>
-										{postData.title}
+										{article.title}
 									</span>
 								</h1>
-								<p className={pageStyles.byLine}>by {postData.author}</p>
+								{/* TODO: edit hardcoded author name */}
+								<p className={pageStyles.byLine}>by Ahmed Jahmi</p>
 								<div className={pageStyles.dateText}>
-									<Date dateString={postData.date} />
+									<Date dateString={article.createdAt} />
 								</div>
 							</header>
 						</div>
@@ -123,12 +105,12 @@ export default function Post({ postData }) {
 				</div>
 				<div className={pageStyles.articleContainer}>
 					<article>
-						<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+						{/* <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} /> */}
 						<div className={pageStyles.authorInfo}>
 							<div className={pageStyles.authorText}>
 								by{' '}
 								<a href='https://twitter.com/jahmiamor' target='_blank'>
-									{postData.author}
+									Ahmed Jahmi
 								</a>
 							</div>
 							<Image
@@ -136,19 +118,33 @@ export default function Post({ postData }) {
 								width={32}
 								height={32}
 								className={pageStyles.borderCircle}
-								alt={postData.author}
+								alt='Ahmed Jahmi'
 							/>
 						</div>
 						<Share
 							blogPostUrl={blogPostUrl}
-							title={postData.title}
+							title={article.title}
 							twitterHandle={twitterHandle}
 							size={size}
 						/>
-						<OnRotation rotation={rotation} />
+						<Rotation rotation={rotation} />
 					</article>
 				</div>
 			</div>
 		</Layout>
 	);
+}
+
+export async function getServerSideProps({ params }) {
+	const host = process.env.HOST;
+	const baseUrl = `${host}/api/articles`;
+	const response = await axios.get(`${baseUrl}/${params.id}`);
+	const { article, rotation } = await response.data.data;
+
+	return {
+		props: {
+			article: article,
+			rotation: rotation,
+		},
+	};
 }

@@ -1,26 +1,18 @@
 import Head from 'next/head';
 import Layout, { siteTitle } from '../components/layout/layout';
 import pageStyles from '../styles/page.module.scss';
-import { getSortedPostsData } from '../lib/posts';
 import Link from 'next/link';
 import Date from '../components/date';
 import Image from 'next/image';
 import { buildUrl } from 'cloudinary-build-url';
-import { useUser } from '@auth0/nextjs-auth0';
+import { useUser, getSession, withPageAuthRequired } from '@auth0/nextjs-auth0';
+import axios from 'axios';
+// TODO: use imports below for getServerSideProps TODO
 // import dbConnect from '../lib/dbConnect';
+// import Article from '../models/Article';
 
-export async function getStaticProps() {
-	const allPostsData = getSortedPostsData();
-	return {
-		props: {
-			allPostsData,
-		},
-	};
-}
-
-export default function Blog({ allPostsData }) {
-	const { user, error, isLoading } = useUser();
-	console.log(user);
+export default function Blog({ articles }) {
+	const { user: authUser, error, isLoading } = useUser();
 	// cloudinary
 	const myImage =
 		'https://res.cloudinary.com/ds2pg7vex/image/upload/v1621104211/ahmed-jahmi-blog/profile_image_ywghxh.heic';
@@ -64,24 +56,29 @@ export default function Blog({ allPostsData }) {
 				<section className={`${pageStyles.headingMd} ${pageStyles.padding1px}`}>
 					<h2 className={pageStyles.headingLg}>Blog</h2>
 					<ul className={pageStyles.list}>
-						{allPostsData.map(({ id, date, title, author }) => (
-							<li className={pageStyles.listItem} key={id}>
-								<Link href={`/blog/${id}`}>
+						{articles.map(({ _id, createdAt, title }) => (
+							<li className={pageStyles.listItem} key={_id}>
+								<Link href='/blog/[id]' as={`/blog/${_id}`}>
 									<a>
 										{title}
-										<p className={pageStyles.blogAuthor}>written by {author}</p>
+										<p className={pageStyles.blogAuthor}>
+											written by Ahmed Jahmi
+										</p>
 										<small className={pageStyles.dateText}>
-											<Date dateString={date} />
+											<Date dateString={createdAt} />
 										</small>
 									</a>
 								</Link>
 							</li>
 						))}
 					</ul>
-					{!user ? (
+					{!authUser ? (
 						<a href='/api/auth/login'>Login</a>
 					) : (
-						<a href='/api/auth/logout'>Logout</a>
+						<div>
+							<a href='/api/auth/logout'>Logout</a>
+							<a href='/60f4cf56ae605542364b150b'>profile</a>
+						</div>
 					)}
 				</section>
 			</div>
@@ -89,33 +86,44 @@ export default function Blog({ allPostsData }) {
 	);
 }
 
-/* Retrieves pet(s) data from mongodb database */
-// export async function getServerSideProps() {
-//   await dbConnect()
+export async function getServerSideProps() {
+	const host = process.env.HOST;
+	const response = await axios.get(`${host}/api/articles/getArticles`);
+	const articles = await response.data.articles;
 
-//   /* find all the data in our database */
-//   const result = await Pet.find({})
-//   const pets = result.map((doc) => {
-//     const pet = doc.toObject()
-//     pet._id = pet._id.toString()
-//     return pet
-//   })
+	// TODO: query db instead of fetch from api route for better performance
 
-//   return { props: { pets: pets } }
-// }
+	// await dbConnect();
 
-// export async function getServerSideProps(context) {
-//   await dbConnect();
-// 	const res = await fetch(`https://...`);
-// 	const data = await res.json();
+	// const unsortedArticles = await Article.find({});
 
-// 	if (!data) {
+	// const articles = await unsortedArticles.sort((a, b) => {
+	// 	if (a.createdAt < b.createdAt) {
+	// 		return 1;
+	// 	} else {
+	// 		return -1;
+	// 	}
+	// });
+	return {
+		props: {
+			articles: articles,
+		},
+	};
+}
+
+// SAVE COMMENT BELOW:
+
+// export const getServerSideProps = withPageAuthRequired({
+// 	async getServerSideProps(context) {
+// 		const authUser = getSession(context.req).user;
+
+// 		await dbConnect();
+// 		const mongoUser = await User.find({ email: authUser.email });
+
 // 		return {
-// 			notFound: true,
+// 			props: {
+// 				mongoUser,
+// 			},
 // 		};
-// 	}
-
-// 	return {
-// 		props: {}, // will be passed to the page component as props
-// 	};
-// }
+// 	},
+// });

@@ -55,10 +55,6 @@ const UserSchema = new mongoose.Schema(
 		auth_last_password_reset: {
 			type: Date,
 		},
-		articles: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Article',
-		},
 	},
 	{
 		timestamps: true,
