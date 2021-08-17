@@ -98,6 +98,27 @@
 	padding: 0 1rem;
 	margin: 3rem auto 3rem;
 }
+// Editor page
+.editorPageContainer {
+	margin-top: 6rem;
+	margin-bottom: 4rem;
+}
+
+.articleFormContainer {
+	max-width: 46rem;
+	padding: 0 1rem;
+	margin: 3rem auto 3rem;
+	form {
+		display: flex;
+		flex-direction: column;
+		button {
+			display: inline-block;
+		}
+	}
+	input {
+		display: block;
+	}
+}
 
 .heading2Xl {
 	font-size: 2.5rem;
