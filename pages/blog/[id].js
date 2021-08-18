@@ -4,11 +4,20 @@ import Date from '../../components/date';
 import Share from '../../components/share/share';
 import Rotation from '../../components/rotation/rotation';
 import pageStyles from '../../styles/page.module.scss';
-import { processMarkdown } from '../../lib/posts';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { buildUrl } from 'cloudinary-build-url';
 import axios from 'axios';
+import remark from 'remark';
+import html from 'remark-html';
+
+const processMarkdown = async (content) => {
+	const processedContent = await remark().use(html).process(content);
+	const contentHtml = processedContent.toString();
+	return {
+		contentHtml,
+	};
+};
 
 export default function Post({ article, rotation, articleContent }) {
 	const router = useRouter();
