@@ -11,8 +11,9 @@ import axios from 'axios';
 // import dbConnect from '../lib/dbConnect';
 // import Article from '../models/Article';
 
-export default function Blog({ articles }) {
+export default function Blog({ articles, dbUser }) {
 	const { user: authUser, error, isLoading } = useUser();
+
 	// cloudinary
 	const myImage =
 		'https://res.cloudinary.com/ds2pg7vex/image/upload/v1621104211/ahmed-jahmi-blog/profile_image_ywghxh.heic';
@@ -77,7 +78,24 @@ export default function Blog({ articles }) {
 					) : (
 						<div>
 							<a href='/api/auth/logout'>Logout</a>
-							<a href='/60f4cf56ae605542364b150b'>profile</a>
+							<Link
+								href={{
+									pathname: `/${dbUser._id}`,
+									query: { id: dbUser._id },
+								}}
+							>
+								<a>profile</a>
+							</Link>
+							{dbUser.role == 'admin' ? (
+								<Link
+									href={{
+										pathname: '/editor',
+										query: { id: dbUser._id, role: dbUser.role },
+									}}
+								>
+									<a>Editor</a>
+								</Link>
+							) : null}
 						</div>
 					)}
 				</section>
@@ -86,24 +104,25 @@ export default function Blog({ articles }) {
 	);
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
 	const host = process.env.HOST;
 	const response = await axios.get(`${host}/api/articles/getArticles`);
 	const articles = await response.data.articles;
+	const session = await getSession(context.req, context.res);
+	if (session) {
+		const authUser = session.user;
+		const dbUserResponse = await axios.post(`${host}/api/users/findByEmail`, {
+			email: authUser.email,
+		});
+		const dbUser = await dbUserResponse.data;
 
-	// TODO: query db instead of fetch from api route for better performance
-
-	// await dbConnect();
-
-	// const unsortedArticles = await Article.find({});
-
-	// const articles = await unsortedArticles.sort((a, b) => {
-	// 	if (a.createdAt < b.createdAt) {
-	// 		return 1;
-	// 	} else {
-	// 		return -1;
-	// 	}
-	// });
+		return {
+			props: {
+				articles: articles,
+				dbUser: dbUser,
+			},
+		};
+	}
 	return {
 		props: {
 			articles: articles,
@@ -111,19 +130,16 @@ export async function getServerSideProps() {
 	};
 }
 
-// SAVE COMMENT BELOW:
+// TODO: inside gSSP: query db instead of fetch from api route for better performance
 
-// export const getServerSideProps = withPageAuthRequired({
-// 	async getServerSideProps(context) {
-// 		const authUser = getSession(context.req).user;
+// await dbConnect();
 
-// 		await dbConnect();
-// 		const mongoUser = await User.find({ email: authUser.email });
+// const unsortedArticles = await Article.find({});
 
-// 		return {
-// 			props: {
-// 				mongoUser,
-// 			},
-// 		};
-// 	},
+// const articles = await unsortedArticles.sort((a, b) => {
+// 	if (a.createdAt < b.createdAt) {
+// 		return 1;
+// 	} else {
+// 		return -1;
+// 	}
 // });
