@@ -2,8 +2,8 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { useUser } from '@auth0/nextjs-auth0';
 import axios from 'axios';
 
-export default function Profile({ user }) {
-	const { user: authUser, error, isLoading } = useUser();
+export default function Profile({ dbUser }) {
+	const { user, error, isLoading } = useUser();
 	return (
 		<>
 			{isLoading && <p>Loading...</p>}
@@ -13,15 +13,16 @@ export default function Profile({ user }) {
 					<pre>{error.message}</pre>
 				</>
 			)}
-			{authUser && (
+			{user && (
 				<>
-					<p>Hello, {authUser.email}!</p>
-					<p>Hello mongodb user {user.email}</p>
+					<p>Hello, {user.email}!</p>
+					<p>Hello mongodb user {dbUser.email}</p>
+					<p>Hello mongodb username {dbUser.username}</p>
 				</>
 			)}
-			{!isLoading && !error && !authUser && (
+			{!isLoading && !error && !user && (
 				<>
-					<p>Not loading, not error, not authUser...</p>
+					<p>Not loading, not error, not user...</p>
 					<p>I dk what's happening</p>
 				</>
 			)}
@@ -29,27 +30,16 @@ export default function Profile({ user }) {
 	);
 }
 
-// export async function getServerSideProps() {
-// 	const user = await axios.get('/api/users/60f4caadf9c69304b9a8141c', {
-// 		port: 3000,
-// 	});
-
-// 	return {
-// 		props: {
-// 			user,
-// 		},
-// 	};
-// }
-
 export const getServerSideProps = withPageAuthRequired({
 	async getServerSideProps({ params }) {
-		const user = await axios.get(
+		const dbUserResponse = await axios.get(
 			`http://localhost:3000/api/users/${params.id}`
 		);
+		const dbUser = await dbUserResponse.data.data;
 
 		return {
 			props: {
-				user,
+				dbUser,
 			},
 		};
 	},
