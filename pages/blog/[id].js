@@ -4,13 +4,13 @@ import Date from '../../components/date';
 import Share from '../../components/share/share';
 import Rotation from '../../components/rotation/rotation';
 import pageStyles from '../../styles/page.module.scss';
-// import { getAllPostIds, getPostData } from '../../lib/posts';
+import { processMarkdown } from '../../lib/posts';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { buildUrl } from 'cloudinary-build-url';
 import axios from 'axios';
 
-export default function Post({ article, rotation }) {
+export default function Post({ article, rotation, articleContent }) {
 	const router = useRouter();
 	// const host = process.env.NEXT_PUBLIC_HOST;
 	// const host = 'https://www.ahmedjahmi.com';
@@ -82,9 +82,9 @@ export default function Post({ article, rotation }) {
 										alt='apple shortcuts app'
 									/>
 								</div>
-								{/* <div className={pageStyles.heroArtBy}>
-									Art by <a href={postData.artHref}>{postData.byArtist}</a>
-								</div> */}
+								<div className={pageStyles.heroArtBy}>
+									Art by <a href={article.artist_url}>{article.by_artist}</a>
+								</div>
 							</div>
 						</div>
 						<div className={pageStyles.heroHeader}>
@@ -105,7 +105,9 @@ export default function Post({ article, rotation }) {
 				</div>
 				<div className={pageStyles.articleContainer}>
 					<article>
-						{/* <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} /> */}
+						<div
+							dangerouslySetInnerHTML={{ __html: articleContent.contentHtml }}
+						/>
 						<div className={pageStyles.authorInfo}>
 							<div className={pageStyles.authorText}>
 								by{' '}
@@ -140,11 +142,13 @@ export async function getServerSideProps({ params }) {
 	const baseUrl = `${host}/api/articles`;
 	const response = await axios.get(`${baseUrl}/${params.id}`);
 	const { article, rotation } = await response.data.data;
+	const articleContent = await processMarkdown(article.content);
 
 	return {
 		props: {
 			article: article,
 			rotation: rotation,
+			articleContent: articleContent,
 		},
 	};
 }
