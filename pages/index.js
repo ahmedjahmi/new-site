@@ -81,7 +81,6 @@ export default function Blog({ articles, dbUser }) {
 							<Link
 								href={{
 									pathname: `/${dbUser._id}`,
-									// query: { id: dbUser._id },
 								}}
 							>
 								<a>profile</a>
