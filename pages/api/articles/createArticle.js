@@ -6,79 +6,29 @@ import { uploadCoverImage } from '../../../lib/imageUpload';
 import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
 import formidable from 'formidable';
 
-// export default withApiAuthRequired(async function handler(req, res) {
-// 	const { method } = req;
-// 	if (method !== 'POST') {
-// 		res.status(405).json({ success: false, message: 'Method not allowed' });
-// 	}
-// 	const session = getSession(req, res);
-// 	const email = session.user.email;
-
-// 	await dbConnect();
-// 	const mongoUser = await User.findOne({ email: email });
-// 	if (mongoUser.role !== 'admin') {
-// 		res
-// 			.status(403)
-// 			.json({
-// 				success: false,
-// 				message: 'You are not authorized to post articles.',
-// 			});
-// 	}
-// 	try {
-// 		const {
-// 			title,
-// 			description,
-// 			image_url,
-// 			image_alt,
-// 			user,
-// 			by_artist,
-// 			artist_url,
-// 			content,
-// 		} = req.body;
-
-// 		const article = new Article({
-// 			title,
-// 			description,
-// 			image_url,
-// 			image_alt,
-// 			user,
-// 			by_artist,
-// 			artist_url,
-// 			content,
-// 		});
-
-// 		await article.save();
-// 		return res.status(200).send(article);
-// 	} catch (error) {
-// 		res.status(400).json({ success: false, error: error });
-// 	}
-// });
-
 export const config = {
 	api: {
 		bodyParser: false,
 	},
 };
 
-export default async function handler(req, res) {
+export default withApiAuthRequired(async function handler(req, res) {
 	const { method } = req;
 	if (method !== 'POST') {
 		res.status(405).json({ success: false, message: 'Method not allowed' });
 	}
-	// const session = getSession(req, res);
-	// const email = session.user.email;
-
-	// const mongoUser = await User.findOne({ email: email });
-	// if (mongoUser.role !== 'admin') {
-	// 	res
-	// 		.status(403)
-	// 		.json({
-	// 			success: false,
-	// 			message: 'You are not authorized to post articles.',
-	// 		});
-	// }
 	try {
 		await dbConnect();
+		const session = getSession(req, res);
+		const email = session.user.email;
+
+		const dbUser = await User.findOne({ email: email });
+		if (dbUser.role !== 'admin') {
+			res.status(403).json({
+				success: false,
+				message: 'You are not authorized to post articles.',
+			});
+		}
 		const formData = await new Promise((resolve, reject) => {
 			const form = new formidable();
 			form.keepExtensions = true;
@@ -147,4 +97,4 @@ export default async function handler(req, res) {
 	} catch (error) {
 		res.status(400).json({ success: false, error: error.message });
 	}
-}
+});
