@@ -2,19 +2,18 @@ import Head from 'next/head';
 import Layout from '../components/layout/layout';
 import pageStyles from '../styles/page.module.scss';
 import ArticleForm from '../components/forms/article/article';
-import { useRouter } from 'next/router';
-import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
-export default withPageAuthRequired(function Editor() {
-	const router = useRouter();
-	const isAdmin = router.query.role == 'admin' ? true : false;
+import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0';
+import axios from 'axios';
+
+export default function Editor({ dbUserId, isAdmin }) {
 	if (isAdmin) {
 		const articleForm = {
 			title: '',
 			description: '',
 			image_url: '',
 			image_alt: '',
-			user: '60fccc61140cb96ec1fdad06',
+			user: dbUserId,
 			by_artist: '',
 			artist_url: '',
 			content: '',
@@ -51,4 +50,32 @@ export default withPageAuthRequired(function Editor() {
 			</div>
 		</Layout>
 	);
+}
+
+export const getServerSideProps = withPageAuthRequired({
+	async getServerSideProps(context) {
+		const host = process.env.HOST;
+		const session = getSession(context.req, context.res);
+		if (session) {
+			const authUser = session.user;
+			const dbUserResponse = await axios.post(`${host}/api/users/findByEmail`, {
+				email: authUser.email,
+			});
+			const dbUser = await dbUserResponse.data;
+			const isAdmin = dbUser.role == 'admin' ? true : false;
+			const dbUserId = dbUser._id;
+			return {
+				props: {
+					dbUserId,
+					isAdmin,
+				},
+			};
+		}
+		return {
+			redirect: {
+				destination: '/',
+				permanent: false,
+			},
+		};
+	},
 });
