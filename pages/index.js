@@ -89,7 +89,6 @@ export default function Blog({ articles, dbUser }) {
 								<Link
 									href={{
 										pathname: '/editor',
-										query: { id: dbUser._id, role: dbUser.role },
 									}}
 								>
 									<a>Editor</a>
@@ -107,7 +106,7 @@ export async function getServerSideProps(context) {
 	const host = process.env.HOST;
 	const response = await axios.get(`${host}/api/articles/getArticles`);
 	const articles = await response.data.articles;
-	const session = await getSession(context.req, context.res);
+	const session = getSession(context.req, context.res);
 	if (session) {
 		const authUser = session.user;
 		const dbUserResponse = await axios.post(`${host}/api/users/findByEmail`, {
