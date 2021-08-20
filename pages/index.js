@@ -11,7 +11,7 @@ import axios from 'axios';
 // import dbConnect from '../lib/dbConnect';
 // import Article from '../models/Article';
 
-export default function Blog({ articles, dbUser }) {
+export default function Blog({ articles, dbUser, isAdmin }) {
 	const { user: authUser, error, isLoading } = useUser();
 
 	// cloudinary
@@ -85,7 +85,7 @@ export default function Blog({ articles, dbUser }) {
 							>
 								<a>profile</a>
 							</Link>
-							{dbUser.role == 'admin' ? (
+							{isAdmin ? (
 								<Link
 									href={{
 										pathname: '/editor',
@@ -113,11 +113,13 @@ export async function getServerSideProps(context) {
 			email: authUser.email,
 		});
 		const dbUser = await dbUserResponse.data;
+		const isAdmin = dbUser.role === 'admin' ? true : false;
 
 		return {
 			props: {
 				articles: articles,
 				dbUser: dbUser,
+				isAdmin: isAdmin,
 			},
 		};
 	}
