@@ -1,12 +1,11 @@
 import Link from 'next/link';
 import styles from './nav.module.scss';
-import { useState } from 'react';
 
 export default function MenuItem(props) {
-	const [open, setOpen] = useState(props.open);
+	const open = props.open;
 
 	// conditionally set styles
-	const [delay, setDelay] = useState(`${props.delay}`);
+	const delay = props.delay;
 	const toggle = open
 		? `${styles.menuItemContainer} ${styles.menuItemContainerOpen}`
 		: `${styles.menuItemContainer}`;
