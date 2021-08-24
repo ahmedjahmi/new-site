@@ -10,6 +10,7 @@ import { buildUrl } from 'cloudinary-build-url';
 import axios from 'axios';
 import remark from 'remark';
 import html from 'remark-html';
+import { useUser, getSession } from '@auth0/nextjs-auth0';
 
 const processMarkdown = async (content) => {
 	const processedContent = await remark().use(html).process(content);
@@ -19,8 +20,17 @@ const processMarkdown = async (content) => {
 	};
 };
 
-export default function Post({ article, rotation, articleContent }) {
+export default function Post({
+	article,
+	rotation,
+	articleContent,
+	dbUser,
+	isAdmin,
+}) {
 	const router = useRouter();
+	const { user: authUser, error, isLoading } = useUser();
+	const isUser = authUser ? true : false;
+	const userId = dbUser ? dbUser._id : null;
 	// const host = process.env.NEXT_PUBLIC_HOST;
 	// const host = 'https://www.ahmedjahmi.com';
 	const host = 'http://localhost:3000';
@@ -75,8 +85,11 @@ export default function Post({ article, rotation, articleContent }) {
 		},
 	};
 
+	if (isLoading) return <div>Loading...</div>;
+	if (error) return <div>{error.message}</div>;
+
 	return (
-		<Layout>
+		<Layout isAdmin={isAdmin} isUser={isUser} userId={userId}>
 			<NextSeo {...postMetaData} />
 			<div className={pageStyles.blogArticlePageContainer}>
 				<div className={pageStyles.hero}>
@@ -146,12 +159,30 @@ export default function Post({ article, rotation, articleContent }) {
 	);
 }
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params, req, res }) {
 	const host = process.env.HOST;
 	const baseUrl = `${host}/api/articles`;
 	const response = await axios.get(`${baseUrl}/${params.id}`);
 	const { article, rotation } = await response.data.data;
 	const articleContent = await processMarkdown(article.content);
+	const session = getSession(req, res);
+	if (session) {
+		const authUser = session.user;
+		const dbUserResponse = await axios.post(`${host}/api/users/findByEmail`, {
+			email: authUser.email,
+		});
+		const dbUser = await dbUserResponse.data;
+		const isAdmin = dbUser.role === 'admin' ? true : false;
+		return {
+			props: {
+				article: article,
+				rotation: rotation,
+				articleContent: articleContent,
+				dbUser: dbUser,
+				isAdmin: isAdmin,
+			},
+		};
+	}
 
 	return {
 		props: {

@@ -13,6 +13,8 @@ import axios from 'axios';
 
 export default function Blog({ articles, dbUser, isAdmin }) {
 	const { user: authUser, error, isLoading } = useUser();
+	const isUser = authUser ? true : false;
+	const userId = dbUser ? dbUser._id : null;
 
 	// cloudinary
 	const myImage =
@@ -27,7 +29,7 @@ export default function Blog({ articles, dbUser, isAdmin }) {
 	if (error) return <div>{error.message}</div>;
 
 	return (
-		<Layout>
+		<Layout isAdmin={isAdmin} isUser={isUser} userId={userId}>
 			<Head>
 				<title>{siteTitle}</title>
 			</Head>
@@ -73,29 +75,6 @@ export default function Blog({ articles, dbUser, isAdmin }) {
 							</li>
 						))}
 					</ul>
-					{!authUser ? (
-						<a href='/api/auth/login'>Login</a>
-					) : (
-						<div>
-							<a href='/api/auth/logout'>Logout</a>
-							<Link
-								href={{
-									pathname: `/${dbUser._id}`,
-								}}
-							>
-								<a>profile</a>
-							</Link>
-							{isAdmin ? (
-								<Link
-									href={{
-										pathname: '/editor',
-									}}
-								>
-									<a>Editor</a>
-								</Link>
-							) : null}
-						</div>
-					)}
 				</section>
 			</div>
 		</Layout>

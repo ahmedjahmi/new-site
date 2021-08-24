@@ -7,6 +7,8 @@ import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0';
 import axios from 'axios';
 
 export default function Editor({ dbUserId, isAdmin }) {
+	const isUser = isAdmin;
+	const userId = dbUserId;
 	if (isAdmin) {
 		const articleForm = {
 			title: '',
@@ -28,7 +30,7 @@ export default function Editor({ dbUserId, isAdmin }) {
 		};
 
 		return (
-			<Layout>
+			<Layout isAdmin={isAdmin} isUser={isUser} userId={userId}>
 				<Head>
 					<title>Ahmed Jahmi | Editor</title>
 				</Head>
