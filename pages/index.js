@@ -11,8 +11,10 @@ import axios from 'axios';
 // import dbConnect from '../lib/dbConnect';
 // import Article from '../models/Article';
 
-export default function Blog({ articles, dbUser }) {
+export default function Blog({ articles, dbUser, isAdmin }) {
 	const { user: authUser, error, isLoading } = useUser();
+	const isUser = authUser ? true : false;
+	const userId = dbUser ? dbUser._id : null;
 
 	// cloudinary
 	const myImage =
@@ -27,7 +29,7 @@ export default function Blog({ articles, dbUser }) {
 	if (error) return <div>{error.message}</div>;
 
 	return (
-		<Layout>
+		<Layout isAdmin={isAdmin} isUser={isUser} userId={userId}>
 			<Head>
 				<title>{siteTitle}</title>
 			</Head>
@@ -73,29 +75,6 @@ export default function Blog({ articles, dbUser }) {
 							</li>
 						))}
 					</ul>
-					{!authUser ? (
-						<a href='/api/auth/login'>Login</a>
-					) : (
-						<div>
-							<a href='/api/auth/logout'>Logout</a>
-							<Link
-								href={{
-									pathname: `/${dbUser._id}`,
-								}}
-							>
-								<a>profile</a>
-							</Link>
-							{dbUser.role == 'admin' ? (
-								<Link
-									href={{
-										pathname: '/editor',
-									}}
-								>
-									<a>Editor</a>
-								</Link>
-							) : null}
-						</div>
-					)}
 				</section>
 			</div>
 		</Layout>
@@ -113,11 +92,13 @@ export async function getServerSideProps(context) {
 			email: authUser.email,
 		});
 		const dbUser = await dbUserResponse.data;
+		const isAdmin = dbUser.role === 'admin' ? true : false;
 
 		return {
 			props: {
 				articles: articles,
 				dbUser: dbUser,
+				isAdmin: isAdmin,
 			},
 		};
 	}

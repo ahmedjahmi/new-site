@@ -163,6 +163,9 @@
 		&.menuItemContainerOpen[delay='3'] {
 			animation-delay: 0.3s;
 		}
+		&.menuItemContainerOpen[delay='4'] {
+			animation-delay: 0.4s;
+		}
 	}
 
 	// TODO: create class to conditionally
@@ -190,6 +193,9 @@
 	}
 	&.menuItem[delay='3'] {
 		animation-delay: 0.3s;
+	}
+	&.menuItem[delay='4'] {
+		animation-delay: 0.4s;
 	}
 
 	a {
@@ -225,6 +231,9 @@
 	}
 	&.menuItemLine[delay='3'] {
 		animation-delay: 0.3s;
+	}
+	&.menuItemLine[delay='4'] {
+		animation-delay: 0.4s;
 	}
 	// TODO: create class to conditionally
 	// add nth-element based animation-delay

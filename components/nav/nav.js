@@ -5,7 +5,7 @@ import MenuItem from './menuItem';
 import MenuButton from './menuButton';
 import Menu from './menu';
 
-export default function Nav() {
+export default function Nav({ isAdmin, isUser, userId }) {
 	const [menuOpen, setMenuOpen] = useState(false);
 
 	const handleMenuClick = () => {
@@ -21,10 +21,47 @@ export default function Nav() {
 		menuOpen ? (main.style.filter = 'blur(2px)') : (main.style.filter = null);
 	});
 
-	const menu = ['home', 'resume', 'signup'];
+	const menu = [
+		'home',
+		'resume',
+		...(isUser ? ['logout'] : ['login']),
+		...(isUser ? ['profile'] : []),
+		...(isAdmin ? ['editor'] : []),
+	];
 
 	const menuItems = menu.map((val, index) => {
-		const pathFromVal = val !== 'home' ? `/${val}` : '/';
+		// const pathFromVal = val !== 'home' ? `/${val}` : '/';
+		let pathFromVal;
+		switch (val) {
+			case 'home': {
+				pathFromVal = '/';
+				break;
+			}
+			case 'resume': {
+				pathFromVal = '/resume';
+				break;
+			}
+			case 'logout': {
+				pathFromVal = '/api/auth/logout';
+				break;
+			}
+			case 'login': {
+				pathFromVal = '/api/auth/login';
+				break;
+			}
+			case 'profile': {
+				pathFromVal = `/${userId}`;
+				break;
+			}
+			case 'editor': {
+				pathFromVal = '/editor';
+				break;
+			}
+			default: {
+				pathFromVal = '/';
+				break;
+			}
+		}
 		const newVal = val.charAt(0).toUpperCase() + val.slice(1);
 		return (
 			<MenuItem
@@ -33,6 +70,7 @@ export default function Nav() {
 				onClick={handleLinkClick}
 				href={pathFromVal}
 				open={menuOpen}
+				userId={userId}
 			>
 				{newVal}
 			</MenuItem>
