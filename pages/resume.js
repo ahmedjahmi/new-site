@@ -4,7 +4,8 @@ import pageStyles from '../styles/page.module.scss';
 import Image from 'next/image';
 import { buildUrl } from 'cloudinary-build-url';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
-import axios from 'axios';
+import dbConnect from '../lib/dbConnect';
+import User from '../models/User';
 
 export default function Resume({ dbUser, isAdmin }) {
 	const { user: authUser, error, isLoading } = useUser();
@@ -33,14 +34,14 @@ export default function Resume({ dbUser, isAdmin }) {
 }
 
 export async function getServerSideProps({ req, res }) {
-	const host = process.env.HOST;
+	await dbConnect();
 	const session = getSession(req, res);
+
 	if (session) {
 		const authUser = session.user;
-		const dbUserResponse = await axios.post(`${host}/api/users/findByEmail`, {
-			email: authUser.email,
-		});
-		const dbUser = await dbUserResponse.data;
+		const email = authUser.email;
+		const dbUserRes = await User.findOne({ email: email });
+		const dbUser = JSON.parse(JSON.stringify(dbUserRes));
 		const isAdmin = dbUser.role === 'admin' ? true : false;
 
 		return {
@@ -50,6 +51,7 @@ export async function getServerSideProps({ req, res }) {
 			},
 		};
 	}
+
 	return {
 		props: {},
 	};
