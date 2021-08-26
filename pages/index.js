@@ -5,11 +5,10 @@ import Link from 'next/link';
 import Date from '../components/date';
 import Image from 'next/image';
 import { buildUrl } from 'cloudinary-build-url';
-import { useUser, getSession, withPageAuthRequired } from '@auth0/nextjs-auth0';
-import axios from 'axios';
-// TODO: use imports below for getServerSideProps TODO
-// import dbConnect from '../lib/dbConnect';
-// import Article from '../models/Article';
+import { useUser, getSession } from '@auth0/nextjs-auth0';
+import dbConnect from '../lib/dbConnect';
+import Article from '../models/Article';
+import User from '../models/User';
 
 export default function Blog({ articles, dbUser, isAdmin }) {
 	const { user: authUser, error, isLoading } = useUser();
@@ -82,16 +81,23 @@ export default function Blog({ articles, dbUser, isAdmin }) {
 }
 
 export async function getServerSideProps(context) {
-	const host = process.env.HOST;
-	const response = await axios.get(`${host}/api/articles/getArticles`);
-	const articles = await response.data.articles;
+	await dbConnect();
+	const unsortedArticles = await Article.find({});
+	const articlesRes = await unsortedArticles.sort((a, b) => {
+		if (a.createdAt < b.createdAt) {
+			return 1;
+		} else {
+			return -1;
+		}
+	});
+	const articles = JSON.parse(JSON.stringify(articlesRes));
+
 	const session = getSession(context.req, context.res);
 	if (session) {
 		const authUser = session.user;
-		const dbUserResponse = await axios.post(`${host}/api/users/findByEmail`, {
-			email: authUser.email,
-		});
-		const dbUser = await dbUserResponse.data;
+		const email = authUser.email;
+		const dbUserRes = await User.findOne({ email: email });
+		const dbUser = JSON.parse(JSON.stringify(dbUserRes));
 		const isAdmin = dbUser.role === 'admin' ? true : false;
 
 		return {
@@ -108,17 +114,3 @@ export async function getServerSideProps(context) {
 		},
 	};
 }
-
-// TODO: inside gSSP: query db instead of fetch from api route for better performance
-
-// await dbConnect();
-
-// const unsortedArticles = await Article.find({});
-
-// const articles = await unsortedArticles.sort((a, b) => {
-// 	if (a.createdAt < b.createdAt) {
-// 		return 1;
-// 	} else {
-// 		return -1;
-// 	}
-// });
