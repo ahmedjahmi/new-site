@@ -7,10 +7,13 @@ import pageStyles from '../../styles/page.module.scss';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { buildUrl } from 'cloudinary-build-url';
-import axios from 'axios';
 import remark from 'remark';
 import html from 'remark-html';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
+import dbConnect from '../../lib/dbConnect';
+import Article from '../../models/Article';
+import User from '../../models/User';
+import RotationModel from '../../models/Rotation';
 
 const processMarkdown = async (content) => {
 	const processedContent = await remark().use(html).process(content);
@@ -160,19 +163,29 @@ export default function Post({
 }
 
 export async function getServerSideProps({ params, req, res }) {
-	const host = process.env.HOST;
-	const baseUrl = `${host}/api/articles`;
-	const response = await axios.get(`${baseUrl}/${params.id}`);
-	const { article, rotation } = await response.data.data;
+	await dbConnect();
+
+	const articleRes = await Article.findById(params.id);
+	const rotationRes = await RotationModel.findOne({ article: params.id });
+	const data = JSON.parse(
+		JSON.stringify({
+			article: articleRes,
+			rotation: rotationRes,
+		})
+	);
+	const { article, rotation } = data;
+
 	const articleContent = await processMarkdown(article.content);
+
 	const session = getSession(req, res);
+
 	if (session) {
 		const authUser = session.user;
-		const dbUserResponse = await axios.post(`${host}/api/users/findByEmail`, {
-			email: authUser.email,
-		});
-		const dbUser = await dbUserResponse.data;
+		const email = authUser.email;
+		const dbUserRes = await User.findOne({ email: email });
+		const dbUser = JSON.parse(JSON.stringify(dbUserRes));
 		const isAdmin = dbUser.role === 'admin' ? true : false;
+
 		return {
 			props: {
 				article: article,
@@ -192,3 +205,37 @@ export async function getServerSideProps({ params, req, res }) {
 		},
 	};
 }
+
+// export async function getServerSideProps({ params, req, res }) {
+// 	const host = process.env.HOST;
+// 	const baseUrl = `${host}/api/articles`;
+// 	const response = await axios.get(`${baseUrl}/${params.id}`);
+// 	const { article, rotation } = await response.data.data;
+// 	const articleContent = await processMarkdown(article.content);
+// 	const session = getSession(req, res);
+// 	if (session) {
+// 		const authUser = session.user;
+// 		const dbUserResponse = await axios.post(`${host}/api/users/findByEmail`, {
+// 			email: authUser.email,
+// 		});
+// 		const dbUser = await dbUserResponse.data;
+// 		const isAdmin = dbUser.role === 'admin' ? true : false;
+// 		return {
+// 			props: {
+// 				article: article,
+// 				rotation: rotation,
+// 				articleContent: articleContent,
+// 				dbUser: dbUser,
+// 				isAdmin: isAdmin,
+// 			},
+// 		};
+// 	}
+
+// 	return {
+// 		props: {
+// 			article: article,
+// 			rotation: rotation,
+// 			articleContent: articleContent,
+// 		},
+// 	};
+// }

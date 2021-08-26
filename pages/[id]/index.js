@@ -1,6 +1,7 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { useUser } from '@auth0/nextjs-auth0';
-import axios from 'axios';
+import dbConnect from '../../lib/dbConnect';
+import User from '../../models/User';
 
 export default function Profile({ dbUser }) {
 	const { user, error, isLoading } = useUser();
@@ -32,10 +33,9 @@ export default function Profile({ dbUser }) {
 
 export const getServerSideProps = withPageAuthRequired({
 	async getServerSideProps({ params }) {
-		const dbUserResponse = await axios.get(
-			`http://localhost:3000/api/users/${params.id}`
-		);
-		const dbUser = await dbUserResponse.data.data;
+		await dbConnect();
+		const dbUserRes = await User.findById(params.id);
+		const dbUser = JSON.parse(JSON.stringify(dbUserRes));
 
 		return {
 			props: {

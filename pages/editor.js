@@ -2,9 +2,9 @@ import Head from 'next/head';
 import Layout from '../components/layout/layout';
 import pageStyles from '../styles/page.module.scss';
 import ArticleForm from '../components/forms/article/article';
-
 import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0';
-import axios from 'axios';
+import User from '../models/User';
+import dbConnect from '../lib/dbConnect';
 
 export default function Editor({ dbUserId, isAdmin }) {
 	const isUser = isAdmin;
@@ -55,16 +55,15 @@ export default function Editor({ dbUserId, isAdmin }) {
 }
 
 export const getServerSideProps = withPageAuthRequired({
-	async getServerSideProps(context) {
-		const host = process.env.HOST;
-		const session = getSession(context.req, context.res);
+	async getServerSideProps({ req, res }) {
+		await dbConnect();
+		const session = getSession(req, res);
 		if (session) {
 			const authUser = session.user;
-			const dbUserResponse = await axios.post(`${host}/api/users/findByEmail`, {
-				email: authUser.email,
-			});
-			const dbUser = await dbUserResponse.data;
-			const isAdmin = dbUser.role == 'admin' ? true : false;
+			const email = authUser.email;
+			const dbUserRes = await User.findOne({ email: email });
+			const dbUser = JSON.parse(JSON.stringify(dbUserRes));
+			const isAdmin = dbUser.role === 'admin' ? true : false;
 			const dbUserId = dbUser._id;
 			return {
 				props: {
