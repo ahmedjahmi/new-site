@@ -1,6 +1,11 @@
 import dbConnect from '../../../lib/dbConnect';
 import User from '../../../models/User';
 
+export async function getUserById(id) {
+	const user = await User.findById(id);
+	return user;
+}
+
 export default async function handler(req, res) {
 	const {
 		query: { id },
@@ -12,7 +17,7 @@ export default async function handler(req, res) {
 	switch (method) {
 		case 'GET':
 			try {
-				const user = await User.findById(id);
+				const user = await getUserById(id);
 				if (!user) {
 					return res.status(400).json({ success: false });
 				}

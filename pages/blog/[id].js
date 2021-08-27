@@ -10,10 +10,9 @@ import { buildUrl } from 'cloudinary-build-url';
 import remark from 'remark';
 import html from 'remark-html';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
+import { getArticlePageData } from '../api/articles/[id]';
+import { findByEmail } from '../api/users/findByEmail';
 import dbConnect from '../../lib/dbConnect';
-import Article from '../../models/Article';
-import User from '../../models/User';
-import RotationModel from '../../models/Rotation';
 
 const processMarkdown = async (content) => {
 	const processedContent = await remark().use(html).process(content);
@@ -165,14 +164,8 @@ export default function Post({
 export async function getServerSideProps({ params, req, res }) {
 	await dbConnect();
 
-	const articleRes = await Article.findById(params.id);
-	const rotationRes = await RotationModel.findOne({ article: params.id });
-	const data = JSON.parse(
-		JSON.stringify({
-			article: articleRes,
-			rotation: rotationRes,
-		})
-	);
+	const unparsedData = await getArticlePageData(params.id);
+	const data = JSON.parse(JSON.stringify(unparsedData));
 	const { article, rotation } = data;
 
 	const articleContent = await processMarkdown(article.content);
@@ -182,8 +175,8 @@ export async function getServerSideProps({ params, req, res }) {
 	if (session) {
 		const authUser = session.user;
 		const email = authUser.email;
-		const dbUserRes = await User.findOne({ email: email });
-		const dbUser = JSON.parse(JSON.stringify(dbUserRes));
+		const unparsedDbUser = await findByEmail(email);
+		const dbUser = JSON.parse(JSON.stringify(unparsedDbUser));
 		const isAdmin = dbUser.role === 'admin' ? true : false;
 
 		return {
