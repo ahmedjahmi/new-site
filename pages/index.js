@@ -7,8 +7,8 @@ import Image from 'next/image';
 import { buildUrl } from 'cloudinary-build-url';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
 import dbConnect from '../lib/dbConnect';
-import Article from '../models/Article';
-import User from '../models/User';
+import { getArticles } from './api/articles/getArticles';
+import { findByEmail } from './api/users/findByEmail';
 
 export default function Blog({ articles, dbUser, isAdmin }) {
 	const { user: authUser, error, isLoading } = useUser();
@@ -82,22 +82,15 @@ export default function Blog({ articles, dbUser, isAdmin }) {
 
 export async function getServerSideProps(context) {
 	await dbConnect();
-	const unsortedArticles = await Article.find({});
-	const articlesRes = await unsortedArticles.sort((a, b) => {
-		if (a.createdAt < b.createdAt) {
-			return 1;
-		} else {
-			return -1;
-		}
-	});
-	const articles = JSON.parse(JSON.stringify(articlesRes));
+	const unparsedArticles = await getArticles();
+	const articles = JSON.parse(JSON.stringify(unparsedArticles));
 
 	const session = getSession(context.req, context.res);
 	if (session) {
 		const authUser = session.user;
 		const email = authUser.email;
-		const dbUserRes = await User.findOne({ email: email });
-		const dbUser = JSON.parse(JSON.stringify(dbUserRes));
+		const unparsedDbUser = await findByEmail(email);
+		const dbUser = JSON.parse(JSON.stringify(unparsedDbUser));
 		const isAdmin = dbUser.role === 'admin' ? true : false;
 
 		return {

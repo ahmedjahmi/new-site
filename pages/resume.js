@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { buildUrl } from 'cloudinary-build-url';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
 import dbConnect from '../lib/dbConnect';
-import User from '../models/User';
+import { findByEmail } from '../pages/api/users/findByEmail';
 
 export default function Resume({ dbUser, isAdmin }) {
 	const { user: authUser, error, isLoading } = useUser();
@@ -34,14 +34,16 @@ export default function Resume({ dbUser, isAdmin }) {
 }
 
 export async function getServerSideProps({ req, res }) {
-	await dbConnect();
 	const session = getSession(req, res);
 
 	if (session) {
 		const authUser = session.user;
 		const email = authUser.email;
-		const dbUserRes = await User.findOne({ email: email });
-		const dbUser = JSON.parse(JSON.stringify(dbUserRes));
+
+		await dbConnect();
+
+		const unparsedDbUser = await findByEmail(email);
+		const dbUser = JSON.parse(JSON.stringify(unparsedDbUser));
 		const isAdmin = dbUser.role === 'admin' ? true : false;
 
 		return {
