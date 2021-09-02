@@ -3,8 +3,8 @@ import Layout from '../components/layout/layout';
 import pageStyles from '../styles/page.module.scss';
 import ArticleForm from '../components/forms/article/article';
 import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0';
-import { findByEmail } from '../pages/api/users/findByEmail';
-import dbConnect from '../lib/dbConnect';
+import getUserByEmail from '../lib/controllers/getUserByEmail';
+// import dbConnect from '../lib/dbConnect';
 
 export default function Editor({ dbUserId, isAdmin }) {
 	const isUser = isAdmin;
@@ -56,12 +56,12 @@ export default function Editor({ dbUserId, isAdmin }) {
 
 export const getServerSideProps = withPageAuthRequired({
 	async getServerSideProps({ req, res }) {
-		await dbConnect();
+		// await dbConnect();
 		const session = getSession(req, res);
 		if (session) {
 			const authUser = session.user;
 			const email = authUser.email;
-			const unparsedDbUser = await findByEmail(email);
+			const unparsedDbUser = await getUserByEmail({ email: email });
 			const dbUser = JSON.parse(JSON.stringify(unparsedDbUser));
 			const isAdmin = dbUser.role === 'admin' ? true : false;
 			const dbUserId = dbUser._id;

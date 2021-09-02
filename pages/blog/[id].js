@@ -10,9 +10,8 @@ import { buildUrl } from 'cloudinary-build-url';
 import remark from 'remark';
 import html from 'remark-html';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
-import { getArticlePageData } from '../api/articles/[id]';
-import { findByEmail } from '../api/users/findByEmail';
-import dbConnect from '../../lib/dbConnect';
+import getArticlePageData from '../../lib/controllers/getArticlePageData';
+import getUserByEmail from '../../lib/controllers/getUserByEmail';
 
 const processMarkdown = async (content) => {
 	const processedContent = await remark().use(html).process(content);
@@ -162,9 +161,7 @@ export default function Post({
 }
 
 export async function getServerSideProps({ params, req, res }) {
-	await dbConnect();
-
-	const unparsedData = await getArticlePageData(params.id);
+	const unparsedData = await getArticlePageData({ id: params.id });
 	const data = JSON.parse(JSON.stringify(unparsedData));
 	const { article, rotation } = data;
 
@@ -175,7 +172,7 @@ export async function getServerSideProps({ params, req, res }) {
 	if (session) {
 		const authUser = session.user;
 		const email = authUser.email;
-		const unparsedDbUser = await findByEmail(email);
+		const unparsedDbUser = await getUserByEmail({ email: email });
 		const dbUser = JSON.parse(JSON.stringify(unparsedDbUser));
 		const isAdmin = dbUser.role === 'admin' ? true : false;
 

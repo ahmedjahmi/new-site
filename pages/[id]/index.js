@@ -1,7 +1,6 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { useUser } from '@auth0/nextjs-auth0';
-import dbConnect from '../../lib/dbConnect';
-import { getUserById } from '../api/users/[id]';
+import getUserById from '../../lib/controllers/getUserById';
 
 export default function Profile({ dbUser }) {
 	const { user, error, isLoading } = useUser();
@@ -33,8 +32,7 @@ export default function Profile({ dbUser }) {
 
 export const getServerSideProps = withPageAuthRequired({
 	async getServerSideProps({ params }) {
-		await dbConnect();
-		const unparsedDbUser = await getUserById(params.id);
+		const unparsedDbUser = await getUserById({ id: params.id });
 		const dbUser = JSON.parse(JSON.stringify(unparsedDbUser));
 
 		return {
