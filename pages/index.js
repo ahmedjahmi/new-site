@@ -6,9 +6,8 @@ import Date from '../components/date';
 import Image from 'next/image';
 import { buildUrl } from 'cloudinary-build-url';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
-import dbConnect from '../lib/dbConnect';
-import { getArticles } from './api/articles/getArticles';
-import { findByEmail } from './api/users/findByEmail';
+import getArticles from '../lib/controllers/getArticles';
+import getUserByEmail from '../lib/controllers/getUserByEmail';
 
 export default function Blog({ articles, dbUser, isAdmin }) {
 	const { user: authUser, error, isLoading } = useUser();
@@ -81,15 +80,15 @@ export default function Blog({ articles, dbUser, isAdmin }) {
 }
 
 export async function getServerSideProps(context) {
-	await dbConnect();
 	const unparsedArticles = await getArticles();
 	const articles = JSON.parse(JSON.stringify(unparsedArticles));
 
 	const session = getSession(context.req, context.res);
+
 	if (session) {
 		const authUser = session.user;
 		const email = authUser.email;
-		const unparsedDbUser = await findByEmail(email);
+		const unparsedDbUser = await getUserByEmail({ email: email });
 		const dbUser = JSON.parse(JSON.stringify(unparsedDbUser));
 		const isAdmin = dbUser.role === 'admin' ? true : false;
 
@@ -101,6 +100,7 @@ export async function getServerSideProps(context) {
 			},
 		};
 	}
+
 	return {
 		props: {
 			articles: articles,

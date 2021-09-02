@@ -4,8 +4,7 @@ import pageStyles from '../styles/page.module.scss';
 import Image from 'next/image';
 import { buildUrl } from 'cloudinary-build-url';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
-import dbConnect from '../lib/dbConnect';
-import { findByEmail } from '../pages/api/users/findByEmail';
+import getUserByEmail from '../lib/controllers/getUserByEmail';
 
 export default function Resume({ dbUser, isAdmin }) {
 	const { user: authUser, error, isLoading } = useUser();
@@ -39,10 +38,7 @@ export async function getServerSideProps({ req, res }) {
 	if (session) {
 		const authUser = session.user;
 		const email = authUser.email;
-
-		await dbConnect();
-
-		const unparsedDbUser = await findByEmail(email);
+		const unparsedDbUser = await getUserByEmail({ email: email });
 		const dbUser = JSON.parse(JSON.stringify(unparsedDbUser));
 		const isAdmin = dbUser.role === 'admin' ? true : false;
 
