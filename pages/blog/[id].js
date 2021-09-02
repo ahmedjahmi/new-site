@@ -195,37 +195,3 @@ export async function getServerSideProps({ params, req, res }) {
 		},
 	};
 }
-
-// export async function getServerSideProps({ params, req, res }) {
-// 	const host = process.env.HOST;
-// 	const baseUrl = `${host}/api/articles`;
-// 	const response = await axios.get(`${baseUrl}/${params.id}`);
-// 	const { article, rotation } = await response.data.data;
-// 	const articleContent = await processMarkdown(article.content);
-// 	const session = getSession(req, res);
-// 	if (session) {
-// 		const authUser = session.user;
-// 		const dbUserResponse = await axios.post(`${host}/api/users/findByEmail`, {
-// 			email: authUser.email,
-// 		});
-// 		const dbUser = await dbUserResponse.data;
-// 		const isAdmin = dbUser.role === 'admin' ? true : false;
-// 		return {
-// 			props: {
-// 				article: article,
-// 				rotation: rotation,
-// 				articleContent: articleContent,
-// 				dbUser: dbUser,
-// 				isAdmin: isAdmin,
-// 			},
-// 		};
-// 	}
-
-// 	return {
-// 		props: {
-// 			article: article,
-// 			rotation: rotation,
-// 			articleContent: articleContent,
-// 		},
-// 	};
-// }

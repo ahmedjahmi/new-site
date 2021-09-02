@@ -4,7 +4,6 @@ import pageStyles from '../styles/page.module.scss';
 import ArticleForm from '../components/forms/article/article';
 import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0';
 import getUserByEmail from '../lib/controllers/getUserByEmail';
-// import dbConnect from '../lib/dbConnect';
 
 export default function Editor({ dbUserId, isAdmin }) {
 	const isUser = isAdmin;
