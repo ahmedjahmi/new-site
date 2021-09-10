@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Date from '../../components/date';
 import Share from '../../components/share/share';
 import Rotation from '../../components/rotation/rotation';
+import Comment from '../../components/comment';
 import pageStyles from '../../styles/page.module.scss';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
@@ -152,6 +153,7 @@ export default function Post({
 							twitterHandle={twitterHandle}
 							size={size}
 						/>
+						<Comment dbUser={dbUser} isAdmin={isAdmin} />
 						<Rotation rotation={rotation} />
 					</article>
 				</div>
