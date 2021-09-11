@@ -1,0 +1,80 @@
+@use '../../styles/base';
+
+.CommentsHeader {
+	.CommentsHeading {
+		margin: 0;
+		span {
+			display: inline-block;
+			line-height: 1;
+			background-image: linear-gradient(
+				to top,
+				base.$color-secondary-light 44%,
+				base.$color-secondary-light 44%,
+				base.$color-secondary-light 44%,
+				base.$color-secondary-light 44%,
+				transparent 54%
+			);
+		}
+	}
+}
+
+.CommentList {
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	width: 100%;
+	background: base.$color-secondary-light;
+	.Comment {
+		display: flex;
+		flex-direction: column;
+		background: base.$color-secondary-light;
+		color: base.$color-secondary-dark;
+		margin: 0.5rem 0;
+		padding: 1.25rem;
+		border: 2px solid base.$color-secondary-dark;
+		border-radius: 5px;
+		box-shadow: 2px 2px 0 base.$color-secondary-dark;
+		&:hover {
+			background: base.$color-secondary-light;
+		}
+		.CommentHeader {
+			display: flex;
+			flex-direction: row;
+			.CommentImage {
+				padding-right: 0.5rem;
+				img {
+					border-radius: 50%;
+				}
+			}
+			.CommentInfo {
+				display: flex;
+				flex-direction: column;
+				margin: 0;
+				padding: 0;
+				.CommentUser {
+					line-height: 1.2;
+				}
+				.CommentDate {
+					font-size: 0.9rem;
+					margin: 0;
+					padding: 0;
+				}
+			}
+			.CommentDelete {
+				margin-left: auto;
+				button {
+					background-color: base.$color-secondary-light;
+					color: base.$color-primary-dark;
+					border-color: base.$color-secondary-dark;
+				}
+			}
+		}
+		.CommentBody {
+			margin-top: 0.5rem;
+			.CommentText {
+				font-size: 1rem;
+				line-height: 1.2;
+			}
+		}
+	}
+}
