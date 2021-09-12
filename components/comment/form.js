@@ -1,8 +1,10 @@
+import styles from './comment.module.scss';
+
 function CommentForm({ text, setText, onSubmit, dbUser }) {
 	return (
 		<form onSubmit={onSubmit}>
 			<textarea
-				rows='2'
+				rows='3'
 				placeholder={
 					dbUser ? `Leave a comment...` : 'Please login to leave a comment'
 				}
@@ -10,7 +12,7 @@ function CommentForm({ text, setText, onSubmit, dbUser }) {
 				value={text}
 				disabled={!dbUser}
 			/>
-			<div>
+			<div className={styles.CommentSubmit}>
 				{dbUser ? (
 					<div>
 						<button type='submit'>Submit</button>
