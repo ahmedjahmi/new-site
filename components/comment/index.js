@@ -14,6 +14,9 @@ function Comment({ isAdmin, dbUser }) {
 		swrError,
 	} = useComments();
 
+	if (isLoading) return <div>loading comments...</div>;
+	if (isError) return <div>{swrError}</div>;
+
 	return (
 		<div>
 			<CommentForm
