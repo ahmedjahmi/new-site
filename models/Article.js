@@ -32,6 +32,12 @@ const ArticleSchema = new mongoose.Schema(
 			type: String,
 			required: [true, 'Please provide content for this Article'],
 		},
+		comments: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'Comment',
+			},
+		],
 	},
 	{
 		timestamps: true,
