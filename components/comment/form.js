@@ -1,4 +1,5 @@
 import styles from './comment.module.scss';
+import Link from 'next/link';
 
 function CommentForm({ text, setText, onSubmit, dbUser }) {
 	return (
@@ -18,7 +19,11 @@ function CommentForm({ text, setText, onSubmit, dbUser }) {
 						<button type='submit'>Submit</button>
 					</div>
 				) : (
-					<button>Login</button>
+					<div>
+						<Link href='/api/auth/login'>
+							<a className={styles.CommentLogin}>Login</a>
+						</Link>
+					</div>
 				)}
 			</div>
 		</form>

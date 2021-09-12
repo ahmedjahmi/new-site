@@ -10,6 +10,21 @@
 		color: base.$color-primary-dark;
 		border-color: base.$color-secondary-dark;
 	}
+	.CommentLogin {
+		background-color: base.$color-secondary-light;
+		color: base.$color-primary-dark;
+		border-color: base.$color-secondary-dark;
+		display: inline-block;
+		text-align: center;
+		align-items: flex-start;
+		margin: 0em;
+		font: 400 13.3333px Arial;
+		padding: 1px 6px;
+		border-width: 2px;
+		border-style: outset;
+		border-image: initial;
+		text-decoration: none;
+	}
 }
 
 .CommentsHeader {
