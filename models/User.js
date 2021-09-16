@@ -29,6 +29,10 @@ const UserSchema = new mongoose.Schema(
 			trim: true,
 			lowercase: true,
 		},
+		fullName: {
+			type: String,
+			trim: true,
+		},
 		username: {
 			type: String,
 			trim: true,

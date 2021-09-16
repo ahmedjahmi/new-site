@@ -17,7 +17,6 @@ export default function Profile({ dbUser }) {
 				<>
 					<p>Hello, {user.email}!</p>
 					<p>Hello mongodb user {dbUser.email}</p>
-					<p>Hello mongodb username {dbUser.username}</p>
 				</>
 			)}
 			{!isLoading && !error && !user && (
