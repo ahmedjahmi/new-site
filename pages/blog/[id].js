@@ -4,6 +4,7 @@ import Date from '../../components/date';
 import Share from '../../components/share/share';
 import Rotation from '../../components/rotation/rotation';
 import Comment from '../../components/comment';
+import Likes from '../../components/likes';
 import pageStyles from '../../styles/page.module.scss';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
@@ -147,12 +148,15 @@ export default function Post({
 								alt='Ahmed Jahmi'
 							/>
 						</div>
-						<Share
-							blogPostUrl={blogPostUrl}
-							title={article.title}
-							twitterHandle={twitterHandle}
-							size={size}
-						/>
+						<div className={pageStyles.socialContainer}>
+							<Likes dbUser={dbUser} isAdmin={isAdmin} />
+							<Share
+								blogPostUrl={blogPostUrl}
+								title={article.title}
+								twitterHandle={twitterHandle}
+								size={size}
+							/>
+						</div>
 						<Comment dbUser={dbUser} isAdmin={isAdmin} />
 						<Rotation rotation={rotation} />
 					</article>

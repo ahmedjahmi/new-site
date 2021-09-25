@@ -16,6 +16,12 @@
 	max-width: 36rem;
 	padding: 0 1rem;
 	margin: 3rem auto 6rem;
+	.socialContainer {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		margin: 1rem 0;
+	}
 }
 
 .hero {
