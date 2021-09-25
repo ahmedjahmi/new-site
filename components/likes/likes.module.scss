@@ -1,0 +1,29 @@
+@use '../../styles/base';
+
+.likesContainer {
+	display: flex;
+	margin-top: 4px;
+}
+.likeButton {
+	display: inline-block;
+	margin-top: 2px;
+	margin-right: 5px;
+	button {
+		background-color: base.$color-secondary-light;
+		color: base.$color-primary-dark;
+		border: none;
+		padding: 0;
+	}
+}
+
+.unlikeButton {
+	display: inline-block;
+	margin-top: 2px;
+	margin-right: 5px;
+	button {
+		background-color: base.$color-secondary-light;
+		color: base.$color-primary-dark;
+		border: none;
+		padding: 0;
+	}
+}
