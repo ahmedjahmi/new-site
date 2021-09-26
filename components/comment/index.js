@@ -2,7 +2,7 @@ import CommentForm from './form';
 import CommentList from './list';
 import useComments from '../../lib/hooks/useComments';
 
-function Comment({ isAdmin, dbUser }) {
+function Comment({ isAdmin, dbUser, prefetchedComments, queryId }) {
 	const {
 		text,
 		setText,
@@ -12,7 +12,7 @@ function Comment({ isAdmin, dbUser }) {
 		isLoading,
 		isError,
 		swrError,
-	} = useComments();
+	} = useComments({ prefetchedComments: prefetchedComments, queryId: queryId });
 
 	if (isLoading) return <div>loading comments...</div>;
 	if (isError) return <div>{swrError}</div>;

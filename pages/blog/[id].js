@@ -29,6 +29,7 @@ export default function Post({
 	articleContent,
 	dbUser,
 	isAdmin,
+	queryId,
 }) {
 	const router = useRouter();
 	const { user: authUser, error, isLoading } = useUser();
@@ -149,7 +150,12 @@ export default function Post({
 							/>
 						</div>
 						<div className={pageStyles.socialContainer}>
-							<Likes dbUser={dbUser} isAdmin={isAdmin} />
+							<Likes
+								dbUser={dbUser}
+								isAdmin={isAdmin}
+								prefetchedLikes={article.likes}
+								queryId={queryId}
+							/>
 							<Share
 								blogPostUrl={blogPostUrl}
 								title={article.title}
@@ -157,7 +163,12 @@ export default function Post({
 								size={size}
 							/>
 						</div>
-						<Comment dbUser={dbUser} isAdmin={isAdmin} />
+						<Comment
+							dbUser={dbUser}
+							isAdmin={isAdmin}
+							prefetchedComments={article.comments}
+							queryId={queryId}
+						/>
 						<Rotation rotation={rotation} />
 					</article>
 				</div>
@@ -167,6 +178,7 @@ export default function Post({
 }
 
 export async function getServerSideProps({ params, req, res }) {
+	const queryId = params.id;
 	const unparsedData = await getArticlePageData({ id: params.id });
 	const data = JSON.parse(JSON.stringify(unparsedData));
 	const { article, rotation } = data;
@@ -189,6 +201,7 @@ export async function getServerSideProps({ params, req, res }) {
 				articleContent: articleContent,
 				dbUser: dbUser,
 				isAdmin: isAdmin,
+				queryId: queryId,
 			},
 		};
 	}
@@ -198,6 +211,7 @@ export async function getServerSideProps({ params, req, res }) {
 			article: article,
 			rotation: rotation,
 			articleContent: articleContent,
+			queryId: queryId,
 		},
 	};
 }
