@@ -14,3 +14,10 @@
 		background: base.$color-primary-light;
 	}
 }
+
+.cardHorizontal {
+	flex-direction: row;
+	align-items: center;
+	margin-top: 1rem;
+	padding: 0.5rem;
+}
