@@ -2,7 +2,7 @@ import CommentForm from './form';
 import CommentList from './list';
 import useComments from '../../lib/hooks/useComments';
 
-function Comment({ isAdmin, dbUser, prefetchedComments, queryId }) {
+function Comments({ isAdmin, dbUser, prefetchedComments, queryId }) {
 	const {
 		text,
 		setText,
@@ -38,4 +38,4 @@ function Comment({ isAdmin, dbUser, prefetchedComments, queryId }) {
 	);
 }
 
-export default Comment;
+export default Comments;

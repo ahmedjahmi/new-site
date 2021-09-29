@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Date from '../../components/date';
 import Share from '../../components/share/share';
 import Rotation from '../../components/rotation/rotation';
-import Comment from '../../components/comment';
+import Comments from '../../components/comments';
 import Likes from '../../components/likes';
 import pageStyles from '../../styles/page.module.scss';
 import { useRouter } from 'next/router';
@@ -163,7 +163,7 @@ export default function Post({
 								size={size}
 							/>
 						</div>
-						<Comment
+						<Comments
 							dbUser={dbUser}
 							isAdmin={isAdmin}
 							prefetchedComments={article.comments}
