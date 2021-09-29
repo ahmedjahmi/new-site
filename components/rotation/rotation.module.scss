@@ -25,28 +25,14 @@
 	a {
 		text-decoration: none;
 	}
-	.rotationItem {
-		display: flex;
-		flex-direction: row;
-		color: base.$color-secondary-dark;
-		align-items: center;
-		margin-top: 1rem;
-		padding: 0.5rem;
-		border: 2px solid base.$color-secondary-dark;
-		border-radius: 5px;
-		box-shadow: 2px 2px 0 base.$color-secondary-dark;
-		&:hover {
-			background: base.$color-primary-light;
-		}
-		.rotationItemType {
-			width: 20%;
-			margin: 0.5rem;
-			padding: 0 0.5rem;
-		}
-		.rotationItemLink {
-			width: 80%;
-			margin: 0.5rem;
-			padding: 0 0.5rem;
-		}
+	.rotationItemType {
+		width: 20%;
+		margin: 0.5rem;
+		padding: 0 0.5rem;
+	}
+	.rotationItemLink {
+		width: 80%;
+		margin: 0.5rem;
+		padding: 0 0.5rem;
 	}
 }
