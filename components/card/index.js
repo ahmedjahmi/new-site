@@ -4,7 +4,7 @@ function Card({ children, key, modifier }) {
 	const isHorizontal = modifier === 'horizontal' ? true : false;
 	return (
 		<>
-			<div
+			<article
 				key={key}
 				className={
 					isHorizontal
@@ -13,7 +13,7 @@ function Card({ children, key, modifier }) {
 				}
 			>
 				{children}
-			</div>
+			</article>
 		</>
 	);
 }
