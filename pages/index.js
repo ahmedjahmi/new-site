@@ -9,7 +9,7 @@ import { useUser, getSession } from '@auth0/nextjs-auth0';
 import getArticles from '../lib/controllers/getArticles';
 import getUserByEmail from '../lib/controllers/getUserByEmail';
 
-export default function Blog({ articles, dbUser, isAdmin }) {
+export default function HomePage({ articles, dbUser, isAdmin }) {
 	const { user: authUser, error, isLoading } = useUser();
 	const isUser = authUser ? true : false;
 	const userId = dbUser ? dbUser._id : null;
@@ -53,26 +53,6 @@ export default function Blog({ articles, dbUser, isAdmin }) {
 							/>
 						</div>
 					</div>
-				</section>
-				<section className={`${pageStyles.headingMd} ${pageStyles.padding1px}`}>
-					<h2 className={pageStyles.headingLg}>Blog</h2>
-					<ul className={pageStyles.list}>
-						{articles.map(({ _id, createdAt, title }) => (
-							<li className={pageStyles.listItem} key={_id}>
-								<Link href='/blog/[id]' as={`/blog/${_id}`}>
-									<a>
-										{title}
-										<p className={pageStyles.blogAuthor}>
-											written by Ahmed Jahmi
-										</p>
-										<small className={pageStyles.dateText}>
-											<Date dateString={createdAt} />
-										</small>
-									</a>
-								</Link>
-							</li>
-						))}
-					</ul>
 				</section>
 			</div>
 		</Layout>
