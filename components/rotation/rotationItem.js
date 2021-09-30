@@ -1,14 +1,15 @@
+import Card from '../card';
 import styles from './rotation.module.scss';
 import Link from 'next/link';
 
-export default function RotationItem(props) {
+export default function RotationItem({ rotationType, url, title }) {
 	return (
-		<Link href={props.url}>
-			<a href={props.url} target='_blank'>
-				<div className={styles.rotationItem}>
-					<div className={styles.rotationItemType}>{props.rotationType}</div>
-					<div className={styles.rotationItemLink}>{props.title}</div>
-				</div>
+		<Link href={url}>
+			<a href={url} target='_blank'>
+				<Card modifier='horizontal'>
+					<div className={styles.rotationItemType}>{rotationType}</div>
+					<div className={styles.rotationItemLink}>{title}</div>
+				</Card>
 			</a>
 		</Link>
 	);

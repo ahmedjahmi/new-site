@@ -24,6 +24,7 @@ export default function Nav({ isAdmin, isUser, userId }) {
 	const menu = [
 		'home',
 		'resume',
+		'blog',
 		...(isUser ? ['logout'] : ['login']),
 		...(isUser ? ['profile'] : []),
 		...(isAdmin ? ['editor'] : []),
@@ -39,6 +40,10 @@ export default function Nav({ isAdmin, isUser, userId }) {
 			}
 			case 'resume': {
 				pathFromVal = '/resume';
+				break;
+			}
+			case 'blog': {
+				pathFromVal = '/blog';
 				break;
 			}
 			case 'logout': {
