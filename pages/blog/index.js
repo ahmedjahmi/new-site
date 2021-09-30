@@ -1,14 +1,11 @@
 import Head from 'next/head';
-import Link from 'next/link';
-import Image from 'next/image';
 import Layout, { siteTitle } from '../../components/layout/layout';
-import pageStyles from '../../styles/page.module.scss';
-import Date from '../../components/date';
+import Blog from '../../components/blog';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
 import getArticles from '../../lib/controllers/getArticles';
 import getUserByEmail from '../../lib/controllers/getUserByEmail';
 
-export default function Blog({ articles, dbUser, isAdmin }) {
+export default function BlogPage({ articles, dbUser, isAdmin }) {
 	const { user: authUser, error, isLoading } = useUser();
 	const isUser = authUser ? true : false;
 	const userId = dbUser ? dbUser._id : null;
@@ -21,7 +18,7 @@ export default function Blog({ articles, dbUser, isAdmin }) {
 			<Head>
 				<title>{siteTitle}</title>
 			</Head>
-			<div>content goes here.</div>
+			<Blog articles={articles} />
 		</Layout>
 	);
 }
