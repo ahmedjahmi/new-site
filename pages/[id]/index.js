@@ -2,7 +2,7 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { useUser } from '@auth0/nextjs-auth0';
 import getUserById from '../../lib/controllers/getUserById';
 
-export default function Profile({ dbUser }) {
+export default function ProfilePage({ dbUser }) {
 	const { user, error, isLoading } = useUser();
 	return (
 		<>
