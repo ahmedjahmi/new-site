@@ -5,7 +5,7 @@ import MenuItem from './menuItem';
 import MenuButton from './menuButton';
 import Menu from './menu';
 
-export default function Nav({ isAdmin, isUser, userId }) {
+export default function Nav({ isAdmin, isLoggedIn, userId }) {
 	const [menuOpen, setMenuOpen] = useState(false);
 
 	const handleMenuClick = () => {
@@ -25,8 +25,8 @@ export default function Nav({ isAdmin, isUser, userId }) {
 		'home',
 		'resume',
 		'blog',
-		...(isUser ? ['logout'] : ['login']),
-		...(isUser ? ['profile'] : []),
+		...(isLoggedIn ? ['logout'] : ['login']),
+		...(isLoggedIn ? ['profile'] : []),
 		...(isAdmin ? ['editor'] : []),
 	];
 

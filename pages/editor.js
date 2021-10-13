@@ -6,7 +6,7 @@ import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0';
 import getUserByEmail from '../lib/controllers/getUserByEmail';
 
 export default function Editor({ dbUserId, isAdmin }) {
-	const isUser = isAdmin;
+	const isLoggedIn = isAdmin;
 	const userId = dbUserId;
 	if (isAdmin) {
 		const articleForm = {
@@ -29,7 +29,7 @@ export default function Editor({ dbUserId, isAdmin }) {
 		};
 
 		return (
-			<Layout isAdmin={isAdmin} isUser={isUser} userId={userId}>
+			<Layout isAdmin={isAdmin} isLoggedIn={isLoggedIn} userId={userId}>
 				<Head>
 					<title>Ahmed Jahmi | Editor</title>
 				</Head>

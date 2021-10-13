@@ -7,14 +7,14 @@ import getUserByEmail from '../../lib/controllers/getUserByEmail';
 
 export default function BlogPage({ articles, dbUser, isAdmin }) {
 	const { user: authUser, error, isLoading } = useUser();
-	const isUser = authUser ? true : false;
+	const isLoggedIn = authUser ? true : false;
 	const userId = dbUser ? dbUser._id : null;
 
 	if (isLoading) return <div>Loading...</div>;
 	if (error) return <div>{error.message}</div>;
 
 	return (
-		<Layout isAdmin={isAdmin} isUser={isUser} userId={userId}>
+		<Layout isAdmin={isAdmin} isLoggedIn={isLoggedIn} userId={userId}>
 			<Head>
 				<title>{siteTitle}</title>
 			</Head>

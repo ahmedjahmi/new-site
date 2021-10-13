@@ -7,7 +7,7 @@ import Nav from '../nav/nav';
 const name = 'Ahmed Jahmi';
 export const siteTitle = 'AhmedJahmi.com';
 
-export default function Layout({ children, isAdmin, isUser, userId }) {
+export default function Layout({ children, isAdmin, isLoggedIn, userId }) {
 	return (
 		<div className={styles.container}>
 			{/* <Head> */}
@@ -23,7 +23,7 @@ export default function Layout({ children, isAdmin, isUser, userId }) {
 				<meta name='twitter:card' content='summary_large_image' /> */}
 			{/* </Head> */}
 			<header className={styles.header}>
-				<Nav isAdmin={isAdmin} isUser={isUser} userId={userId} />
+				<Nav isAdmin={isAdmin} isLoggedIn={isLoggedIn} userId={userId} />
 			</header>
 			<main>{children}</main>
 		</div>

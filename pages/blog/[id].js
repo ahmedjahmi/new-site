@@ -33,7 +33,7 @@ export default function Post({
 }) {
 	const router = useRouter();
 	const { user: authUser, error, isLoading } = useUser();
-	const isUser = authUser ? true : false;
+	const isLoggedIn = authUser ? true : false;
 	const userId = dbUser ? dbUser._id : null;
 	// const host = process.env.NEXT_PUBLIC_HOST;
 	// const host = 'https://www.ahmedjahmi.com';
@@ -93,7 +93,7 @@ export default function Post({
 	if (error) return <div>{error.message}</div>;
 
 	return (
-		<Layout isAdmin={isAdmin} isUser={isUser} userId={userId}>
+		<Layout isAdmin={isAdmin} isLoggedIn={isLoggedIn} userId={userId}>
 			<NextSeo {...postMetaData} />
 			<div className={pageStyles.blogArticlePageContainer}>
 				<div className={pageStyles.hero}>
