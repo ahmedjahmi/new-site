@@ -1,0 +1,11 @@
+@use '../../styles/base';
+
+.avatar {
+	flex-basis: 40%;
+	width: 100%;
+	height: auto;
+	margin: auto 0;
+	.avatarImage {
+		border-radius: 50%;
+	}
+}
