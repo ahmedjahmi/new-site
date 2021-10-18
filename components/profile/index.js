@@ -5,7 +5,7 @@ import styles from './profile.module.scss';
 import Avatar from '../avatar';
 import Heading from '../heading';
 import { buildUrl } from 'cloudinary-build-url';
-import distanceToNow from '../../lib/dateRelative';
+import distanceToNow from '../../lib/utils/dateRelative';
 import ProfileForm from './form';
 
 function Profile({ dbUser, isAdmin, isUser, profileUser }) {
