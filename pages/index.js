@@ -6,7 +6,7 @@ import Date from '../components/date';
 import Image from 'next/image';
 import { buildUrl } from 'cloudinary-build-url';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
-import getArticles from '../lib/controllers/getArticles';
+import getArticles from '../lib/controllers/articles/getArticles';
 import getUserByEmail from '../lib/controllers/users/getUserByEmail';
 
 export default function HomePage({ articles, dbUser, isAdmin }) {

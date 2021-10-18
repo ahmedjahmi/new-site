@@ -1,5 +1,5 @@
-import createComment from '../../../lib/controllers/createComment';
-import deleteComment from '../../../lib/controllers/deleteComment';
+import createComment from '../../../lib/controllers/comments/createComment';
+import deleteComment from '../../../lib/controllers/comments/deleteComment';
 
 export default async function handler(req, res) {
 	switch (req.method) {

@@ -1,10 +1,10 @@
-import getCommentsByArticle from '../../../lib/controllers/getCommentsByArticle';
-import deleteComment from '../../../lib/controllers/deleteComment';
+import getComments from '../../../lib/controllers/comments/getComments';
+import deleteComment from '../../../lib/controllers/comments/deleteComment';
 
 export default async function handler(req, res) {
 	switch (req.method) {
 		case 'GET':
-			return getCommentsByArticle({ req: req, res: res });
+			return getComments({ req: req, res: res });
 		case 'DELETE':
 			return deleteComment(req, res);
 		default:
