@@ -8,7 +8,7 @@ import getUserByEmail from '../lib/controllers/getUserByEmail';
 
 export default function Resume({ dbUser, isAdmin }) {
 	const { user: authUser, error, isLoading } = useUser();
-	const isUser = authUser ? true : false;
+	const isLoggedIn = authUser ? true : false;
 	const userId = dbUser ? dbUser._id : null;
 	const myResume =
 		'https://res.cloudinary.com/ds2pg7vex/image/upload/v1621435955/ahmed-jahmi-blog/Copy_of_resume_AhmedJahmi_3_j5dokq.png';
@@ -19,7 +19,7 @@ export default function Resume({ dbUser, isAdmin }) {
 	});
 
 	return (
-		<Layout isUser={isUser} isAdmin={isAdmin} userId={userId}>
+		<Layout isLoggedIn={isLoggedIn} isAdmin={isAdmin} userId={userId}>
 			<Head>
 				<title>Ahmed Jahmi | Resume</title>
 			</Head>

@@ -1,0 +1,22 @@
+@use '../../styles/base';
+
+.profile {
+	display: flex;
+	flex-direction: row;
+	.profileText {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		ul {
+			list-style-type: none;
+		}
+	}
+	.profileButtonEdit {
+		margin-left: auto;
+		button {
+			background-color: base.$color-secondary-light;
+			color: base.$color-primary-dark;
+			border-color: base.$color-secondary-dark;
+		}
+	}
+}
