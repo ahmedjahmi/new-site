@@ -1,15 +1,12 @@
 import Head from 'next/head';
 import Layout, { siteTitle } from '../components/layout/layout';
 import pageStyles from '../styles/page.module.scss';
-import Link from 'next/link';
-import Date from '../components/date';
 import Image from 'next/image';
 import { buildUrl } from 'cloudinary-build-url';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
-import getArticles from '../lib/controllers/articles/getArticles';
 import getUserByEmail from '../lib/controllers/users/getUserByEmail';
 
-export default function HomePage({ articles, dbUser, isAdmin }) {
+export default function HomePage({ dbUser, isAdmin }) {
 	const { user: authUser, error, isLoading } = useUser();
 	const isLoggedIn = authUser ? true : false;
 	const userId = dbUser ? dbUser._id : null;
@@ -60,9 +57,6 @@ export default function HomePage({ articles, dbUser, isAdmin }) {
 }
 
 export async function getServerSideProps(context) {
-	const unparsedArticles = await getArticles();
-	const articles = JSON.parse(JSON.stringify(unparsedArticles));
-
 	const session = getSession(context.req, context.res);
 
 	if (session) {
@@ -71,10 +65,8 @@ export async function getServerSideProps(context) {
 		const unparsedDbUser = await getUserByEmail({ email: email });
 		const dbUser = JSON.parse(JSON.stringify(unparsedDbUser));
 		const isAdmin = dbUser.role === 'admin' ? true : false;
-
 		return {
 			props: {
-				articles: articles,
 				dbUser: dbUser,
 				isAdmin: isAdmin,
 			},
@@ -82,8 +74,6 @@ export async function getServerSideProps(context) {
 	}
 
 	return {
-		props: {
-			articles: articles,
-		},
+		props: {},
 	};
 }
