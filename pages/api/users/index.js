@@ -1,6 +1,6 @@
-import getUsers from '../../../lib/controllers/getUsers';
-import createUser from '../../../lib/controllers/createUser';
-import getUserByEmail from '../../../lib/controllers/getUserByEmail';
+import getUsers from '../../../lib/controllers/users/getUsers';
+import createUser from '../../../lib/controllers/users/createUser';
+import getUserByEmail from '../../../lib/controllers/users/getUserByEmail';
 
 export default async function handler(req, res) {
 	switch (req.method) {

@@ -12,8 +12,8 @@ import { buildUrl } from 'cloudinary-build-url';
 import remark from 'remark';
 import html from 'remark-html';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
-import getArticlePageData from '../../lib/controllers/getArticlePageData';
-import getUserByEmail from '../../lib/controllers/getUserByEmail';
+import getArticlePageData from '../../lib/controllers/articles/getArticlePageData';
+import getUserByEmail from '../../lib/controllers/users/getUserByEmail';
 
 const processMarkdown = async (content) => {
 	const processedContent = await remark().use(html).process(content);

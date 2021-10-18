@@ -1,5 +1,5 @@
-import createArticle from '../../../lib/controllers/createArticle';
-import getArticles from '../../../lib/controllers/getArticles';
+import createArticle from '../../../lib/controllers/articles/createArticle';
+import getArticles from '../../../lib/controllers/articles/getArticles';
 
 export const config = {
 	api: {

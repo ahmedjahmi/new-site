@@ -1,4 +1,4 @@
-import distanceToNow from '../../lib/dateRelative';
+import distanceToNow from '../../lib/utils/dateRelative';
 import { buildUrl } from 'cloudinary-build-url';
 import Card from '../card';
 import styles from './comment.module.scss';

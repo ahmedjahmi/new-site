@@ -1,8 +1,8 @@
 import Layout from '../../components/layout/layout';
 import Profile from '../../components/profile';
 import { useUser, withPageAuthRequired, getSession } from '@auth0/nextjs-auth0';
-import getUserById from '../../lib/controllers/getUserById';
-import getUserByEmail from '../../lib/controllers/getUserByEmail';
+import getUserById from '../../lib/controllers/users/getUserById';
+import getUserByEmail from '../../lib/controllers/users/getUserByEmail';
 
 export default function ProfilePage({ dbUser, isAdmin, isUser, profileUser }) {
 	const { user: authUser, error, isLoading } = useUser();
