@@ -3,7 +3,7 @@ import Layout, { siteTitle } from '../../components/layout/layout';
 import Blog from '../../components/blog';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
 import getArticles from '../../lib/controllers/getArticles';
-import getUserByEmail from '../../lib/controllers/getUserByEmail';
+import getUserByEmail from '../../lib/controllers/users/getUserByEmail';
 
 export default function BlogPage({ articles, dbUser, isAdmin }) {
 	const { user: authUser, error, isLoading } = useUser();

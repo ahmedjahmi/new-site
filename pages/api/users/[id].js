@@ -1,6 +1,6 @@
-import getUserById from '../../../lib/controllers/getUserById';
-import updateUser from '../../../lib/controllers/updateUser';
-import deleteUser from '../../../lib/controllers/deleteUser';
+import getUserById from '../../../lib/controllers/users/getUserById';
+import updateUser from '../../../lib/controllers/users/updateUser';
+import deleteUser from '../../../lib/controllers/users/deleteUser';
 
 export const config = {
 	api: {

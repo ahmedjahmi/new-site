@@ -4,7 +4,7 @@ import pageStyles from '../styles/page.module.scss';
 import Image from 'next/image';
 import { buildUrl } from 'cloudinary-build-url';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
-import getUserByEmail from '../lib/controllers/getUserByEmail';
+import getUserByEmail from '../lib/controllers/users/getUserByEmail';
 
 export default function Resume({ dbUser, isAdmin }) {
 	const { user: authUser, error, isLoading } = useUser();
