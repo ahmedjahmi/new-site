@@ -9,18 +9,21 @@ import distanceToNow from '../../lib/utils/dateRelative';
 import ProfileForm from './form';
 
 function Profile({ dbUser, isAdmin, isUser, profileUser }) {
+	const { email, firstName, lastName, username, image_url, createdAt } =
+		profileUser;
 	const profileForm = {
-		firstName: profileUser.firstName || '',
-		lastName: profileUser.lastName || '',
-		username: profileUser.username || '',
+		firstName: firstName || '',
+		lastName: lastName || '',
+		username: username || '',
 		image_url: '',
 	};
 	const [editProfile, setEditProfile] = useState(false);
 	const handleEdit = () => {
 		setEditProfile(!editProfile);
 	};
-	const { email, firstName, lastName, username, image_url, createdAt } =
-		profileUser;
+	const capitalFirstName =
+		firstName.charAt(0).toUpperCase() + firstName.slice(1);
+	const capitalLastName = lastName.charAt(0).toUpperCase() + lastName.slice(1);
 	const hasImage = image_url ? true : false;
 	const imageSrc = (hasImage) => {
 		if (hasImage) {
@@ -48,11 +51,11 @@ function Profile({ dbUser, isAdmin, isUser, profileUser }) {
 						<ul>
 							<li>
 								<b>First Name: </b>
-								{typeof firstName !== 'undefined' ? firstName : "' '"}
+								{typeof firstName !== 'undefined' ? capitalFirstName : "' '"}
 							</li>
 							<li>
 								<b>Last Name: </b>
-								{typeof lastName !== 'undefined' ? lastName : "' '"}
+								{typeof lastName !== 'undefined' ? capitalLastName : "' '"}
 							</li>
 							<li>
 								<b>Email: </b>
