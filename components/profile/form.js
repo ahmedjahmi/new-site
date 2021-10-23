@@ -11,7 +11,6 @@ function ProfileForm({ profileForm, userId, formId }) {
 	const [form, setForm] = useState({
 		firstName: profileForm.firstName,
 		lastName: profileForm.lastName,
-		// fullName: fullName,
 		username: profileForm.username,
 	});
 
@@ -63,44 +62,40 @@ function ProfileForm({ profileForm, userId, formId }) {
 	return (
 		<>
 			<form id={formId} onSubmit={handleSubmit}>
-				<label>
-					First Name
-					<input
-						type='text'
-						name='firstName'
-						value={form.firstName}
-						onChange={handleChange}
-					/>
-				</label>
+				<label htmlFor='firstName'>First Name:</label>
+				<input
+					type='text'
+					name='firstName'
+					id='firstName'
+					value={form.firstName}
+					onChange={handleChange}
+				/>
 
-				<label>
-					Last Name
-					<input
-						type='text'
-						name='lastName'
-						value={form.lastName}
-						onChange={handleChange}
-					/>
-				</label>
+				<label htmlFor='lastName'>Last Name:</label>
+				<input
+					type='text'
+					name='lastName'
+					id='lastName'
+					value={form.lastName}
+					onChange={handleChange}
+				/>
 
-				<label>
-					Username
-					<input
-						type='text'
-						name='username'
-						value={form.username}
-						onChange={handleChange}
-					/>
-				</label>
+				<label htmlFor='username'>Username:</label>
+				<input
+					type='text'
+					name='username'
+					id='username'
+					value={form.username}
+					onChange={handleChange}
+				/>
 
-				<label>
-					Profile Image
-					<input
-						type='file'
-						name='file'
-						onChange={(e) => setFile(e.target.files[0])}
-					/>
-				</label>
+				<label htmlFor='profileImage'>Profile Image:</label>
+				<input
+					type='file'
+					name='profileImage'
+					id='profileImage'
+					onChange={(e) => setFile(e.target.files[0])}
+				/>
 				<button type='submit'>Submit</button>
 			</form>
 		</>
