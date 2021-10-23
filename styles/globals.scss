@@ -82,10 +82,11 @@ textarea {
 	border: 1px solid base.$color-primary;
 	box-shadow: 1px 1px 1px base.$color-primary-dark;
 	overflow: auto;
+	margin-bottom: 0.4rem;
 }
 
 input {
 	display: block;
 	width: 100%;
-	margin-bottom: 0.25rem;
+	margin-bottom: 0.4rem;
 }
