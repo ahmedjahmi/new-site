@@ -83,3 +83,9 @@ textarea {
 	box-shadow: 1px 1px 1px base.$color-primary-dark;
 	overflow: auto;
 }
+
+input {
+	display: block;
+	width: 100%;
+	margin-bottom: 0.25rem;
+}
