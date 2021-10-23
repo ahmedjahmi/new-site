@@ -105,7 +105,7 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 		<>
 			<form id={formId} onSubmit={handleSubmit}>
 				<label>
-					Title
+					Title:
 					<input
 						type='text'
 						name='title'
@@ -116,7 +116,7 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 				</label>
 
 				<label>
-					Description
+					Description:
 					<input
 						type='text'
 						name='description'
@@ -127,7 +127,7 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 				</label>
 
 				<label>
-					Cover Image
+					Cover Image:
 					<input
 						type='file'
 						name='file'
@@ -136,7 +136,7 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 				</label>
 
 				<label>
-					Image Alt Text
+					Image Alt Text:
 					<input
 						type='text'
 						name='image_alt'
@@ -147,7 +147,7 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 				</label>
 
 				<label>
-					User
+					User:
 					<input
 						type='text'
 						name='user'
@@ -159,7 +159,7 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 				</label>
 
 				<label>
-					Artist
+					Artist:
 					<input
 						type='text'
 						name='by_artist'
@@ -170,7 +170,7 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 				</label>
 
 				<label>
-					Artist URL
+					Artist URL:
 					<input
 						type='text'
 						name='artist_url'
@@ -181,7 +181,7 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 				</label>
 
 				<label>
-					Content
+					Content:
 					<textarea
 						name='content'
 						value={form.content}
@@ -191,7 +191,7 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 				</label>
 
 				<label>
-					Music Title
+					Music Title:
 					<input
 						type='text'
 						name='music_title'
@@ -202,7 +202,7 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 				</label>
 
 				<label>
-					Music URL
+					Music URL:
 					<input
 						type='text'
 						name='music_url'
@@ -213,7 +213,7 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 				</label>
 
 				<label>
-					Podcast Title
+					Podcast Title:
 					<input
 						type='text'
 						name='podcast_title'
@@ -224,7 +224,7 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 				</label>
 
 				<label>
-					Podcast URL
+					Podcast URL:
 					<input
 						type='text'
 						name='podcast_url'
@@ -235,7 +235,7 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 				</label>
 
 				<label>
-					TV Title
+					TV Title:
 					<input
 						type='text'
 						name='tv_title'
@@ -246,7 +246,7 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 				</label>
 
 				<label>
-					TV URL
+					TV URL:
 					<input
 						type='text'
 						name='tv_url'
@@ -257,7 +257,7 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 				</label>
 
 				<label>
-					Book Title
+					Book Title:
 					<input
 						type='text'
 						name='book_title'
@@ -268,7 +268,7 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 				</label>
 
 				<label>
-					Book URL
+					Book URL:
 					<input
 						type='text'
 						name='book_url'
