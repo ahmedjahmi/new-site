@@ -6,24 +6,21 @@ import Rotation from '../../components/rotation/rotation';
 import Comments from '../../components/comments';
 import Likes from '../../components/likes';
 import pageStyles from '../../styles/page.module.scss';
+import Post from '../../components/blog/post';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { buildUrl } from 'cloudinary-build-url';
-import remark from 'remark';
-import html from 'remark-html';
+import {
+	getImageSrc,
+	getImageMetaSrc,
+	getAuthorImage,
+} from '../../lib/utils/cloudinary';
+import processMarkdown from '../../lib/utils/processMarkdown';
+// import getPostMetaData from '../../lib/utils/postMetaData';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
 import getArticlePageData from '../../lib/controllers/articles/getArticlePageData';
 import getUserByEmail from '../../lib/controllers/users/getUserByEmail';
 
-const processMarkdown = async (content) => {
-	const processedContent = await remark().use(html).process(content);
-	const contentHtml = processedContent.toString();
-	return {
-		contentHtml,
-	};
-};
-
-export default function Post({
+export default function PostPage({
 	article,
 	rotation,
 	articleContent,
@@ -43,35 +40,19 @@ export default function Post({
 	// const blogPostUrl = 'https://www.ahmedjahmi.com';
 	const blogPostUrl = host + router.asPath;
 	const twitterHandle = process.env.NEXT_PUBLIC_TWITTER_HANDLE;
-	const size = 32;
+	// const size = 32;
 
-	// cloudinary
-	const src = buildUrl(article.image_url, {
-		cloud: {
-			cloudName: 'ds2pg7vex',
-		},
-	});
+	const src = getImageSrc(article.image_url);
 
-	const metaSrc = buildUrl(article.image_url, {
-		cloud: {
-			cloudName: 'ds2pg7vex',
-		},
-		transformations: {
-			width: 1200,
-			height: 628,
-		},
-	});
+	const metaSrc = getImageMetaSrc(article.image_url);
 
 	const authorImg =
 		'https://res.cloudinary.com/ds2pg7vex/image/upload/v1621104211/ahmed-jahmi-blog/profile_image_ywghxh.heic';
 
-	const authorImgSrc = buildUrl(authorImg, {
-		cloud: {
-			cloudName: 'ds2pg7vex',
-		},
-	});
+	const authorImgSrc = getAuthorImage(authorImg);
 
 	// metadata
+
 	const postMetaData = {
 		title: article.title,
 		description: article.description,
@@ -95,7 +76,19 @@ export default function Post({
 	return (
 		<Layout isAdmin={isAdmin} isLoggedIn={isLoggedIn} userId={userId}>
 			<NextSeo {...postMetaData} />
-			<div className={pageStyles.blogArticlePageContainer}>
+			<Post
+				article={article}
+				rotation={rotation}
+				articleContent={articleContent}
+				dbUser={dbUser}
+				isAdmin={isAdmin}
+				queryId={queryId}
+				imageSrc={src}
+				authorImgSrc={authorImgSrc}
+				blogPostUrl={blogPostUrl}
+				twitterHandle={twitterHandle}
+			/>
+			{/* <div className={pageStyles.blogArticlePageContainer}>
 				<div className={pageStyles.hero}>
 					<div className={pageStyles.heroInner}>
 						<div className={pageStyles.heroArtContainer}>
@@ -119,9 +112,9 @@ export default function Post({
 									<span className={pageStyles.spanUnderline}>
 										{article.title}
 									</span>
-								</h1>
-								{/* TODO: edit hardcoded author name */}
-								<p className={pageStyles.byLine}>by Ahmed Jahmi</p>
+								</h1> */}
+			{/* TODO: edit hardcoded author name */}
+			{/* <p className={pageStyles.byLine}>by Ahmed Jahmi</p>
 								<div className={pageStyles.dateText}>
 									<Date dateString={article.createdAt} />
 								</div>
@@ -172,7 +165,7 @@ export default function Post({
 						<Rotation rotation={rotation} />
 					</article>
 				</div>
-			</div>
+			</div> */}
 		</Layout>
 	);
 }

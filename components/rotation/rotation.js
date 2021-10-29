@@ -1,4 +1,5 @@
 import RotationItem from './rotationItem';
+import Container from '../container';
 import styles from './rotation.module.scss';
 
 export default function Rotation({ rotation }) {
@@ -48,11 +49,13 @@ export default function Rotation({ rotation }) {
 	});
 
 	return (
-		<div className={styles.RotationList}>
-			<h3 className={styles.onRotation}>
-				<span>Rotation:</span>
-			</h3>
-			{rotationItems}
-		</div>
+		<Container>
+			<div className={styles.RotationList}>
+				<h3 className={styles.onRotation}>
+					<span>Rotation:</span>
+				</h3>
+				{rotationItems}
+			</div>
+		</Container>
 	);
 }
