@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import Container from '../container';
-import Card from '../card';
 import styles from './profile.module.scss';
-import Avatar from '../avatar';
-import Heading from '../heading';
 import { buildUrl } from 'cloudinary-build-url';
 import distanceToNow from '../../lib/utils/dateRelative';
+import Container from '../container';
+import Card from '../card';
+import Avatar from '../avatar';
+import Heading from '../heading';
 import ProfileForm from './form';
+import Button from '../button';
 
 function Profile({ dbUser, isAdmin, isUser, profileUser }) {
 	const { email, firstName, lastName, username, image_url, createdAt } =
@@ -72,7 +73,9 @@ function Profile({ dbUser, isAdmin, isUser, profileUser }) {
 					</div>
 					{(isAdmin || isUser) && (
 						<div className={styles.profileButtonEdit}>
-							<button onClick={handleEdit}>Edit</button>
+							<Button type='button' onClick={handleEdit}>
+								Edit
+							</Button>
 						</div>
 					)}
 				</div>

@@ -5,7 +5,7 @@
 	flex-direction: column;
 	background: base.$color-secondary-light;
 	color: base.$color-secondary-dark;
-	margin: 1.5rem 0;
+	margin: 0.5rem 0rem 0.8rem 0rem;
 	padding: 1.25rem;
 	border: 2px solid base.$color-secondary-dark;
 	border-radius: 5px;
@@ -19,6 +19,5 @@
 .cardHorizontal {
 	flex-direction: row;
 	align-items: center;
-	margin-top: 1rem;
 	padding: 0.5rem;
 }

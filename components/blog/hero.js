@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Date from '../date';
 import styles from './blog.module.scss';
 
 function Hero({ title, imageSrc, artist_url, by_artist, createdAt }) {

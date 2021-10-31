@@ -1,8 +1,6 @@
 import Hero from './hero';
 import Social from './social';
-// rename share.js to index.js
-// consider renaming rotation.js to index.js
-import Rotation from '../rotation/rotation';
+import Rotation from '../rotation';
 import Article from './article';
 
 function Post({

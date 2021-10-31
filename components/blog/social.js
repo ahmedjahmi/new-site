@@ -1,6 +1,6 @@
 import styles from './blog.module.scss';
 import Likes from '../likes';
-import Share from '../share/share';
+import Share from '../share';
 import Comments from '../comments';
 import Container from '../container';
 
