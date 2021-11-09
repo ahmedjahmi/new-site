@@ -1,0 +1,24 @@
+@use '../../styles/base';
+
+.profile {
+	display: flex;
+	flex-direction: row;
+	.profileText {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		ul {
+			list-style-type: none;
+		}
+	}
+	.profileButtonEdit {
+		margin-left: auto;
+	}
+}
+
+@media (max-width: 647px) and (min-width: 0px) {
+	.profile {
+		flex-direction: column;
+	}
+}

@@ -11,6 +11,7 @@ body {
 	background-color: base.$color-secondary-light;
 	color: base.$color-primary-dark;
 	font-family: base.$font-theme;
+	letter-spacing: base.$letter-spacing;
 }
 
 * {
@@ -67,3 +68,42 @@ pre code {
 	border-left: base.$color-primary solid 6px;
 	margin: 0 0 24px;
 }
+
+textarea {
+	display: block;
+	font-size: base.$font-size-small;
+	font-family: inherit;
+	letter-spacing: 1px;
+	padding: 10px;
+	width: 100%;
+	height: 90%;
+	line-height: 1.5;
+	border-radius: 5px;
+	border: 1px solid base.$color-primary;
+	box-shadow: 1px 1px 1px base.$color-primary-dark;
+	overflow: auto;
+	margin-bottom: 0.4rem;
+}
+
+input {
+	display: block;
+	width: 100%;
+	margin-bottom: 0.4rem;
+	padding: 10px;
+	font-size: base.$font-size-small;
+	font-family: inherit;
+	letter-spacing: 1px;
+	width: 100%;
+	height: 90%;
+	line-height: 1.5;
+	border-radius: 5px;
+	border: 1px solid base.$color-primary;
+	box-shadow: 1px 1px 1px base.$color-primary-dark;
+	overflow: auto;
+	margin-bottom: 0.4rem;
+}
+
+// #TODO: add icon for file upload
+// input[type='file'] {
+//   display: none;
+// }

@@ -4,8 +4,9 @@ import Link from 'next/link';
 import MenuItem from './menuItem';
 import MenuButton from './menuButton';
 import Menu from './menu';
+import capitalizeWord from '../../lib/utils/capitalizeWord';
 
-export default function Nav() {
+export default function Nav({ isAdmin, isLoggedIn, userId }) {
 	const [menuOpen, setMenuOpen] = useState(false);
 
 	const handleMenuClick = () => {
@@ -21,11 +22,53 @@ export default function Nav() {
 		menuOpen ? (main.style.filter = 'blur(2px)') : (main.style.filter = null);
 	});
 
-	const menu = ['home', 'resume'];
+	const menu = [
+		'home',
+		'resume',
+		'blog',
+		...(isLoggedIn ? ['logout'] : ['login']),
+		...(isLoggedIn ? ['profile'] : []),
+		...(isAdmin ? ['editor'] : []),
+	];
 
 	const menuItems = menu.map((val, index) => {
-		const pathFromVal = val !== 'home' ? `/${val}` : '/';
-		const newVal = val.charAt(0).toUpperCase() + val.slice(1);
+		// const pathFromVal = val !== 'home' ? `/${val}` : '/';
+		let pathFromVal;
+		switch (val) {
+			case 'home': {
+				pathFromVal = '/';
+				break;
+			}
+			case 'resume': {
+				pathFromVal = '/resume';
+				break;
+			}
+			case 'blog': {
+				pathFromVal = '/blog';
+				break;
+			}
+			case 'logout': {
+				pathFromVal = '/api/auth/logout';
+				break;
+			}
+			case 'login': {
+				pathFromVal = '/api/auth/login';
+				break;
+			}
+			case 'profile': {
+				pathFromVal = `/${userId}`;
+				break;
+			}
+			case 'editor': {
+				pathFromVal = '/editor';
+				break;
+			}
+			default: {
+				pathFromVal = '/';
+				break;
+			}
+		}
+		const newVal = capitalizeWord(val);
 		return (
 			<MenuItem
 				key={index}
@@ -33,6 +76,7 @@ export default function Nav() {
 				onClick={handleLinkClick}
 				href={pathFromVal}
 				open={menuOpen}
+				userId={userId}
 			>
 				{newVal}
 			</MenuItem>

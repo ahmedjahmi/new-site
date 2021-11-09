@@ -1,0 +1,18 @@
+@use '../../styles/base';
+
+.avatar {
+	flex-basis: 40%;
+	width: 100%;
+	height: auto;
+	margin: auto 0 auto 0;
+	.avatarImage {
+		border-radius: 50%;
+	}
+}
+
+@media (max-width: 647px) and (min-width: 0px) {
+	.avatar {
+		width: 50%;
+		margin: auto;
+	}
+}

@@ -16,6 +16,12 @@
 	max-width: 36rem;
 	padding: 0 1rem;
 	margin: 3rem auto 6rem;
+	.socialContainer {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		margin: 1rem 0;
+	}
 }
 
 .hero {
@@ -84,6 +90,28 @@
 	max-width: 46rem;
 	padding: 0 1rem;
 	margin: 3rem auto 3rem;
+}
+
+// Editor page
+.editorPageContainer {
+	margin-top: 6rem;
+	margin-bottom: 4rem;
+}
+
+.articleFormContainer {
+	max-width: 46rem;
+	padding: 0 1rem;
+	margin: 3rem auto 3rem;
+	form {
+		display: flex;
+		flex-direction: column;
+		button {
+			display: inline-block;
+		}
+	}
+	input {
+		display: block;
+	}
 }
 
 .heading2Xl {
@@ -163,6 +191,7 @@
 	}
 }
 
+// TODO: remove dateText class after test
 .dateText {
 	color: base.$color-text-dark;
 	font-size: 1rem;

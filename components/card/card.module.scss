@@ -1,0 +1,23 @@
+@use '../../styles/base';
+
+.card {
+	display: flex;
+	flex-direction: column;
+	background: base.$color-secondary-light;
+	color: base.$color-secondary-dark;
+	margin: 0.5rem 0rem 0.8rem 0rem;
+	padding: 1.25rem;
+	border: 2px solid base.$color-secondary-dark;
+	border-radius: 5px;
+	box-shadow: 2px 2px 0 base.$color-secondary-dark;
+	filter: drop-shadow(0.6rem 0.6rem 0.5rem base.$color-secondary-dark);
+	// &:hover {
+	// 	background: base.$color-primary-light;
+	// }
+}
+
+.cardHorizontal {
+	flex-direction: row;
+	align-items: center;
+	padding: 0.5rem;
+}

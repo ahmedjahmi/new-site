@@ -1,0 +1,8 @@
+@use '../../styles/base';
+
+.date {
+	color: base.$color-text-dark;
+	font-size: 1rem;
+	margin: 0;
+	padding: 0;
+}

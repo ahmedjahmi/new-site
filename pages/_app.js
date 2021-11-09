@@ -1,8 +1,9 @@
 import '../styles/globals.scss';
 import { DefaultSeo } from 'next-seo';
-import SEO from '../lib/next-seo.config';
+import SEO from '../lib/utils/next-seo.config';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { UserProvider } from '@auth0/nextjs-auth0';
 
 import * as ga from '../lib/google-analytics';
 
@@ -24,10 +25,10 @@ function MyApp({ Component, pageProps }) {
 		};
 	}, [router.events]);
 	return (
-		<>
+		<UserProvider>
 			<DefaultSeo {...SEO} />
 			<Component {...pageProps} />
-		</>
+		</UserProvider>
 	);
 }
 

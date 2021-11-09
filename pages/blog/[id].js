@@ -1,154 +1,109 @@
 import Layout, { siteTitle } from '../../components/layout/layout';
-import Image from 'next/image';
-import Date from '../../components/date';
-import Share from '../../components/share/share';
-import OnRotation from '../../components/onRotation/onRotation';
-import pageStyles from '../../styles/page.module.scss';
-import { getAllPostIds, getPostData } from '../../lib/posts';
+import Post from '../../components/blog/post';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { buildUrl } from 'cloudinary-build-url';
+import {
+	getImageSrc,
+	getImageMetaSrc,
+	getAuthorImage,
+} from '../../lib/utils/cloudinary';
+import processMarkdown from '../../lib/utils/processMarkdown';
+import { useUser, getSession } from '@auth0/nextjs-auth0';
+import getArticlePageData from '../../lib/controllers/articles/getArticlePageData';
+import getUserByEmail from '../../lib/controllers/users/getUserByEmail';
 
-// 1st, fetch data to statically generate paths
-export async function getStaticPaths() {
-	const paths = getAllPostIds();
-	return {
-		paths,
-		fallback: false,
-	};
-}
-
-// then, using the paths returned above,
-// fetch data to statically generate page contents
-export async function getStaticProps({ params }) {
-	const postData = await getPostData(params.id);
-	return {
-		props: {
-			postData,
-		},
-	};
-}
-
-export default function Post({ postData }) {
+export default function PostPage({
+	article,
+	rotation,
+	articleContent,
+	dbUser,
+	isAdmin,
+	queryId,
+}) {
 	const router = useRouter();
-	// const host = process.env.NEXT_PUBLIC_HOST;
-	const host = 'https://www.ahmedjahmi.com';
-
-	// testing that a valid url works
-	// const blogPostUrl = 'https://www.ahmedjahmi.com';
+	const { user: authUser, error, isLoading } = useUser();
+	const isLoggedIn = authUser ? true : false;
+	const userId = dbUser ? dbUser._id : null;
+	const host = process.env.NEXT_PUBLIC_HOST;
 	const blogPostUrl = host + router.asPath;
-	const twitterHandle = process.env.NEXT_PUBLIC_TWITTER_HANDLE;
-	const size = 32;
-	const rotation = postData.OnRotation;
-
-	// cloudinary
-	const src = buildUrl(postData.image, {
-		cloud: {
-			cloudName: 'ds2pg7vex',
-		},
-	});
-
-	const metaSrc = buildUrl(postData.image, {
-		cloud: {
-			cloudName: 'ds2pg7vex',
-		},
-		transformations: {
-			width: 1200,
-			height: 628,
-		},
-	});
-
-	const authorImg =
-		'https://res.cloudinary.com/ds2pg7vex/image/upload/v1621104211/ahmed-jahmi-blog/profile_image_ywghxh.heic';
-
-	const authorImgSrc = buildUrl(authorImg, {
-		cloud: {
-			cloudName: 'ds2pg7vex',
-		},
-	});
-
+	const src = getImageSrc(article.image_url);
+	const metaSrc = getImageMetaSrc(article.image_url);
+	const authorImg = article.user.image_url;
+	const authorImgSrc = getAuthorImage(authorImg);
 	// metadata
 	const postMetaData = {
-		title: postData.title,
-		description: postData.description,
+		title: article.title,
+		description: article.description,
 		openGraph: {
 			url: blogPostUrl,
-			title: postData.title,
-			description: postData.description,
+			title: article.title,
+			description: article.description,
 			images: [
 				{
 					url: metaSrc,
-					alt: postData.imageAlt,
+					alt: article.imageAlt,
 				},
 			],
 			site_name: siteTitle,
 		},
 	};
 
+	if (isLoading) return <div>Loading...</div>;
+	if (error) return <div>{error.message}</div>;
+
 	return (
-		<Layout>
+		<Layout isAdmin={isAdmin} isLoggedIn={isLoggedIn} userId={userId}>
 			<NextSeo {...postMetaData} />
-			<div className={pageStyles.blogArticlePageContainer}>
-				<div className={pageStyles.hero}>
-					<div className={pageStyles.heroInner}>
-						<div className={pageStyles.heroArtContainer}>
-							<div className={pageStyles.heroArt}>
-								<div className={pageStyles.heroShot}>
-									<Image
-										src={src}
-										width={1000}
-										height={750}
-										alt='apple shortcuts app'
-									/>
-								</div>
-								{/* <div className={pageStyles.heroArtBy}>
-									Art by <a href={postData.artHref}>{postData.byArtist}</a>
-								</div> */}
-							</div>
-						</div>
-						<div className={pageStyles.heroHeader}>
-							<header>
-								<h1 className={pageStyles.heroTitle}>
-									<span className={pageStyles.spanUnderline}>
-										{postData.title}
-									</span>
-								</h1>
-								<p className={pageStyles.byLine}>by {postData.author}</p>
-								<div className={pageStyles.dateText}>
-									<Date dateString={postData.date} />
-								</div>
-							</header>
-						</div>
-					</div>
-				</div>
-				<div className={pageStyles.articleContainer}>
-					<article>
-						<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-						<div className={pageStyles.authorInfo}>
-							<div className={pageStyles.authorText}>
-								by{' '}
-								<a href='https://twitter.com/jahmiamor' target='_blank'>
-									{postData.author}
-								</a>
-							</div>
-							<Image
-								src={authorImgSrc}
-								width={32}
-								height={32}
-								className={pageStyles.borderCircle}
-								alt={postData.author}
-							/>
-						</div>
-						<Share
-							blogPostUrl={blogPostUrl}
-							title={postData.title}
-							twitterHandle={twitterHandle}
-							size={size}
-						/>
-						<OnRotation rotation={rotation} />
-					</article>
-				</div>
-			</div>
+			<Post
+				article={article}
+				rotation={rotation}
+				articleContent={articleContent}
+				dbUser={dbUser}
+				isAdmin={isAdmin}
+				queryId={queryId}
+				imageSrc={src}
+				authorImgSrc={authorImgSrc}
+				blogPostUrl={blogPostUrl}
+			/>
 		</Layout>
 	);
+}
+
+export async function getServerSideProps({ params, req, res }) {
+	const queryId = params.id;
+	const unparsedData = await getArticlePageData({ id: params.id });
+	const data = JSON.parse(JSON.stringify(unparsedData));
+	const { article, rotation } = data;
+
+	const articleContent = await processMarkdown(article.content);
+
+	const session = getSession(req, res);
+
+	if (session) {
+		const authUser = session.user;
+		const email = authUser.email;
+		const unparsedDbUser = await getUserByEmail({ email: email });
+		const dbUser = JSON.parse(JSON.stringify(unparsedDbUser));
+		const isAdmin = dbUser.role === 'admin' ? true : false;
+
+		return {
+			props: {
+				article: article,
+				rotation: rotation,
+				articleContent: articleContent,
+				dbUser: dbUser,
+				isAdmin: isAdmin,
+				queryId: queryId,
+			},
+		};
+	}
+
+	return {
+		props: {
+			article: article,
+			rotation: rotation,
+			articleContent: articleContent,
+			queryId: queryId,
+		},
+	};
 }

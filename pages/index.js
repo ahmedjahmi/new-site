@@ -1,22 +1,16 @@
 import Head from 'next/head';
 import Layout, { siteTitle } from '../components/layout/layout';
 import pageStyles from '../styles/page.module.scss';
-import { getSortedPostsData } from '../lib/posts';
-import Link from 'next/link';
-import Date from '../components/date';
 import Image from 'next/image';
 import { buildUrl } from 'cloudinary-build-url';
+import { useUser, getSession } from '@auth0/nextjs-auth0';
+import getUserByEmail from '../lib/controllers/users/getUserByEmail';
 
-export async function getStaticProps() {
-	const allPostsData = getSortedPostsData();
-	return {
-		props: {
-			allPostsData,
-		},
-	};
-}
+export default function HomePage({ dbUser, isAdmin }) {
+	const { user: authUser, error, isLoading } = useUser();
+	const isLoggedIn = authUser ? true : false;
+	const userId = dbUser ? dbUser._id : null;
 
-export default function Blog({ allPostsData }) {
 	// cloudinary
 	const myImage =
 		'https://res.cloudinary.com/ds2pg7vex/image/upload/v1621104211/ahmed-jahmi-blog/profile_image_ywghxh.heic';
@@ -25,8 +19,12 @@ export default function Blog({ allPostsData }) {
 			cloudName: 'ds2pg7vex',
 		},
 	});
+
+	if (isLoading) return <div>Loading...</div>;
+	if (error) return <div>{error.message}</div>;
+
 	return (
-		<Layout>
+		<Layout isAdmin={isAdmin} isLoggedIn={isLoggedIn} userId={userId}>
 			<Head>
 				<title>{siteTitle}</title>
 			</Head>
@@ -53,25 +51,29 @@ export default function Blog({ allPostsData }) {
 						</div>
 					</div>
 				</section>
-				<section className={`${pageStyles.headingMd} ${pageStyles.padding1px}`}>
-					<h2 className={pageStyles.headingLg}>Blog</h2>
-					<ul className={pageStyles.list}>
-						{allPostsData.map(({ id, date, title, author }) => (
-							<li className={pageStyles.listItem} key={id}>
-								<Link href={`/blog/${id}`}>
-									<a>
-										{title}
-										<p className={pageStyles.blogAuthor}>written by {author}</p>
-										<small className={pageStyles.dateText}>
-											<Date dateString={date} />
-										</small>
-									</a>
-								</Link>
-							</li>
-						))}
-					</ul>
-				</section>
 			</div>
 		</Layout>
 	);
+}
+
+export async function getServerSideProps(context) {
+	const session = getSession(context.req, context.res);
+
+	if (session) {
+		const authUser = session.user;
+		const email = authUser.email;
+		const unparsedDbUser = await getUserByEmail({ email: email });
+		const dbUser = JSON.parse(JSON.stringify(unparsedDbUser));
+		const isAdmin = dbUser.role === 'admin' ? true : false;
+		return {
+			props: {
+				dbUser: dbUser,
+				isAdmin: isAdmin,
+			},
+		};
+	}
+
+	return {
+		props: {},
+	};
 }

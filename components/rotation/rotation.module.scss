@@ -1,0 +1,41 @@
+@use '../../styles/base';
+
+.onRotation {
+	margin: 0;
+	span {
+		display: inline-block;
+		line-height: 1;
+		background-image: linear-gradient(
+			to top,
+			base.$color-secondary-light 44%,
+			base.$color-secondary-light 44%,
+			base.$color-secondary-light 44%,
+			base.$color-secondary-light 44%,
+			transparent 54%
+		);
+	}
+}
+
+.RotationList {
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	width: 100%;
+	background: base.$color-secondary-light;
+	article:hover {
+		background: base.$color-primary-light;
+	}
+	a {
+		text-decoration: none;
+	}
+	.rotationItemType {
+		width: 20%;
+		margin: 0.5rem;
+		padding: 0 0.5rem;
+	}
+	.rotationItemLink {
+		width: 80%;
+		margin: 0.5rem;
+		padding: 0 0.5rem;
+	}
+}
