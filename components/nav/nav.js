@@ -4,6 +4,7 @@ import Link from 'next/link';
 import MenuItem from './menuItem';
 import MenuButton from './menuButton';
 import Menu from './menu';
+import capitalizeWord from '../../lib/utils/capitalizeWord';
 
 export default function Nav({ isAdmin, isLoggedIn, userId }) {
 	const [menuOpen, setMenuOpen] = useState(false);
@@ -67,7 +68,7 @@ export default function Nav({ isAdmin, isLoggedIn, userId }) {
 				break;
 			}
 		}
-		const newVal = val.charAt(0).toUpperCase() + val.slice(1);
+		const newVal = capitalizeWord(val);
 		return (
 			<MenuItem
 				key={index}

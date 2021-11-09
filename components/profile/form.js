@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import Button from '../button';
 
 function ProfileForm({ profileForm, userId, formId }) {
 	const router = useRouter();
@@ -96,7 +97,7 @@ function ProfileForm({ profileForm, userId, formId }) {
 					id='profileImage'
 					onChange={(e) => setFile(e.target.files[0])}
 				/>
-				<button type='submit'>Submit</button>
+				<Button type='submit'>Submit</Button>
 			</form>
 		</>
 	);

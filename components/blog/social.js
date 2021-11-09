@@ -1,6 +1,6 @@
 import styles from './blog.module.scss';
 import Likes from '../likes';
-import Share from '../share/share';
+import Share from '../share';
 import Comments from '../comments';
 import Container from '../container';
 
@@ -11,8 +11,6 @@ function Social({
 	queryId,
 	blogPostUrl,
 	title,
-	twitterHandle,
-	size,
 	comments,
 }) {
 	return (
@@ -24,12 +22,7 @@ function Social({
 					prefetchedLikes={likes}
 					queryId={queryId}
 				/>
-				<Share
-					blogPostUrl={blogPostUrl}
-					title={title}
-					twitterHandle={twitterHandle}
-					size={size}
-				/>
+				<Share blogPostUrl={blogPostUrl} title={title} />
 			</div>
 			<Comments
 				dbUser={dbUser}

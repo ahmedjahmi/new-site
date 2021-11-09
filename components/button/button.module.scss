@@ -1,0 +1,35 @@
+@use '../../styles/base';
+
+.ButtonPrimary {
+	a {
+		background-color: base.$color-secondary-light;
+		color: base.$color-primary-dark;
+		border-color: base.$color-secondary-dark;
+		display: inline-block;
+		text-align: center;
+		align-items: flex-start;
+		margin: 0em;
+		padding: 1px 6px;
+		border-width: 2px;
+		border-style: outset;
+		border-image: initial;
+		text-decoration: none;
+		min-width: 2rem;
+		&:hover {
+			background: base.$color-primary-light;
+			cursor: pointer;
+		}
+	}
+	button {
+		background-color: base.$color-secondary-light;
+		color: base.$color-primary-dark;
+		border-color: base.$color-secondary-dark;
+		font-family: base.$font-theme;
+		font-size: base.$font-size;
+		min-width: 2rem;
+		&:hover {
+			background: base.$color-primary-light;
+			cursor: pointer;
+		}
+	}
+}

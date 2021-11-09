@@ -1,7 +1,12 @@
 import Image from 'next/image';
+import Date from '../date';
 import styles from './blog.module.scss';
+import capitalizeWord from '../../lib/utils/capitalizeWord';
 
-function Hero({ title, imageSrc, artist_url, by_artist, createdAt }) {
+function Hero({ title, imageSrc, artist_url, by_artist, createdAt, user }) {
+	const firstName = capitalizeWord(user.firstName);
+	const lastName = capitalizeWord(user.lastName);
+	const authorName = firstName + ' ' + lastName;
 	return (
 		<div className={styles.hero}>
 			<div className={styles.heroInner}>
@@ -25,8 +30,7 @@ function Hero({ title, imageSrc, artist_url, by_artist, createdAt }) {
 						<h1 className={styles.heroTitle}>
 							<span className={styles.spanUnderline}>{title}</span>
 						</h1>
-						{/* TODO: edit hardcoded author name */}
-						<p className={styles.byLine}>by Ahmed Jahmi</p>
+						<p className={styles.byLine}>by {authorName}</p>
 						<div className={styles.dateText}>
 							<Date dateString={createdAt} />
 						</div>

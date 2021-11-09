@@ -3,19 +3,20 @@
 .posts {
 	padding: 0;
 	margin: 0;
+	article:hover {
+		background: base.$color-primary-light;
+	}
 	a {
 		display: block;
 		text-decoration: none;
-		&:hover {
-			background: base.$color-primary-light;
-			a {
-				text-decoration: none;
-			}
-		}
+		// &:hover {
+		// 	background: base.$color-primary-light;
+		// 	a {
+		// 		text-decoration: none;
+		// 	}
+		// }
 	}
-	article {
-		margin: 1rem auto;
-	}
+
 	.author {
 		display: block;
 		margin: 0;

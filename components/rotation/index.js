@@ -1,5 +1,6 @@
 import RotationItem from './rotationItem';
 import Container from '../container';
+import capitalizeWord from '../../lib/utils/capitalizeWord';
 import styles from './rotation.module.scss';
 
 export default function Rotation({ rotation }) {
@@ -35,9 +36,7 @@ export default function Rotation({ rotation }) {
 		const url = item[rotationType]['url'];
 		const title = item[rotationType]['title'];
 		const capitalizedRotationType =
-			rotationType == 'tv'
-				? 'TV'
-				: rotationType.charAt(0).toUpperCase() + rotationType.slice(1);
+			rotationType == 'tv' ? 'TV' : capitalizeWord(rotationType);
 		return (
 			<RotationItem
 				key={index}
@@ -52,7 +51,7 @@ export default function Rotation({ rotation }) {
 		<Container>
 			<div className={styles.RotationList}>
 				<h3 className={styles.onRotation}>
-					<span>Rotation:</span>
+					<span>Rotation</span>
 				</h3>
 				{rotationItems}
 			</div>

@@ -1,8 +1,6 @@
 import Hero from './hero';
 import Social from './social';
-// rename share.js to index.js
-// consider renaming rotation.js to index.js
-import Rotation from '../rotation/rotation';
+import Rotation from '../rotation';
 import Article from './article';
 
 function Post({
@@ -15,9 +13,7 @@ function Post({
 	imageSrc,
 	authorImgSrc,
 	blogPostUrl,
-	twitterHandle,
 }) {
-	const size = 32;
 	return (
 		<>
 			<Hero
@@ -26,6 +22,7 @@ function Post({
 				artist_url={article.artist_url}
 				by_artist={article.by_artist}
 				createdAt={article.createdAt}
+				user={article.user}
 			/>
 
 			<Article
@@ -39,8 +36,6 @@ function Post({
 				queryId={queryId}
 				blogPostUrl={blogPostUrl}
 				title={article.title}
-				twitterHandle={twitterHandle}
-				size={size}
 				comments={article.comments}
 			/>
 			<Rotation rotation={rotation} />
