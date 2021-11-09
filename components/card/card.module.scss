@@ -11,9 +11,9 @@
 	border-radius: 5px;
 	box-shadow: 2px 2px 0 base.$color-secondary-dark;
 	filter: drop-shadow(0.6rem 0.6rem 0.5rem base.$color-secondary-dark);
-	&:hover {
-		background: base.$color-primary-light;
-	}
+	// &:hover {
+	// 	background: base.$color-primary-light;
+	// }
 }
 
 .cardHorizontal {

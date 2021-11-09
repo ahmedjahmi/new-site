@@ -11,8 +11,6 @@ function Social({
 	queryId,
 	blogPostUrl,
 	title,
-	twitterHandle,
-	size,
 	comments,
 }) {
 	return (
@@ -24,12 +22,7 @@ function Social({
 					prefetchedLikes={likes}
 					queryId={queryId}
 				/>
-				<Share
-					blogPostUrl={blogPostUrl}
-					title={title}
-					twitterHandle={twitterHandle}
-					size={size}
-				/>
+				<Share blogPostUrl={blogPostUrl} title={title} />
 			</div>
 			<Comments
 				dbUser={dbUser}

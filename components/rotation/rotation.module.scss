@@ -22,6 +22,9 @@
 	margin: 0 auto;
 	width: 100%;
 	background: base.$color-secondary-light;
+	article:hover {
+		background: base.$color-primary-light;
+	}
 	a {
 		text-decoration: none;
 	}

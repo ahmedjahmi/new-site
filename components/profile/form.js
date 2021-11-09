@@ -97,7 +97,6 @@ function ProfileForm({ profileForm, userId, formId }) {
 					id='profileImage'
 					onChange={(e) => setFile(e.target.files[0])}
 				/>
-				{/* <button type='submit'>Submit</button> */}
 				<Button type='submit'>Submit</Button>
 			</form>
 		</>

@@ -55,7 +55,6 @@ export default function Editor({ dbUserId, isAdmin }) {
 
 export const getServerSideProps = withPageAuthRequired({
 	async getServerSideProps({ req, res }) {
-		// await dbConnect();
 		const session = getSession(req, res);
 		if (session) {
 			const authUser = session.user;

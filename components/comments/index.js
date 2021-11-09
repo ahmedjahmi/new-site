@@ -1,3 +1,4 @@
+import styles from './comment.module.scss';
 import CommentForm from './form';
 import CommentList from './list';
 import useComments from '../../lib/hooks/useComments';
@@ -19,6 +20,11 @@ function Comments({ isAdmin, dbUser, prefetchedComments, queryId }) {
 
 	return (
 		<div>
+			<div className={styles.CommentsHeader}>
+				<h3 className={styles.CommentsHeading}>
+					<span>Comments</span>
+				</h3>
+			</div>
 			<CommentForm
 				onSubmit={onSubmit}
 				text={text}

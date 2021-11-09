@@ -28,6 +28,7 @@
 }
 
 .CommentsHeader {
+	margin-bottom: 0.5rem;
 	.CommentsHeading {
 		margin: 0;
 		span {
@@ -76,11 +77,6 @@
 		}
 		.CommentDelete {
 			margin-left: auto;
-			button {
-				background-color: base.$color-secondary-light;
-				color: base.$color-primary-dark;
-				border-color: base.$color-secondary-dark;
-			}
 		}
 	}
 	.CommentBody {

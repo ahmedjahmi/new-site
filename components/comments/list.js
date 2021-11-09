@@ -14,18 +14,14 @@ function CommentList({
 	if (isError) return <div>{swrError}</div>;
 	return (
 		<div>
-			<div className={styles.CommentsHeader}>
-				<h3 className={styles.CommentsHeading}>
-					<span>Comments</span>
-				</h3>
-			</div>
 			<div className={styles.CommentList}>
-				{comments.map((comment) => (
+				{comments.map((comment, index) => (
 					<Comment
 						dbUser={dbUser}
 						comment={comment}
 						isAdmin={isAdmin}
 						onDelete={onDelete}
+						key={index}
 					/>
 				))}
 			</div>

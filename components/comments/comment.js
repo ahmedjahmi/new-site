@@ -1,6 +1,7 @@
 import distanceToNow from '../../lib/utils/dateRelative';
 import { buildUrl } from 'cloudinary-build-url';
 import Card from '../card';
+import Button from '../button';
 import styles from './comment.module.scss';
 
 function Comment({ dbUser, comment, isAdmin, onDelete }) {
@@ -44,7 +45,9 @@ function Comment({ dbUser, comment, isAdmin, onDelete }) {
 				</div>
 				{(isAdmin || isAuthor) && (
 					<div className={styles.CommentDelete}>
-						<button onClick={() => onDelete(comment._id)}>X</button>
+						<Button type='button' onClick={() => onDelete(comment._id)}>
+							{''}x{''}
+						</Button>
 					</div>
 				)}
 			</div>

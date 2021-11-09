@@ -11,14 +11,16 @@ import {
 	EmailIcon,
 } from 'react-share';
 
-export default function Share({ blogPostUrl, title, twitterHandle, size }) {
+export default function Share({ blogPostUrl, title }) {
+	const iconSize = 32;
+	const twitterHandle = process.env.NEXT_PUBLIC_TWITTER_HANDLE;
 	const emailBody = 'Check out this blog post!';
 	return (
 		<>
 			<div className={styles.shareContainer}>
 				<TwitterShareButton url={blogPostUrl} title={title} via={twitterHandle}>
 					<TwitterIcon
-						size={size}
+						size={iconSize}
 						round
 						bgStyle={{ fill: '#550000' }}
 						iconFillColor='#ffcccc'
@@ -26,7 +28,7 @@ export default function Share({ blogPostUrl, title, twitterHandle, size }) {
 				</TwitterShareButton>
 				<FacebookShareButton url={blogPostUrl}>
 					<FacebookIcon
-						size={size}
+						size={iconSize}
 						round
 						bgStyle={{ fill: '#550000' }}
 						iconFillColor='#ffcccc'
@@ -39,7 +41,7 @@ export default function Share({ blogPostUrl, title, twitterHandle, size }) {
 					source='https://www.ahmedjahmi.com'
 				>
 					<LinkedinIcon
-						size={size}
+						size={iconSize}
 						round
 						bgStyle={{ fill: '#550000' }}
 						iconFillColor='#ffcccc'
@@ -47,7 +49,7 @@ export default function Share({ blogPostUrl, title, twitterHandle, size }) {
 				</LinkedinShareButton>
 				<EmailShareButton subject={title} body={emailBody} url={blogPostUrl}>
 					<EmailIcon
-						size={size}
+						size={iconSize}
 						round
 						bgStyle={{ fill: '#550000' }}
 						iconFillColor='#ffcccc'

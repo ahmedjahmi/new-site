@@ -8,6 +8,7 @@ import Avatar from '../avatar';
 import Heading from '../heading';
 import ProfileForm from './form';
 import Button from '../button';
+import capitalizeWord from '../../lib/utils/capitalizeWord';
 
 function Profile({ dbUser, isAdmin, isUser, profileUser }) {
 	const { email, firstName, lastName, username, image_url, createdAt } =
@@ -22,9 +23,8 @@ function Profile({ dbUser, isAdmin, isUser, profileUser }) {
 	const handleEdit = () => {
 		setEditProfile(!editProfile);
 	};
-	const capitalFirstName =
-		firstName.charAt(0).toUpperCase() + firstName.slice(1);
-	const capitalLastName = lastName.charAt(0).toUpperCase() + lastName.slice(1);
+	const capitalFirstName = capitalizeWord(firstName);
+	const capitalLastName = capitalizeWord(lastName);
 	const hasImage = image_url ? true : false;
 	const imageSrc = (hasImage) => {
 		if (hasImage) {
