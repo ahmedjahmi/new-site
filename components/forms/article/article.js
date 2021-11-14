@@ -38,7 +38,7 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 			formData.append(key, form[key]);
 		}
 
-		const endpoint = '/api/articles/';
+		const endpoint = '/api/articles';
 
 		try {
 			const res = await axios.post(endpoint, formData);
