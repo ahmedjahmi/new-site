@@ -74,10 +74,7 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 		let articleId;
 		if (Object.keys(errs).length === 0) {
 			articleId = postData(form, file);
-			router.push({
-				pathname: '/blog/[id]',
-				query: { id: articleId },
-			});
+			return articleId;
 		} else {
 			setErrors({ errs });
 		}
@@ -109,7 +106,16 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 
 	return (
 		<>
-			<form id={formId} onSubmit={handleSubmit}>
+			<form
+				id={formId}
+				onSubmit={() => {
+					let articleId = handleSubmit();
+					router.push({
+						pathname: '/blog/[id]',
+						query: { id: articleId },
+					});
+				}}
+			>
 				<label>
 					Title:
 					<input
