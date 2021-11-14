@@ -108,7 +108,8 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 		<>
 			<form
 				id={formId}
-				onSubmit={() => {
+				onSubmit={(e) => {
+					e.preventDefault();
 					let articleId = handleSubmit();
 					router.push({
 						pathname: '/blog/[id]',
