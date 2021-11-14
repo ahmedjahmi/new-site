@@ -8,9 +8,15 @@ function Posts({ articles }) {
 	return (
 		<section className={styles.posts}>
 			{articles.map(({ _id, createdAt, title, user }, index) => {
-				const firstName = capitalizeWord(user.firstName);
-				const lastName = capitalizeWord(user.lastName);
-				const authorName = firstName + ' ' + lastName;
+				const getAuthorName = (user) => {
+					if (typeof user.firstName == 'undefined') {
+						return user.username;
+					}
+					const firstName = capitalizeWord(user.firstName);
+					const lastName = capitalizeWord(user.lastName);
+					return firstName + ' ' + lastName;
+				};
+				const authorName = getAuthorName(user);
 				return (
 					<Link key={index} href='/blog/[id]' as={`/blog/${_id}`}>
 						<a>

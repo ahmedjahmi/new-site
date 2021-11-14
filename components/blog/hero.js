@@ -4,9 +4,15 @@ import styles from './blog.module.scss';
 import capitalizeWord from '../../lib/utils/capitalizeWord';
 
 function Hero({ title, imageSrc, artist_url, by_artist, createdAt, user }) {
-	const firstName = capitalizeWord(user.firstName);
-	const lastName = capitalizeWord(user.lastName);
-	const authorName = firstName + ' ' + lastName;
+	const getAuthorName = (user) => {
+		if (typeof user.firstName == 'undefined') {
+			return user.username;
+		}
+		const firstName = capitalizeWord(user.firstName);
+		const lastName = capitalizeWord(user.lastName);
+		return firstName + ' ' + lastName;
+	};
+	const authorName = getAuthorName(user);
 	return (
 		<div className={styles.hero}>
 			<div className={styles.heroInner}>
