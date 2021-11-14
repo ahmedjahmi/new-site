@@ -68,8 +68,7 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 		});
 	};
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
+	const handleSubmit = () => {
 		const errs = formValidate();
 		let articleId;
 		if (Object.keys(errs).length === 0) {
