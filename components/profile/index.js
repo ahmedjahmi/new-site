@@ -13,6 +13,7 @@ import capitalizeWord from '../../lib/utils/capitalizeWord';
 function Profile({ dbUser, isAdmin, isUser, profileUser }) {
 	const { email, firstName, lastName, username, image_url, createdAt } =
 		profileUser;
+	console.log('firstName:', firstName);
 	const profileForm = {
 		firstName: firstName || '',
 		lastName: lastName || '',
@@ -23,8 +24,10 @@ function Profile({ dbUser, isAdmin, isUser, profileUser }) {
 	const handleEdit = () => {
 		setEditProfile(!editProfile);
 	};
-	const capitalFirstName = capitalizeWord(firstName);
-	const capitalLastName = capitalizeWord(lastName);
+	const capitalFirstName =
+		typeof firstName == 'undefined' ? '' : capitalizeWord(firstName);
+	const capitalLastName =
+		typeof lastName == 'undefined' ? '' : capitalizeWord(lastName);
 	const hasImage = image_url ? true : false;
 	const imageSrc = (hasImage) => {
 		if (hasImage) {
