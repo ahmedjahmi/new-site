@@ -13,7 +13,6 @@ import capitalizeWord from '../../lib/utils/capitalizeWord';
 function Profile({ dbUser, isAdmin, isUser, profileUser }) {
 	const { email, firstName, lastName, username, image_url, createdAt } =
 		profileUser;
-	console.log('firstName:', firstName);
 	const profileForm = {
 		firstName: firstName || '',
 		lastName: lastName || '',
