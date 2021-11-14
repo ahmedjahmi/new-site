@@ -47,10 +47,11 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 				throw new Error(res.statusText);
 			}
 			const articleId = res.data.article._id;
-			router.push({
-				pathname: '/blog/[id]',
-				query: { id: articleId },
-			});
+			return articleId;
+			// router.push({
+			// 	pathname: '/blog/[id]',
+			// 	query: { id: articleId },
+			// });
 		} catch (error) {
 			setMessage('Failed to create new article.');
 		}
@@ -70,8 +71,13 @@ const ArticleForm = ({ formId, articleForm, forNewArticle = true }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const errs = formValidate();
+		let articleId;
 		if (Object.keys(errs).length === 0) {
-			postData(form, file);
+			articleId = postData(form, file);
+			router.push({
+				pathname: '/blog/[id]',
+				query: { id: articleId },
+			});
 		} else {
 			setErrors({ errs });
 		}
