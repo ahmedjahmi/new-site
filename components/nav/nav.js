@@ -24,8 +24,8 @@ export default function Nav({ isAdmin, isLoggedIn, userId }) {
 
 	const menu = [
 		'home',
-		'resume',
 		'blog',
+		'resume',
 		...(isLoggedIn ? ['logout'] : ['login']),
 		...(isLoggedIn ? ['profile'] : []),
 		...(isAdmin ? ['editor'] : []),
