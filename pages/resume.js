@@ -11,7 +11,7 @@ export default function Resume({ dbUser, isAdmin }) {
 	const isLoggedIn = authUser ? true : false;
 	const userId = dbUser ? dbUser._id : null;
 	const myResume =
-		'https://res.cloudinary.com/ds2pg7vex/image/upload/v1621435955/ahmed-jahmi-blog/Copy_of_resume_AhmedJahmi_3_j5dokq.png';
+		'https://res.cloudinary.com/ds2pg7vex/image/upload/v1637279388/ahmed-jahmi-blog/Copy_of_resume_AhmedJahmi_4_qopjh5.png';
 	const src = buildUrl(myResume, {
 		cloud: {
 			cloudName: 'ds2pg7vex',
