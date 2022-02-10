@@ -218,23 +218,30 @@
 }
 
 // home page
+.homePageContainer {
+	max-width: 36rem;
+	padding: 0 1rem;
+	margin: 3rem auto 6rem;
+}
 .intro {
-	display: flex;
-	flex-direction: row;
+	display: block;
 	.introInfo {
 		flex-direction: column;
 		flex-basis: 60%;
 		margin: 0 1rem;
 		padding: 1rem 1rem 0 0;
-	}
-	.introImageWrapper {
-		flex-basis: 40%;
-		width: 100%;
-		height: auto;
-		margin: auto 0;
-		padding: 4rem 2rem 3rem 2rem;
-		.introImage {
-			border-radius: 50%;
+		.contactContainer {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			border-radius: 10px;
+			// padding: 1rem;
+			justify-content: space-between;
+			align-items: center;
+			.contactItem {
+				margin: 0.3rem;
+				height: 2rem;
+			}
 		}
 	}
 }
