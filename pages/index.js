@@ -1,24 +1,21 @@
 import Head from 'next/head';
 import Layout, { siteTitle } from '../components/layout/layout';
 import pageStyles from '../styles/page.module.scss';
-import Image from 'next/image';
-import { buildUrl } from 'cloudinary-build-url';
+import Link from 'next/link';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
 import getUserByEmail from '../lib/controllers/users/getUserByEmail';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import {
+	faBlog,
+	faEnvelope,
+	faFileAlt,
+} from '@fortawesome/free-solid-svg-icons';
 
 export default function HomePage({ dbUser, isAdmin }) {
 	const { user: authUser, error, isLoading } = useUser();
 	const isLoggedIn = authUser ? true : false;
 	const userId = dbUser ? dbUser._id : null;
-
-	// cloudinary
-	const myImage =
-		'https://res.cloudinary.com/ds2pg7vex/image/upload/v1621104211/ahmed-jahmi-blog/profile_image_ywghxh.heic';
-	const src = buildUrl(myImage, {
-		cloud: {
-			cloudName: 'ds2pg7vex',
-		},
-	});
 
 	if (isLoading) return <div>Loading...</div>;
 	if (error) return <div>{error.message}</div>;
@@ -28,7 +25,7 @@ export default function HomePage({ dbUser, isAdmin }) {
 			<Head>
 				<title>{siteTitle}</title>
 			</Head>
-			<div className={pageStyles.blogPageContainer}>
+			<div className={pageStyles.homePageContainer}>
 				<section className={pageStyles.padding1px}>
 					<div className={pageStyles.intro}>
 						<div className={pageStyles.introInfo}>
@@ -38,16 +35,44 @@ export default function HomePage({ dbUser, isAdmin }) {
 								problems of all kinds. I am on a journey and this is where I
 								blog some of the knowledge I picked up along the way.
 							</div>
-						</div>
-						<div className={pageStyles.introImageWrapper}>
-							<Image
-								src={src}
-								width={500}
-								height={500}
-								layout='responsive'
-								className={pageStyles.introImage}
-								alt='Image of Ahmed Jahmi'
-							/>
+							<h4>Where to find me:</h4>
+							<div className={pageStyles.contactContainer}>
+								<a href='https://www.github.com/ahmedjahmi'>
+									<FontAwesomeIcon
+										className={pageStyles.contactItem}
+										icon={faGithub}
+									/>
+								</a>
+								<a href='https://www.linkedin.com/in/ahmed-jahmi-36a706158/'>
+									<FontAwesomeIcon
+										className={pageStyles.contactItem}
+										icon={faLinkedin}
+									/>
+								</a>
+								<a href='mailto:amjahmi@gmail.com'>
+									<FontAwesomeIcon
+										className={pageStyles.contactItem}
+										icon={faEnvelope}
+									/>
+								</a>
+								<Link href='/resume'>
+									<a>
+										<FontAwesomeIcon
+											className={pageStyles.contactItem}
+											icon={faFileAlt}
+										/>
+									</a>
+								</Link>
+								<Link href='/blog'>
+									<a>
+										<FontAwesomeIcon
+											className={pageStyles.contactItem}
+											icon={faBlog}
+											size='2x'
+										/>
+									</a>
+								</Link>
+							</div>
 						</div>
 					</div>
 				</section>
